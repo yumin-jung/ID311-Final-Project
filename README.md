@@ -1,2 +1,2 @@
 # ID311-Final-Project
-Software Protoryping Final Project
+Software Prototyping Final Project
