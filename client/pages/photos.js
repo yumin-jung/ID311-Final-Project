@@ -10,7 +10,7 @@ const photos = ({ photos }) => {
         <div>
             <HeadInfo title="Photos" />
             <h1>My photos</h1>
-            <ul calssName={photosStyles.photos}>
+            <ul className={photosStyles.photos}>
                 {photos.map(photo => (
                     <li key={photo.id}>
                         <Link href={`/photos/${photo.id}`}>
