@@ -15,6 +15,16 @@ const Nav = () => {
                         <a>Photos</a>
                     </Link>
                 </li>
+                <li>
+                    <Link href="/signIn">
+                        <a>SignIn</a>
+                    </Link>
+                </li>
+                <li>
+                    <Link href="/signUp">
+                        <a>SignUp</a>
+                    </Link>
+                </li>
             </ul>
         </nav>
     )
