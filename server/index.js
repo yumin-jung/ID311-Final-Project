@@ -4,9 +4,23 @@ const mongoose = require("mongoose");
 const app = express();
 const PORT = process.env.PORT || 8080;
 const bodyParser = require('body-parser');
-const corsOptions = {
-    origin: 'http://localhost:3000',
-};
+let whitelist = ['http://localhost:3000'
+    , 'https://id-311-final-project-git-develop-yumin-jung.vercel.app'
+    , 'https://id311.vercel.app/'
+    , 'https://id-311-final-project-yumin-jung.vercel.app/'
+    , 'https://id-311-final-project-git-main-yumin-jung.vercel.app/']
+
+
+let corsOptions = {
+    origin: function (origin, callback) {
+        if (whitelist.indexOf(origin) !== -1) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+    }
+}
+
 
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
