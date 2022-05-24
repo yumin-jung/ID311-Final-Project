@@ -2,10 +2,13 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require("mongoose");
 const app = express();
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 const bodyParser = require('body-parser');
+const corsOptions = {
+    origin: 'http://localhost:3000',
+};
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/users', require('./routes/users'));

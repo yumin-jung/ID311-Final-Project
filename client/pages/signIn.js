@@ -19,7 +19,7 @@ export default function SignIn() {
             password: data.get('password')
         }
 
-        axios.post('http://localhost:8080/api/users/saveUsers', userInfo)
+        axios.post('https://id311-server.herokuapp.com/api/users/saveUsers', userInfo)
             .then(response => {
                 if (response.data.success) {
                     console.log(`Succeed to save ${response.data.user.email}'s info`)
