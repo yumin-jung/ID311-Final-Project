@@ -4,7 +4,6 @@ import Link from 'next/link'
 import photosStyles from '../styles/Photos.module.css'
 import testImage from '../data/test.jpg'
 
-
 const photos = ({ photos }) => {
     return (
         <div>
