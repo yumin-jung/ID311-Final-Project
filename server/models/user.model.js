@@ -8,7 +8,7 @@ const userSchema = Schema(
         lastName: {
             type: String,
         },
-        email: {
+        username: {
             type: String,
         },
         password: {
