@@ -26,17 +26,17 @@ export default function SignUp() {
         const userInfo = {
             firstName: data.get('firstName'),
             lastName: data.get('lastName'),
-            email: data.get('email'),
+            username: data.get('username'),
             password: data.get('password'),
         };
 
-        if (userList.includes(userInfo.email)) {
+        if (userList.includes(userInfo.username)) {
             alert('User already exists');
         } else {
             axios.post(LOCAL_SERVER_URL + '/api/users/saveUser', userInfo)
                 .then(response => {
                     if (response.data.success) {
-                        console.log(`Succeed to save ${response.data.user.firstName}'s info`)
+                        console.log(`Succeed to save ${response.data.user.username}'s info`)
                     } else {
                         alert('Failed to save user')
                     }
@@ -50,7 +50,7 @@ export default function SignUp() {
             .then(response => {
                 if (response.data.success) {
                     userList = response.data.users.map((user) => {
-                        return user.email;
+                        return user.username;
                     })
                     console.log(userList);
                 } else {
@@ -104,10 +104,10 @@ export default function SignUp() {
                                 <TextField
                                     required
                                     fullWidth
-                                    id="email"
-                                    label="Email Address"
-                                    name="email"
-                                    autoComplete="email"
+                                    id="username"
+                                    label="Username"
+                                    name="username"
+                                    autoComplete="username"
                                 />
                             </Grid>
                             <Grid item xs={12}>
