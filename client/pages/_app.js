@@ -1,8 +1,9 @@
+import wrapper from '../store/configureStore';
 import '../styles/globals.css'
 import Layout from '../components/Layout'
 import CssBaseline from "@mui/material/CssBaseline";
 
-function MyApp({ Component, pageProps }) {
+function App({ Component, pageProps }) {
   return (
     <>
       <CssBaseline />
@@ -13,4 +14,4 @@ function MyApp({ Component, pageProps }) {
   )
 }
 
-export default MyApp
+export default wrapper.withRedux(App);

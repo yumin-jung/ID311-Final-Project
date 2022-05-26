@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const app = express();
 const PORT = process.env.PORT || 8080;
 const bodyParser = require('body-parser');
+
+// Fix cors error
 let whitelist = ['http://localhost:3000'
     , 'https://id-311-final-project-git-develop-yumin-jung.vercel.app'
     , 'https://id311.vercel.app/'
@@ -20,7 +22,6 @@ let corsOptions = {
         }
     }
 }
-
 
 app.use(cors(corsOptions));
 app.use(bodyParser.json());

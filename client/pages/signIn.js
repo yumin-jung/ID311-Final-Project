@@ -1,3 +1,8 @@
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useRouter } from 'next/router'
+// import { useSelector } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -7,10 +12,19 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import axios from 'axios';
+
 const theme = createTheme();
+const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
+const LOCAL_SERVER_URL = 'http://localhost:8080';
+let userList = [];
 
 export default function SignIn() {
+    const router = useRouter()
+
+    useEffect(() => {
+        console.log('render')
+    }, []);
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -19,16 +33,26 @@ export default function SignIn() {
             password: data.get('password')
         }
 
-        axios.post('https://id311-server.herokuapp.com/api/users/saveUsers', userInfo)
+        if (userList.includes(userInfo.email)) {
+            router.push('/', undefined, { shallow: true });
+        } else {
+            alert('Not registered user');
+        }
+    };
+
+    useEffect(() => {
+        axios.post(LOCAL_SERVER_URL + '/api/users/getUsers', null)
             .then(response => {
                 if (response.data.success) {
-                    console.log(`Succeed to save ${response.data.user.email}'s info`)
+                    userList = response.data.users.map((user) => {
+                        return user.email;
+                    })
+                    console.log(userList);
                 } else {
-                    alert('Failed to save user')
+                    alert('Failed to get users');
                 }
-            }
-            );
-    };
+            })
+    }, []);
 
     return (
         <ThemeProvider theme={theme}>
