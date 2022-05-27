@@ -12,7 +12,6 @@ let whitelist = ['http://localhost:3000'
     , 'https://id-311-final-project-yumin-jung.vercel.app/'
     , 'https://id-311-final-project-git-main-yumin-jung.vercel.app/']
 
-
 let corsOptions = {
     origin: function (origin, callback) {
         if (whitelist.indexOf(origin) !== -1) {

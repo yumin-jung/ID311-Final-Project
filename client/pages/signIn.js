@@ -29,12 +29,23 @@ export default function SignIn() {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         const userInfo = {
-            email: data.get('email'),
+            username: data.get('username'),
             password: data.get('password')
         }
 
-        if (userList.includes(userInfo.email)) {
-            router.push('/', undefined, { shallow: true });
+        const usernameList = userList.map((user) => { return user.username });
+        const userpasswordList = userList.map((user) => { return user.password });
+
+        const usernameIdx = usernameList.indexOf(userInfo.username);
+        const userpasswordIdx = userpasswordList.indexOf(userInfo.password);
+
+        console.log(usernameIdx)
+        if (usernameIdx != -1) {
+            if (usernameIdx == userpasswordIdx) {
+                router.push('/', undefined, { shallow: true });
+            } else {
+                alert('Incorrect password')
+            }
         } else {
             alert('Not registered user');
         }
@@ -45,7 +56,7 @@ export default function SignIn() {
             .then(response => {
                 if (response.data.success) {
                     userList = response.data.users.map((user) => {
-                        return user.email;
+                        return { username: user.username, password: user.password };
                     })
                     console.log(userList);
                 } else {
@@ -77,10 +88,10 @@ export default function SignIn() {
                             margin="normal"
                             required
                             fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
+                            id="username"
+                            label="Username"
+                            name="username"
+                            autoComplete="username"
                             autoFocus
                         />
                         <TextField
