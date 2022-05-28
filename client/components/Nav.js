@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import LiveHelpIcon from '@mui/icons-material/LiveHelp';
 
-const pages = ['Photos', 'SignIn', 'SignUp'];
+const pages = ['Photos', 'SignIn', 'SignUp', 'MakeQuiz'];
 
 const Nav = () => {
     const router = useRouter();
@@ -24,15 +24,17 @@ const Nav = () => {
 
     const handleCloseNavMenu = (event) => {
         setAnchorElNav(null);
-
+        console.log(event.currentTarget.innerText)
         const data = event.currentTarget.innerText;
 
-        if (data == pages[0].toUpperCase()) {
+        if (data.toUpperCase() == pages[0].toUpperCase()) {
             router.push('/photos', undefined, { shallow: true });
-        } else if (data == pages[1].toUpperCase()) {
+        } else if (data.toUpperCase() == pages[1].toUpperCase()) {
             router.push('/signIn', undefined, { shallow: true });
-        } else if (data == pages[2].toUpperCase()) {
+        } else if (data.toUpperCase() == pages[2].toUpperCase()) {
             router.push('/signUp', undefined, { shallow: true });
+        } else if (data.toUpperCase() == pages[3].toUpperCase()) {
+            router.push('/makeQuiz', undefined, { shallow: true });
         }
     };
 
@@ -89,7 +91,7 @@ const Nav = () => {
                             }}
                         >
                             {pages.map((page) => (
-                                <MenuItem id={page} key={page} onClick={handleCloseNavMenu}>
+                                <MenuItem key={page} onClick={handleCloseNavMenu}>
                                     <Typography textAlign="center">{page}</Typography>
                                 </MenuItem>
                             ))}
@@ -116,13 +118,13 @@ const Nav = () => {
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
-                            <Button
+                            <MenuItem
                                 key={page}
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
-                                {page}
-                            </Button>
+                                <Typography>{page}</Typography>
+                            </MenuItem>
                         ))}
                     </Box>
                 </Toolbar>
