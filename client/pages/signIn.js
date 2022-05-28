@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router'
-// import { useSelector } from 'react-redux';
-// import { useDispatch } from 'react-redux';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,6 +9,7 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import Alert from '@mui/material/Alert';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme();
@@ -44,7 +43,7 @@ export default function SignIn() {
             if (usernameIdx == userpasswordIdx) {
                 router.push('/', undefined, { shallow: true });
             } else {
-                alert('Incorrect password')
+                alert('Incorrect password');
             }
         } else {
             alert('Not registered user');
