@@ -11,7 +11,14 @@ export default function Quiz() {
     qBundle.push({ question: '소영(이)가 좋아하는 색깔은?', options: ['blue', 'red', 'green'], selected: 0 });
     qBundle.push({ question: '소영(이)가 좋아하는 스포츠는?', options: ['basketball', 'running', 'badminton'], selected: 0 });
     qBundle.push({ question: '소영(이)의 나이는?', options: ['19', '21', '25'], selected: 0 });
+    const [questionList, setquestionList] = React.useState(qBundle);
 
+    const AddQuestion= () => {
+        let questions = [...questionList];
+        questions.push({question: '유민(이)의', options: [''], selected:0});
+        setquestionList(questions);
+    }
+    
     const sendData = () => {
         console.log(qBundle);
     }
@@ -36,7 +43,7 @@ export default function Quiz() {
                     width: '40%',
                 }}
             >
-                {qBundle.map((bundles, idx) => (
+                {questionList.map((bundles, idx) => (
                     <MakeOneQuestion key={idx}
                         order={idx + 1}
                         question={bundles.question}
@@ -44,9 +51,11 @@ export default function Quiz() {
                         presetRadio={bundles.selected}
                         loadData={loadData} />
                 ))}
-                <IconButton aria-label="add">
-                    {/* <AddIcon /> */}
-                </IconButton>
+                <Button 
+                    onClick={AddQuestion} 
+                    fullWidth
+                > + Add a question
+                </Button>
                 <Button
                     variant='contained'
                     fullWidth
