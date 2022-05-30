@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import MakeOneQuestion from '../components/MakeOneQuestion';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
@@ -11,7 +12,17 @@ export default function Quiz() {
     qBundle.push({ question: '소영(이)가 좋아하는 색깔은?', options: ['blue', 'red', 'green'], selected: 0 });
     qBundle.push({ question: '소영(이)가 좋아하는 스포츠는?', options: ['basketball', 'running', 'badminton'], selected: 0 });
     qBundle.push({ question: '소영(이)의 나이는?', options: ['19', '21', '25'], selected: 0 });
+<<<<<<< HEAD
     const [questionList, setquestionList] = React.useState(qBundle);
+=======
+    const [questionList, setquestionList] = useState(qBundle);
+
+    const AddQuestion = () => {
+        let questions = [...questionList];
+        questions.push({ question: '유민(이)의', options: [''], selected: 0 });
+        setquestionList(questions);
+    }
+>>>>>>> 44637da838f7dc01b781c9adb315073e6951995f
 
     const AddQuestion= () => {
         let questions = [...questionList];
@@ -51,8 +62,13 @@ export default function Quiz() {
                         presetRadio={bundles.selected}
                         loadData={loadData} />
                 ))}
+<<<<<<< HEAD
                 <Button 
                     onClick={AddQuestion} 
+=======
+                <Button
+                    onClick={AddQuestion}
+>>>>>>> 44637da838f7dc01b781c9adb315073e6951995f
                     fullWidth
                 > + Add a question
                 </Button>
