@@ -5,6 +5,11 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 export default function SignIn() {
+    if (typeof window !== 'undefined') {
+        const nick = localStorage.getItem('nickname');
+        const sc = localStorage.getItem('score');
+        console.log(nick, sc);
+    }
     return (
         <Box sx={{ width: '100%' }} >
             <Grid container
