@@ -16,41 +16,58 @@ const theme = createTheme();
 const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com'
 const LOCAL_SERVER_URL = 'http://localhost:8080'
 let userList = [];
+let codes = [];
+
 
 export default function SignUp() {
     const router = useRouter()
-
+    
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
+        const characters = 'abcdefghijklmnopqrstuvwxyz';
+        
+        //avoid overlapped quizCode
+        function makeRandomCode(){
+            let codeList = new Array(6).fill();
+            let randomCode = codeList.map((e)=>characters.charAt(Math.floor(Math.random()*characters.length))).join('')
+            while (codes.includes(randomCode)) randomCode = codeList.map((e)=>characters.charAt(Math.floor(Math.random()*characters.length))).join('')
+            return randomCode;
+        }
+        
         const userInfo = {
             firstName: data.get('firstName'),
             lastName: data.get('lastName'),
             username: data.get('username'),
             password: data.get('password'),
+            quizCode: makeRandomCode()
         };
-
+        
         if (userList.includes(userInfo.username)) {
             alert('User already exists');
         } else {
             axios.post(LOCAL_SERVER_URL + '/api/users/saveUser', userInfo)
-                .then(response => {
-                    if (response.data.success) {
-                        console.log(`Succeed to save ${response.data.user.username}'s info`)
-                    } else {
-                        alert('Failed to save user')
-                    }
-                });
+            .then(response => {
+                if (response.data.success) {
+                    console.log(`Succeed to save ${response.data.user.username}'s info`)
+                    console.log(userInfo);
+                } else {
+                    alert('Failed to save user')
+                }
+            });
             router.push('/signIn', undefined, { shallow: true });
         }
     };
-
+    
     useEffect(() => {
         axios.post(LOCAL_SERVER_URL + '/api/users/getUsers', null)
             .then(response => {
                 if (response.data.success) {
                     userList = response.data.users.map((user) => {
                         return user.username;
+                    })
+                    codes = response.data.users.map((user) => {
+                        return user.quizCode;
                     })
                     console.log(userList);
                 } else {

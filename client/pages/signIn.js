@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -9,8 +10,8 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Alert from '@mui/material/Alert';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import MakeQuiz from '../pages/makeQuiz';
 
 const theme = createTheme();
 const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
@@ -32,21 +33,18 @@ export default function SignIn() {
             password: data.get('password')
         }
 
-        const usernameList = userList.map((user) => { return user.username });
-        const userpasswordList = userList.map((user) => { return user.password });
+        //find user data from DB
+        const savedUserInfo = userList.filter((user) => user.username==userInfo.username );
 
-        const usernameIdx = usernameList.indexOf(userInfo.username);
-        const userpasswordIdx = userpasswordList.indexOf(userInfo.password);
-
-        console.log(usernameIdx)
-        if (usernameIdx != -1) {
-            if (usernameIdx == userpasswordIdx) {
-                router.push('/', undefined, { shallow: true });
-            } else {
-                alert('Incorrect password');
+        if (savedUserInfo == false) alert('Not registered user');
+        else {
+            if(userInfo.password==savedUserInfo[0].password) {
+                router.push({
+                    pathname: '/personalPage', 
+                    query: {quizCode: savedUserInfo[0].quizCode},
+                }, `/${savedUserInfo[0].quizCode}`);
             }
-        } else {
-            alert('Not registered user');
+            else alert('Incorrect password!');
         }
     };
 
@@ -55,7 +53,7 @@ export default function SignIn() {
             .then(response => {
                 if (response.data.success) {
                     userList = response.data.users.map((user) => {
-                        return { username: user.username, password: user.password };
+                        return { username: user.username, password: user.password, quizCode: user.quizCode };
                     })
                     console.log(userList);
                 } else {
