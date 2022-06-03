@@ -14,6 +14,9 @@ const userSchema = Schema(
         password: {
             type: String,
         },
+        quizCode: {
+            type: String,
+        },
     }
 );
 
