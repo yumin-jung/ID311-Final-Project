@@ -4,9 +4,8 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Typography from '@mui/material/Typography';
 
-const Quiz = () => {
+const Message = ({ userName, comment }) => {
     const deleteComment = (event) => {
         console.log(event)
     }
@@ -18,17 +17,12 @@ const Quiz = () => {
                 </IconButton>
             }
         >
-            <ListItemButton dense sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center'
-            }}>
-                <Typography alignItems='center' component="h1" variant="h5">
-                    Quiz
-                </Typography>
+            <ListItemButton role={undefined} dense>
+                <ListItemText primary={`${userName}`} />
+                <ListItemText primary={`${comment}`} />
             </ListItemButton>
         </ListItem>
     );
 }
 
-export default Quiz
+export default Message

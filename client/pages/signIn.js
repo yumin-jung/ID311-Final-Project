@@ -34,14 +34,14 @@ export default function SignIn() {
         }
 
         //find user data from DB
-        const savedUserInfo = userList.filter((user) => user.username==userInfo.username );
+        const savedUserInfo = userList.filter((user) => user.username == userInfo.username);
 
         if (savedUserInfo == false) alert('Not registered user');
         else {
-            if(userInfo.password==savedUserInfo[0].password) {
+            if (userInfo.password == savedUserInfo[0].password) {
                 router.push({
-                    pathname: '/personalPage', 
-                    query: {quizCode: savedUserInfo[0].quizCode},
+                    pathname: '/personalPage',
+                    query: { quizCode: savedUserInfo[0].quizCode },
                 }, `/${savedUserInfo[0].quizCode}`);
             }
             else alert('Incorrect password!');
