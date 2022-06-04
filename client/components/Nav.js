@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import LiveHelpIcon from '@mui/icons-material/LiveHelp';
 
-const pages = ['Photos', 'SignIn', 'SignUp', 'MakeQuiz', 'ScoreBoard', 'StartQuiz'];
+const pages = ['Photos', 'SignIn', 'SignUp', 'MakeQuiz', 'ScoreBoard', 'StartQuiz', 'LeaveMessage'];
 
 const Nav = () => {
     const router = useRouter();
@@ -39,6 +39,8 @@ const Nav = () => {
             router.push('/scoreBoard', undefined, { shallow: true });
         } else if (data.toUpperCase() == pages[5].toUpperCase()) {
             router.push('/startQuiz', undefined, { shallow: true });
+        } else if (data.toUpperCase() == pages[6].toUpperCase()) {
+            router.push('/leaveMessage', undefined, { shallow: true });
         }
     };
 
