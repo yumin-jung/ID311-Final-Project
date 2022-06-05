@@ -17,5 +17,4 @@ router.post('/getQuiz', (req, res) => {
         });
 });
 
-
 module.exports = router;

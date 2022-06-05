@@ -3,11 +3,11 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 
-const ScoreBoard = ({ value, userName, score, quizLength }) => {
+const ScoreBoard = ({ value, userName, score, quizLen }) => {
     return (
         <ListItem
             secondaryAction={
-                <ListItemText primary={`${score}/${quizLength}`} />
+                <ListItemText primary={`${score}/${quizLen}`} />
             }
             disablePadding
         >
