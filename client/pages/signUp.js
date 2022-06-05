@@ -9,6 +9,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
+import Link from '@mui/material/Link';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
@@ -148,6 +149,11 @@ export default function SignUp() {
                             Sign Up
                         </Button>
                     </Box>
+                    <Typography>Do you have an account? <Link
+                        href='/signIn'
+                        variant='body2'
+                        underline='hover'>Sign In</Link>
+                    </Typography>
                 </Box>
             </Container>
         </ThemeProvider>

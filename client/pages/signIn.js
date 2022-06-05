@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router'
-import Link from 'next/link'
+import { Route, Link } from 'react-router-dom'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,7 +11,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import MakeQuiz from '../pages/makeQuiz';
+import PersonalPage from './personalPage';
 
 const theme = createTheme();
 const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
@@ -38,10 +38,19 @@ export default function SignIn() {
 
         if (savedUserInfo == false) alert('Not registered user');
         else {
+<<<<<<< Updated upstream
             if(userInfo.password==savedUserInfo[0].password) {
                 router.push({
                     pathname: '/personalPage', 
                     query: {quizCode: savedUserInfo[0].quizCode},
+=======
+            if (userInfo.password == savedUserInfo[0].password) {
+                sessionStorage.setItem('quizCode', savedUserInfo[0].quizCode);
+                console.log(sessionStorage.getItem('quizCode'));
+                router.push({
+                    pathname: '/scoreBoard',
+                    query: { quizCode: savedUserInfo[0].quizCode },
+>>>>>>> Stashed changes
                 }, `/${savedUserInfo[0].quizCode}`);
             }
             else alert('Incorrect password!');
