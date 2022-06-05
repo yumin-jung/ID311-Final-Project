@@ -14,18 +14,15 @@ export default function StartQuiz() {
         let nickname = document.getElementById('nickname').value;
         if (!nickname) return;
         localStorage.setItem("nickname", nickname);
+        localStorage.setItem("quizCode", quizCode);
         router.push({
             pathname: '/solveQuiz/[quizCode]',
             query: { quizCode: quizCode },
-        })
-    }
-
-    const loadData = (idx, data) => {
-        pass;
+        }, undefined, { shallow: true })
     }
 
     return (
-        <Box component='Container' sx={{
+        <Box sx={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center'

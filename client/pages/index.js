@@ -25,12 +25,14 @@ export default function Home() {
     const userCode = data.get('code');
 
     const quizFilter = quizList.filter(quiz => quiz.quizCode == userCode);
-    console.log(quizFilter)
-
-    router.push({
-      pathname: '/startQuiz/[quizCode]',
-      query: { quizCode: userCode },
-    })
+    if (quizFilter.length < 1) {
+      alert('Incorrect code!');
+    } else {
+      router.push({
+        pathname: '/startQuiz/[id]',
+        query: { id: userCode },
+      })
+    }
   };
 
   useEffect(() => {

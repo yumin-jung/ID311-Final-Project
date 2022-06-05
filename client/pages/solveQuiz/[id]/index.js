@@ -13,47 +13,29 @@ const LOCAL_SERVER_URL = 'http://localhost:8080';
 export default function SolveQuiz() {
     let quizList;
     let quizFilter;
+    let quizCode;
 
     const router = useRouter();
-    const quizCode = router.query.id;
-    console.log(quizCode)
-    const qBundle = [];
-    qBundle.push({ question: '좋아하는 색깔은?', options: ['blue', 'red', 'green'], selected: 0 });
-    qBundle.push({ question: '나이는?', options: ['19', '21', '25'], selected: 1 });
 
-    ////////////
-    const [thisQuiz, setQuiz] = useState(qBundle[0]);
+    if (typeof window !== 'undefined') {
+        quizCode = localStorage.getItem("quizCode");
+    }
+
+    const [posts, setQuizList] = useState(null);
+    const [thisQuiz, setQuiz] = useState(null);
     const [selected, setSelection] = useState(-1);
     const [idx, setIdx] = useState(1);
     const [score, setScore] = useState(0);
-    /////////
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const res = await axios.post(LOCAL_SERVER_URL + '/api/quizzes/getQuiz', null)
-                .then(response => {
-                    if (response.data.success) {
-                        quizList = response.data.quizData
-                        quizFilter = quizList.filter(quiz => quiz.quizCode == quizCode).map(quiz => { return quiz.quizBundle }).flat();
-                        for (let quizSet of quizFilter) {
-                            qBundle.push(quizSet);
-                        }
-                    } else {
-                        alert('Failed to get users');
-                    }
-                })
-        };
-        fetchData();
-    }, []);
 
     const NextQuiz = () => {
-        if (idx >= qBundle.length) {
+
+        if (idx >= posts.length) {
             const nickname = localStorage.getItem("nickname");
 
             const scoreInfo = {
                 nickname: nickname,
                 score: score,
-                quizLen: qBundle.length
+                quizLen: posts.length
             };
 
             axios.post(LOCAL_SERVER_URL + '/api/scores/saveScore', scoreInfo)
@@ -67,26 +49,47 @@ export default function SolveQuiz() {
 
             localStorage.setItem('score', score);
             window.location.href = '/leaveMessage';
+        } else {
+            console.log(posts);
+            if (selected == thisQuiz.selected) setScore(score + 1);
+            setIdx(idx + 1);
+            setQuiz(posts[idx]);
+            setSelection(-1);
+            console.log(score);
         }
-
-        console.log(qBundle);
-        if (selected == thisQuiz.selected) setScore(score + 1);
-        setIdx(idx + 1);
-        setQuiz(qBundle[idx]);
-        setSelection(-1);
-        console.log(score);
     }
 
     const sendData = () => {
-        console.log(qBundle);
+        console.log(posts);
     }
 
     const loadData = (idx, data) => {
-        qBundle[idx] = data;
+        posts[idx] = data;
+    }
+
+    useEffect(() => {
+        axios.post(LOCAL_SERVER_URL + '/api/quizzes/getQuiz', null)
+            .then(response => {
+                if (response.data.success) {
+                    quizList = response.data.quizData
+                    quizFilter = quizList.filter(quiz => quiz.quizCode == quizCode).map(quiz => { return quiz.quizBundle }).flat();
+                    setQuizList(quizFilter);
+                    setQuiz(quizFilter[0]);
+                } else {
+                    alert('Failed to get users');
+                }
+            })
+    }, []);
+
+    if (posts === null) {
+        return null;
+    }
+    else if (thisQuiz === null) {
+        return null;
     }
 
     return (
-        <Box component='Container' sx={{
+        <Box sx={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center'
@@ -123,8 +126,7 @@ export default function SolveQuiz() {
                         <Typography>
                             Question {idx}
                         </Typography>
-                        <Typography
-                            variant="h6">
+                        <Typography variant="h6">
                             {thisQuiz.question}
                         </Typography>
                     </Box>
