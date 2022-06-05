@@ -1,4 +1,6 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import axios from 'axios';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
@@ -7,15 +9,41 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
+const LOCAL_SERVER_URL = 'http://localhost:8080';
+
 const theme = createTheme();
 
+let quizList;
+
 export default function Home() {
+  const router = useRouter();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const userCode = data.get('code')
-    console.log(userCode);
+    const userCode = data.get('code');
+
+    const quizFilter = quizList.filter(quiz => quiz.quizCode == userCode);
+    console.log(quizFilter)
+
+    router.push({
+      pathname: '/startQuiz/[quizCode]',
+      query: { quizCode: userCode },
+    })
   };
+
+  useEffect(() => {
+    axios.post(LOCAL_SERVER_URL + '/api/quizzes/getQuiz', null)
+      .then(response => {
+        if (response.data.success) {
+          quizList = response.data.quizData
+          console.log(quizList);
+        } else {
+          alert('Failed to get users');
+        }
+      })
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -56,28 +84,3 @@ export default function Home() {
     </ThemeProvider>
   );
 }
-
-// // SSR
-// export const getServerSideProps = async () => {
-//   const res = await fetch(`http://localhost:8080/api/posts`)
-//   const posts = await res.json();
-
-//   return {
-//     props: {
-//       posts
-//     }
-//   }
-// }
-
-// // SSG
-// export const getStaticProps = async () => {
-//   const res = await fetch(`https://jsonplaceholder.typicode.com/posts?_start=0&_end=10`)
-//   const posts = await res.json();
-
-//   return {
-//     props: {
-//       posts
-//     },
-//     revalidate: 20 // incremental static regeneration
-//   }
-// }

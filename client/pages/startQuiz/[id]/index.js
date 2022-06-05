@@ -7,13 +7,17 @@ import { useRouter } from 'next/router';
 
 export default function StartQuiz() {
     const router = useRouter();
+    const quizCode = router.query.id;
 
     const sendData = () => {
         console.log('go');
         let nickname = document.getElementById('nickname').value;
         if (!nickname) return;
         localStorage.setItem("nickname", nickname);
-        window.location.href = '/solveQuiz';
+        router.push({
+            pathname: '/solveQuiz/[quizCode]',
+            query: { quizCode: quizCode },
+        })
     }
 
     const loadData = (idx, data) => {

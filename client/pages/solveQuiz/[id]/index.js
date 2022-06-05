@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
@@ -11,22 +11,40 @@ const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
 const LOCAL_SERVER_URL = 'http://localhost:8080';
 
 export default function SolveQuiz() {
+    let quizList;
+    let quizFilter;
+
     const router = useRouter();
+    const quizCode = router.query.id;
+    console.log(quizCode)
     const qBundle = [];
-    let i = 1;
-    let ss = 0;
+    qBundle.push({ question: '좋아하는 색깔은?', options: ['blue', 'red', 'green'], selected: 0 });
+    qBundle.push({ question: '나이는?', options: ['19', '21', '25'], selected: 1 });
 
-    //preset questions
-    qBundle.push({ question: '소영(이)가 좋아하는 색깔은?', options: ['blue', 'red', 'green'], selected: 0 });
-    qBundle.push({ question: '소영(이)가 좋아하는 스포츠는?', options: ['basketball', 'running', 'badminton'], selected: 2 });
-    qBundle.push({ question: '소영(이)의 나이는?', options: ['19', '21', '25'], selected: 1 });
-    const quiz = qBundle[0];
-    const [thisQuiz, setQuiz] = useState(quiz);
+    ////////////
+    const [thisQuiz, setQuiz] = useState(qBundle[0]);
+    const [selected, setSelection] = useState(-1);
+    const [idx, setIdx] = useState(1);
+    const [score, setScore] = useState(0);
+    /////////
 
-    let s = -1;
-    const [selected, setSelection] = useState(s);
-    const [idx, setIdx] = useState(i);
-    const [score, setScore] = useState(ss);
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await axios.post(LOCAL_SERVER_URL + '/api/quizzes/getQuiz', null)
+                .then(response => {
+                    if (response.data.success) {
+                        quizList = response.data.quizData
+                        quizFilter = quizList.filter(quiz => quiz.quizCode == quizCode).map(quiz => { return quiz.quizBundle }).flat();
+                        for (let quizSet of quizFilter) {
+                            qBundle.push(quizSet);
+                        }
+                    } else {
+                        alert('Failed to get users');
+                    }
+                })
+        };
+        fetchData();
+    }, []);
 
     const NextQuiz = () => {
         if (idx >= qBundle.length) {
@@ -49,7 +67,8 @@ export default function SolveQuiz() {
 
             localStorage.setItem('score', score);
             window.location.href = '/leaveMessage';
-        } //quizend
+        }
+
         console.log(qBundle);
         if (selected == thisQuiz.selected) setScore(score + 1);
         setIdx(idx + 1);
@@ -86,7 +105,7 @@ export default function SolveQuiz() {
                     alignItems: 'center'
                 }}
             >
-                <Container
+                <Box
                     component="main"
                     maxWidth="xs"
                     sx={{
@@ -118,7 +137,7 @@ export default function SolveQuiz() {
                             </Button>
                         </Stack>
                     ))}
-                </Container>
+                </Box>
                 <Button
                     variant='contained'
                     size="small"

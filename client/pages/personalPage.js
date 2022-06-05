@@ -13,6 +13,7 @@ export default function PersonalPage() {
     const router = useRouter();
     const quizCode = router.pathname.slice(1);
 
+    console.log(quizCode)
     const MakeQuiz = (event) => {
         router.push({
             pathname: '/makeQuiz',

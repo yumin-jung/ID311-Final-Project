@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router'
+import Router from 'next/router'
 import Score from '../components/Score';
 import Message from '../components/Message';
 import Quiz from '../components/Quiz';
@@ -18,6 +19,7 @@ let msgList = [];
 
 export default function LeaveMessage() {
     const router = useRouter();
+    const pathname = router.pathname;
 
     const handleSubmit = (event) => {
         event.preventDefault();
