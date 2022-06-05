@@ -38,19 +38,12 @@ export default function SignIn() {
 
         if (savedUserInfo == false) alert('Not registered user');
         else {
-<<<<<<< Updated upstream
-            if(userInfo.password==savedUserInfo[0].password) {
-                router.push({
-                    pathname: '/personalPage', 
-                    query: {quizCode: savedUserInfo[0].quizCode},
-=======
             if (userInfo.password == savedUserInfo[0].password) {
                 sessionStorage.setItem('quizCode', savedUserInfo[0].quizCode);
                 console.log(sessionStorage.getItem('quizCode'));
                 router.push({
                     pathname: '/scoreBoard',
                     query: { quizCode: savedUserInfo[0].quizCode },
->>>>>>> Stashed changes
                 }, `/${savedUserInfo[0].quizCode}`);
             }
             else alert('Incorrect password!');
