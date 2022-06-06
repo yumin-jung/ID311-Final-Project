@@ -3,7 +3,6 @@ import { useRouter } from 'next/router'
 import axios from 'axios';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid'
-import Message from '../components/Message';
 import List from '@mui/material/List'
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
