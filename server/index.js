@@ -27,21 +27,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/users', require('./routes/users'));
 app.use('/api/quizzes', require('./routes/quizzes'));
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-app.use('/api/scores', require('./routes/scores'));
-app.use('/api/messages', require('./routes/messages'));
->>>>>>> 1ff74b50a864c50bec0c3e61c138bdfc81512e8a
-=======
-app.use('/api/scores', require('./routes/scores'));
-app.use('/api/messages', require('./routes/messages'));
->>>>>>> 1ff74b50a864c50bec0c3e61c138bdfc81512e8a
-=======
-app.use('/api/scores', require('./routes/scores'));
-app.use('/api/messages', require('./routes/messages'));
->>>>>>> 1ff74b50a864c50bec0c3e61c138bdfc81512e8a
 
 mongoose
     .connect('mongodb+srv://yumin:1234@cluster0.3vbre.mongodb.net/?retryWrites=true&w=majority', {
