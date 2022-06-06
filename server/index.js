@@ -27,6 +27,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/users', require('./routes/users'));
 app.use('/api/quizzes', require('./routes/quizzes'));
+app.use('/api/scores', require('./routes/scores'));
+app.use('/api/messages', require('./routes/,messages'));
 
 mongoose
     .connect('mongodb+srv://yumin:1234@cluster0.3vbre.mongodb.net/?retryWrites=true&w=majority', {
