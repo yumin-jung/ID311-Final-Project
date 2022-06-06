@@ -3,6 +3,8 @@ import { useRouter } from 'next/router'
 import axios from 'axios';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid'
+import Score from '../components/Score';
+import Message from '../components/Message';
 import List from '@mui/material/List'
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
@@ -14,9 +16,9 @@ const LOCAL_SERVER_URL = 'http://localhost:8080';
 export default function PersonalPage() {
     let quizResult = [];
     let scoreList = [];
-    let msgList = [];   
+    let msgList = [];
     const router = useRouter();
-    
+
     useEffect(() => {
         const savedCode = sessionStorage.getItem('quizCode');
         axios.post(LOCAL_SERVER_URL + '/api/quizzes/getQuiz', null)
@@ -29,10 +31,10 @@ export default function PersonalPage() {
                     alert('Failed to get users');
                 }
             })
-        if(quizResult!=[]){
+        if (quizResult != []) {
             axios.post(LOCAL_SERVER_URL + '/api/scores/getScore', null)
                 .then(response => {
-                    if(response.data.success) {
+                    if (response.data.success) {
                         scoreList = response.data.score
                         // scoreList = response.data.scores.map((score) => {
                         //     return { quizCode: score.quizCode, nickname: score.nickname, score: score.score, quizLen:score.quizLen};
@@ -41,8 +43,8 @@ export default function PersonalPage() {
                     }
                 })
             axios.post(LOCAL_SERVER_URL + '/api/messages/getMessages', null)
-            .then(response => {
-                    if(response.data.success) {
+                .then(response => {
+                    if (response.data.success) {
                         // msgList = response.data.messages.map((msg) => {
                         //     return { quizCode: msg.quizCode, nickname: msg.nickname, message: msg.message};
                         // })
@@ -59,7 +61,7 @@ export default function PersonalPage() {
         }, `/${savedCode}/makeQuiz`);
     }
 
-    if(quizResult==[]){
+    if (quizResult == []) {
         return (
             <Container sx={{
                 display: 'flex',
@@ -82,11 +84,11 @@ export default function PersonalPage() {
                     <Typography variant='h2'>Your Quiz</Typography>
                 </Box>
                 <Grid container
-                spacing={10}
-                direction="row"
-                justifyContent="center"
-                alignItems="center"
-                sx={{ marginTop: 5, display: { xs: 'none', md: 'flex' } }}>
+                    spacing={10}
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center"
+                    sx={{ marginTop: 5, display: { xs: 'none', md: 'flex' } }}>
                     <Grid item xs={5}
                         container
                         justifyContent="center"
