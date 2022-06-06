@@ -27,8 +27,9 @@ export default function Home() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log(quizList[0].quizCode);
 
-    const quizFilter = quizList.filter((quiz) => quiz.quizCode.toUpperCase() == codeInput);
+    const quizFilter = quizList.filter((quiz) => quiz.quizCode == codeInput.toLowerCase());
     if (quizFilter.length < 1) {
       alert('Incorrect code!');
     } else {
@@ -39,15 +40,16 @@ export default function Home() {
     }
   };
 
-  React.useEffect(() => {
-    console.log(sessionStorage.getItem('quizCode'));
-    savedCode = sessionStorage.getItem('quizCode');
-  },[]);
+  // React.useEffect(() => {
+  //   console.log(sessionStorage.getItem('userCode'));
+  //   savedCode = sessionStorage.getItem('userCode');
+  // },[]);
+
   useEffect(() => {
     axios.post(LOCAL_SERVER_URL + '/api/quizzes/getQuiz', null)
       .then(response => {
         if (response.data.success) {
-          quizList = response.data.quizData
+          quizList = response.data.quiz
           console.log(quizList);
         } else {
           alert('Failed to get users');

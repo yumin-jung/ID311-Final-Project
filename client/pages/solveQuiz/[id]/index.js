@@ -71,7 +71,7 @@ export default function SolveQuiz() {
         axios.post(LOCAL_SERVER_URL + '/api/quizzes/getQuiz', null)
             .then(response => {
                 if (response.data.success) {
-                    quizList = response.data.quizData
+                    quizList = response.data.quiz
                     quizFilter = quizList.filter(quiz => quiz.quizCode == quizCode).map(quiz => { return quiz.quizBundle }).flat();
                     setQuizList(quizFilter);
                     setQuiz(quizFilter[0]);

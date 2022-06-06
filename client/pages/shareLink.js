@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -9,20 +9,10 @@ const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com'
 const LOCAL_SERVER_URL = 'http://localhost:8080'
 
 export default function ShareLink() {
-    const code = 'abcedf';
+    const [quizCode, setquizCode] = useState(null);
 
     useEffect(() => {
-        axios.post(LOCAL_SERVER_URL + '/api/quizzes/getQuiz', null)
-            .then(response => {
-                if (response.data.success) {
-                    codes = response.data.quizData.map((quiz) => {
-                        return quiz.quizCode;
-                    })
-                    console.log(codes);
-                } else {
-                    alert('Failed to get users');
-                }
-            })
+        setquizCode(sessionStorage.getItem('userCode'));
     }, []);
 
 
@@ -41,7 +31,7 @@ export default function ShareLink() {
     return (
         <Container maxWidth="xs" sx={{ mt: 10 }}>
             <Typography align='center' variant='h2'>
-                {code}
+                {quizCode}
             </Typography>
             <Button fullWidth onClick={GoLink}>
                 Share your quiz

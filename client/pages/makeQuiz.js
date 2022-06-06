@@ -14,16 +14,17 @@ export default function MakeQuiz() {
     const router = useRouter();
     const qBundle = [];
     let userList = [];
-    const quizCode = router.pathname.slice(1, 7);
+    let quizCode;
 
     useEffect(() => {
+        quizCode = sessionStorage.getItem('userCode');
         axios.post(LOCAL_SERVER_URL + '/api/users/getUsers', null)
             .then(response => {
                 if (response.data.success) {
                     userList = response.data.users.map((user) => {
                         return { makerName: user.firstName, quizCode: user.quizCode };
                     })
-                    console.log(userList);
+                    console.log(userList, quizCode);
                 } else {
                     alert('Failed to get users');
                 }
@@ -65,8 +66,7 @@ export default function MakeQuiz() {
                     alert('Failed to save user')
                 }
             });
-        // router.push('/shareLink', undefined, { shallow: true });
-        // }
+        router.push('/shareLink', undefined, { shallow: true });
     }
 
     const loadData = (idx, data) => {
