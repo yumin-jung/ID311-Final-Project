@@ -3,6 +3,9 @@ const Schema = mongoose.Schema;
 
 const messageSchema = Schema(
     {
+        quizCode: {
+            type: String,
+        },
         nickname: {
             type: String,
         },

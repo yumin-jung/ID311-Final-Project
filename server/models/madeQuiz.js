@@ -1,22 +1,20 @@
 const mongoose = require("mongoose"); // mongoose 모듈 불러오기
 const Schema = mongoose.Schema;
 
-const scoreSchema = Schema(
+const quizSchema = Schema(
     {
+        makerName: {
+            type: String,
+        },
         quizCode: {
             type: String,
         },
-        nickname: {
-            type: String,
-        },
-        score: {
+        quizBundle: [Object],
+        quizLength: {
             type: Number,
-        },
-        quizLen: {
-            type: Number
         }
     }
-);
+)
 
-const Score = mongoose.model("Score", scoreSchema);
-module.exports = Score;
+const Quiz = mongoose.model("Quiz", quizSchema);
+module.exports = Quiz;

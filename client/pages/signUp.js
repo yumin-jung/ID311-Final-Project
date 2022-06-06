@@ -9,6 +9,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
+import Link from '@mui/material/Link';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
@@ -20,21 +21,21 @@ let codes = [];
 
 
 export default function SignUp() {
-    const router = useRouter();
+    const router = useRouter()
 
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         const characters = 'abcdefghijklmnopqrstuvwxyz';
-
+        
         //avoid overlapped quizCode
-        function makeRandomCode() {
+        function makeRandomCode(){
             let codeList = new Array(6).fill();
-            let randomCode = codeList.map((e) => characters.charAt(Math.floor(Math.random() * characters.length))).join('')
-            while (codes.includes(randomCode)) randomCode = codeList.map((e) => characters.charAt(Math.floor(Math.random() * characters.length))).join('')
+            let randomCode = codeList.map((e)=>characters.charAt(Math.floor(Math.random()*characters.length))).join('')
+            while (codes.includes(randomCode)) randomCode = codeList.map((e)=>characters.charAt(Math.floor(Math.random()*characters.length))).join('')
             return randomCode;
         }
-
+        
         const userInfo = {
             firstName: data.get('firstName'),
             lastName: data.get('lastName'),
@@ -42,23 +43,23 @@ export default function SignUp() {
             password: data.get('password'),
             quizCode: makeRandomCode()
         };
-
+        
         if (userList.includes(userInfo.username)) {
             alert('User already exists');
         } else {
             axios.post(LOCAL_SERVER_URL + '/api/users/saveUser', userInfo)
-                .then(response => {
-                    if (response.data.success) {
-                        console.log(`Succeed to save ${response.data.user.username}'s info`)
-                        console.log(userInfo);
-                    } else {
-                        alert('Failed to save user')
-                    }
-                });
+            .then(response => {
+                if (response.data.success) {
+                    console.log(`Succeed to save ${response.data.user.username}'s info`)
+                    console.log(userInfo);
+                } else {
+                    alert('Failed to save user')
+                }
+            });
             router.push('/signIn', undefined, { shallow: true });
         }
     };
-
+    
     useEffect(() => {
         axios.post(LOCAL_SERVER_URL + '/api/users/getUsers', null)
             .then(response => {
@@ -148,6 +149,11 @@ export default function SignUp() {
                             Sign Up
                         </Button>
                     </Box>
+                    <Typography>Do you have an account? <Link
+                        href='/signIn'
+                        variant='body2'
+                        underline='hover'>Sign In</Link>
+                    </Typography>
                 </Box>
             </Container>
         </ThemeProvider>

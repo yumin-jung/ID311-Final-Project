@@ -11,7 +11,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import MakeQuiz from '../pages/makeQuiz';
+import PersonalPage from './personalPage';
 
 const theme = createTheme();
 const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
@@ -39,9 +39,9 @@ export default function SignIn() {
         if (savedUserInfo == false) alert('Not registered user');
         else {
             if (userInfo.password == savedUserInfo[0].password) {
+                sessionStorage.setItem('quizCode', savedUserInfo[0].quizCode);
                 router.push({
                     pathname: '/personalPage',
-                    query: { quizCode: savedUserInfo[0].quizCode },
                 }, `/${savedUserInfo[0].quizCode}`);
             }
             else alert('Incorrect password!');
