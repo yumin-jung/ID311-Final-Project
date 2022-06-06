@@ -3,6 +3,8 @@ import { useRouter } from 'next/router'
 import axios from 'axios';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid'
+import Score from '../components/Score';
+import Message from '../components/Message';
 import List from '@mui/material/List'
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
@@ -20,7 +22,7 @@ export default function PersonalPage() {
     let msgList = [];
     let savedCode;
     const router = useRouter();
-    
+
     useEffect(() => {
         savedCode = sessionStorage.getItem('userCode');
         axios.post(LOCAL_SERVER_URL + '/api/quizzes/getQuiz', null)
@@ -34,7 +36,7 @@ export default function PersonalPage() {
                     alert('Failed to get users');
                 }
             })
-        if(quizResult!=[]){
+        if (quizResult != []) {
             axios.post(LOCAL_SERVER_URL + '/api/scores/getScore', null)
                 .then(response => {
                     if(response.data.success) {
@@ -63,11 +65,6 @@ export default function PersonalPage() {
             pathname: '/makeQuiz',
         }, `/${savedCode}/makeQuiz`);
     }
-
-    // if(quizResult===null){
-    //     console.log('rerender');
-    //     return null;
-    // }
 
     if(quizResult==null || quizResult.length==0){
         console.log('sdf');
