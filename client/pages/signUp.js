@@ -21,12 +21,22 @@ let codes = [];
 
 
 export default function SignUp() {
+<<<<<<< HEAD
+<<<<<<< HEAD
     const router = useRouter()
     
+=======
+=======
+>>>>>>> 1ff74b50a864c50bec0c3e61c138bdfc81512e8a
+    const router = useRouter();
+
+>>>>>>> 1ff74b50a864c50bec0c3e61c138bdfc81512e8a
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         const characters = 'abcdefghijklmnopqrstuvwxyz';
+<<<<<<< HEAD
+<<<<<<< HEAD
         
         //avoid overlapped quizCode
         function makeRandomCode(){
@@ -36,6 +46,22 @@ export default function SignUp() {
             return randomCode;
         }
         
+=======
+=======
+>>>>>>> 1ff74b50a864c50bec0c3e61c138bdfc81512e8a
+
+        //avoid overlapped quizCode
+        function makeRandomCode() {
+            let codeList = new Array(6).fill();
+            let randomCode = codeList.map((e) => characters.charAt(Math.floor(Math.random() * characters.length))).join('')
+            while (codes.includes(randomCode)) randomCode = codeList.map((e) => characters.charAt(Math.floor(Math.random() * characters.length))).join('')
+            return randomCode;
+        }
+
+<<<<<<< HEAD
+>>>>>>> 1ff74b50a864c50bec0c3e61c138bdfc81512e8a
+=======
+>>>>>>> 1ff74b50a864c50bec0c3e61c138bdfc81512e8a
         const userInfo = {
             firstName: data.get('firstName'),
             lastName: data.get('lastName'),
@@ -48,6 +74,7 @@ export default function SignUp() {
             alert('User already exists');
         } else {
             axios.post(LOCAL_SERVER_URL + '/api/users/saveUser', userInfo)
+<<<<<<< HEAD
             .then(response => {
                 if (response.data.success) {
                     console.log(`Succeed to save ${response.data.user.username}'s info`)
@@ -56,6 +83,16 @@ export default function SignUp() {
                     alert('Failed to save user')
                 }
             });
+=======
+                .then(response => {
+                    if (response.data.success) {
+                        console.log(`Succeed to save ${response.data.user.username}'s info`)
+                        console.log(userInfo);
+                    } else {
+                        alert('Failed to save user')
+                    }
+                });
+>>>>>>> 1ff74b50a864c50bec0c3e61c138bdfc81512e8a
             router.push('/signIn', undefined, { shallow: true });
         }
     };

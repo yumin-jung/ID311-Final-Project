@@ -1,4 +1,6 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import axios from 'axios';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
@@ -8,27 +10,50 @@ import Link from '@mui/material/Link';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
+const LOCAL_SERVER_URL = 'http://localhost:8080';
+
 const theme = createTheme();
+let savedCode;
+let quizList;
 
 export default function Home() {
-  let quizCode =false;
-  const [codeValue, setcodeValue] = React.useState('');
+  const router = useRouter();
+  const [codeInput, setcodeInput] = useState('');
+
+  const MakeUpperCase = (event) => {
+    if(event.target.value.length<=6) setcodeInput(event.target.value.toUpperCase());
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const userCode = data.get('code')
-    console.log(userCode);
+
+    const quizFilter = quizList.filter((quiz) => quiz.quizCode.toUpperCase() == codeInput);
+    if (quizFilter.length < 1) {
+      alert('Incorrect code!');
+    } else {
+      router.push({
+        pathname: '/startQuiz/[id]',
+        query: { id: codeInput.toLowerCase() },
+      })
+    }
   };
 
   React.useEffect(() => {
     console.log(sessionStorage.getItem('quizCode'));
-    quizCode = sessionStorage.getItem('quizCode');
+    savedCode = sessionStorage.getItem('quizCode');
   },[]);
-
-  //make quizcode uppercase & 6 digit limit
-  const MakeUpperCase = (event) => {
-    if(event.target.value.length<=6) setcodeValue(event.target.value.toUpperCase());
-  }
+  useEffect(() => {
+    axios.post(LOCAL_SERVER_URL + '/api/quizzes/getQuiz', null)
+      .then(response => {
+        if (response.data.success) {
+          quizList = response.data.quizData
+          console.log(quizList);
+        } else {
+          alert('Failed to get users');
+        }
+      })
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -52,9 +77,9 @@ export default function Home() {
               id="code"
               label="Code"
               name="code"
-              autoComplete="code"
-              value={codeValue}
+              value={codeInput}
               onChange={MakeUpperCase}
+              autoComplete="code"
               autoFocus
             />
             <Button
@@ -79,29 +104,3 @@ export default function Home() {
     </ThemeProvider>
   );
 }
-
-
-// // SSR
-// export const getServerSideProps = async () => {
-//   const res = await fetch(`http://localhost:8080/api/posts`)
-//   const posts = await res.json();
-
-//   return {
-//     props: {
-//       posts
-//     }
-//   }
-// }
-
-// // SSG
-// export const getStaticProps = async () => {
-//   const res = await fetch(`https://jsonplaceholder.typicode.com/posts?_start=0&_end=10`)
-//   const posts = await res.json();
-
-//   return {
-//     props: {
-//       posts
-//     },
-//     revalidate: 20 // incremental static regeneration
-//   }
-// }

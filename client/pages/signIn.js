@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router'
-import { Route, Link } from 'react-router-dom'
+import Link from 'next/link'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -34,16 +34,14 @@ export default function SignIn() {
         }
 
         //find user data from DB
-        const savedUserInfo = userList.filter((user) => user.username==userInfo.username );
+        const savedUserInfo = userList.filter((user) => user.username == userInfo.username);
 
         if (savedUserInfo == false) alert('Not registered user');
         else {
             if (userInfo.password == savedUserInfo[0].password) {
                 sessionStorage.setItem('quizCode', savedUserInfo[0].quizCode);
-                console.log(sessionStorage.getItem('quizCode'));
                 router.push({
-                    pathname: '/scoreBoard',
-                    query: { quizCode: savedUserInfo[0].quizCode },
+                    pathname: '/personalPage',
                 }, `/${savedUserInfo[0].quizCode}`);
             }
             else alert('Incorrect password!');

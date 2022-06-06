@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import LiveHelpIcon from '@mui/icons-material/LiveHelp';
 
-const pages = ['MakeQuiz', 'ScoreBoard', 'StartQuiz', 'LeaveMessage', 'SignOut'];
+const pages = ['PersonalPage', 'ScoreBoard', 'SignOut'];
 
 const Nav = () => {
     const router = useRouter();
@@ -28,14 +28,10 @@ const Nav = () => {
         const data = event.currentTarget.innerText;
 
         if (data.toUpperCase() == pages[0].toUpperCase()) {
-            router.push('/makeQuiz', undefined, { shallow: true });
+            router.push('/personalPage', undefined, { shallow: true });
         } else if (data.toUpperCase() == pages[1].toUpperCase()) {
             router.push('/scoreBoard', undefined, { shallow: true });
-        } else if (data.toUpperCase() == pages[2].toUpperCase()) {
-            router.push('/startQuiz', undefined, { shallow: true });
-        } else if (data.toUpperCase() == pages[3].toUpperCase()) {
-            router.push('/leaveMessage', undefined, { shallow: true });
-        } else if (data.toUpperCase() == pages[4].toUpperCase()) {
+        } else if (data.toUpperCase() == pages[2].toUpperCase() && sessionStorage.getItem('quizCode')) {
             router.push('/signOut', undefined, { shallow: true });
         }
     };

@@ -8,9 +8,9 @@ const bodyParser = require('body-parser');
 // Fix cors error
 let whitelist = ['http://localhost:3000'
     , 'https://id-311-final-project-git-develop-yumin-jung.vercel.app'
-    , 'https://id311.vercel.app/'
-    , 'https://id-311-final-project-yumin-jung.vercel.app/'
-    , 'https://id-311-final-project-git-main-yumin-jung.vercel.app/']
+    , 'https://id311.vercel.app'
+    , 'https://id-311-final-project-yumin-jung.vercel.app'
+    , 'https://id-311-final-project-git-main-yumin-jung.vercel.app']
 
 let corsOptions = {
     origin: function (origin, callback) {
@@ -27,6 +27,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/users', require('./routes/users'));
 app.use('/api/quizzes', require('./routes/quizzes'));
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+app.use('/api/scores', require('./routes/scores'));
+app.use('/api/messages', require('./routes/messages'));
+>>>>>>> 1ff74b50a864c50bec0c3e61c138bdfc81512e8a
+=======
+app.use('/api/scores', require('./routes/scores'));
+app.use('/api/messages', require('./routes/messages'));
+>>>>>>> 1ff74b50a864c50bec0c3e61c138bdfc81512e8a
 
 mongoose
     .connect('mongodb+srv://yumin:1234@cluster0.3vbre.mongodb.net/?retryWrites=true&w=majority', {
