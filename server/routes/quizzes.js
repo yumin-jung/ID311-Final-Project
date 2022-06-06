@@ -13,7 +13,7 @@ router.post('/getQuiz', (req, res) => {
     Quiz.find({})
         .exec((err, quizData) => {
             if (err) return res.status(400).send(err);
-            res.status(200).json({ success: true, quiz });
+            res.status(200).json({ success: true, quizData });
         });
 });
 

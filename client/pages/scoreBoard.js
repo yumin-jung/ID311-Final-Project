@@ -40,7 +40,6 @@ export default function ScoreBoard() {
                     alert('Failed to get msgs');
                 }
             })
-
         router.push('/scoreBoard', undefined, { shallow: true });
     }, []);
 

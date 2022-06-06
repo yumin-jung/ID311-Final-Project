@@ -8,9 +8,9 @@ const bodyParser = require('body-parser');
 // Fix cors error
 let whitelist = ['http://localhost:3000'
     , 'https://id-311-final-project-git-develop-yumin-jung.vercel.app'
-    , 'https://id311.vercel.app/'
-    , 'https://id-311-final-project-yumin-jung.vercel.app/'
-    , 'https://id-311-final-project-git-main-yumin-jung.vercel.app/']
+    , 'https://id311.vercel.app'
+    , 'https://id-311-final-project-yumin-jung.vercel.app'
+    , 'https://id-311-final-project-git-main-yumin-jung.vercel.app']
 
 let corsOptions = {
     origin: function (origin, callback) {

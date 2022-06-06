@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import LiveHelpIcon from '@mui/icons-material/LiveHelp';
 
-const pages = ['Photos', 'SignIn', 'SignUp', 'MakeQuiz', 'ScoreBoard', 'StartQuiz', 'LeaveMessage'];
+const pages = ['SignIn', 'SignUp', 'MakeQuiz'];
 
 const Nav = () => {
     const router = useRouter();
@@ -28,19 +28,11 @@ const Nav = () => {
         const data = event.currentTarget.innerText;
 
         if (data.toUpperCase() == pages[0].toUpperCase()) {
-            router.push('/photos', undefined, { shallow: true });
-        } else if (data.toUpperCase() == pages[1].toUpperCase()) {
             router.push('/signIn', undefined, { shallow: true });
-        } else if (data.toUpperCase() == pages[2].toUpperCase()) {
+        } else if (data.toUpperCase() == pages[1].toUpperCase()) {
             router.push('/signUp', undefined, { shallow: true });
-        } else if (data.toUpperCase() == pages[3].toUpperCase()) {
+        } else if (data.toUpperCase() == pages[2].toUpperCase()) {
             router.push('/makeQuiz', undefined, { shallow: true });
-        } else if (data.toUpperCase() == pages[4].toUpperCase()) {
-            router.push('/scoreBoard', undefined, { shallow: true });
-        } else if (data.toUpperCase() == pages[5].toUpperCase()) {
-            router.push('/startQuiz', undefined, { shallow: true });
-        } else if (data.toUpperCase() == pages[6].toUpperCase()) {
-            router.push('/leaveMessage', undefined, { shallow: true });
         }
     };
 

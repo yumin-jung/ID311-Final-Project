@@ -7,21 +7,22 @@ import { useRouter } from 'next/router';
 
 export default function StartQuiz() {
     const router = useRouter();
+    const quizCode = router.query.id;
 
     const sendData = () => {
         console.log('go');
         let nickname = document.getElementById('nickname').value;
         if (!nickname) return;
         localStorage.setItem("nickname", nickname);
-        window.location.href = '/solveQuiz';
-    }
-
-    const loadData = (idx, data) => {
-        pass;
+        localStorage.setItem("quizCode", quizCode);
+        router.push({
+            pathname: '/solveQuiz/[quizCode]',
+            query: { quizCode: quizCode },
+        }, undefined, { shallow: true })
     }
 
     return (
-        <Box component='Container' sx={{
+        <Box sx={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center'

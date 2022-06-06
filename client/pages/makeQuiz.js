@@ -34,6 +34,7 @@ export default function MakeQuiz() {
     qBundle.push({ question: '소영(이)가 좋아하는 색깔은?', options: ['blue', 'red', 'green'], selected: 0 });
     qBundle.push({ question: '소영(이)가 좋아하는 스포츠는?', options: ['basketball', 'running', 'badminton'], selected: 0 });
     qBundle.push({ question: '소영(이)의 나이는?', options: ['19', '21', '25'], selected: 0 });
+
     const [questionList, setquestionList] = useState(qBundle);
 
     const AddQuestion = () => {
@@ -45,6 +46,10 @@ export default function MakeQuiz() {
     const sendData = (event) => {
         event.preventDefault();
         const makerInfo = userList.filter((user) => user.quizCode == quizCode);
+
+        console.log(makerInfo)
+        console.log(userList)
+        console.log(quizCode)
 
         const quizData = {
             makerName: makerInfo[0].makerName,
