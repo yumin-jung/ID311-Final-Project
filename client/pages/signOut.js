@@ -6,8 +6,8 @@ export default function SignOut() {
     const router = useRouter();
 
     useEffect(() => {
-        if(sessionStorage.getItem('quizCode')) {
-            sessionStorage.removeItem('quizCode');
+        if(sessionStorage.getItem('userCode')) {
+            sessionStorage.removeItem('userCode');
             router.push({
                 pathname: '/',
             }, `/Home`);

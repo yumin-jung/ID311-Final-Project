@@ -39,7 +39,7 @@ export default function SignIn() {
         if (savedUserInfo == false) alert('Not registered user');
         else {
             if (userInfo.password == savedUserInfo[0].password) {
-                sessionStorage.setItem('quizCode', savedUserInfo[0].quizCode);
+                sessionStorage.setItem('userCode', savedUserInfo[0].quizCode);
                 router.push({
                     pathname: '/personalPage',
                 }, `/${savedUserInfo[0].quizCode}`);
