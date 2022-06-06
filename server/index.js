@@ -29,6 +29,11 @@ app.use('/api/users', require('./routes/users'));
 app.use('/api/quizzes', require('./routes/quizzes'));
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+app.use('/api/scores', require('./routes/scores'));
+app.use('/api/messages', require('./routes/messages'));
+>>>>>>> 1ff74b50a864c50bec0c3e61c138bdfc81512e8a
 =======
 app.use('/api/scores', require('./routes/scores'));
 app.use('/api/messages', require('./routes/messages'));

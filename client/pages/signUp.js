@@ -23,9 +23,12 @@ let codes = [];
 export default function SignUp() {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     const router = useRouter()
     
 =======
+=======
+>>>>>>> 1ff74b50a864c50bec0c3e61c138bdfc81512e8a
 =======
 >>>>>>> 1ff74b50a864c50bec0c3e61c138bdfc81512e8a
     const router = useRouter();
@@ -35,6 +38,7 @@ export default function SignUp() {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         const characters = 'abcdefghijklmnopqrstuvwxyz';
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         
@@ -49,6 +53,8 @@ export default function SignUp() {
 =======
 =======
 >>>>>>> 1ff74b50a864c50bec0c3e61c138bdfc81512e8a
+=======
+>>>>>>> 1ff74b50a864c50bec0c3e61c138bdfc81512e8a
 
         //avoid overlapped quizCode
         function makeRandomCode() {
@@ -59,6 +65,9 @@ export default function SignUp() {
         }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 1ff74b50a864c50bec0c3e61c138bdfc81512e8a
+=======
 >>>>>>> 1ff74b50a864c50bec0c3e61c138bdfc81512e8a
 =======
 >>>>>>> 1ff74b50a864c50bec0c3e61c138bdfc81512e8a

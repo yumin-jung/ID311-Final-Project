@@ -1,5 +1,5 @@
 const router = require("express").Router();
-let Quiz = require("../models/quiz.model");
+let Quiz = require("../models/madeQuiz");
 
 router.post("/saveQuiz", (req, res) => {
     const quiz = new Quiz(req.body);
