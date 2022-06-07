@@ -14,20 +14,20 @@ const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
 const LOCAL_SERVER_URL = 'http://localhost:8080';
 
 const theme = createTheme();
-let savedCode;
 let quizList;
 
 export default function Home() {
   const router = useRouter();
   const [codeInput, setcodeInput] = useState('');
+  const [signInState, setsignInState] = useState(null);
 
+  console.log(signInState);
   const MakeUpperCase = (event) => {
-    if(event.target.value.length<=6) setcodeInput(event.target.value.toUpperCase());
+    if (event.target.value.length <= 6) setcodeInput(event.target.value.toUpperCase());
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(quizList[0].quizCode);
 
     const quizFilter = quizList.filter((quiz) => quiz.quizCode == codeInput.toLowerCase());
     if (quizFilter.length < 1) {
@@ -40,12 +40,8 @@ export default function Home() {
     }
   };
 
-  // React.useEffect(() => {
-  //   console.log(sessionStorage.getItem('userCode'));
-  //   savedCode = sessionStorage.getItem('userCode');
-  // },[]);
-
   useEffect(() => {
+    setsignInState(sessionStorage.getItem('userCode'));
     axios.post(LOCAL_SERVER_URL + '/api/quizzes/getQuiz', null)
       .then(response => {
         if (response.data.success) {
@@ -93,14 +89,15 @@ export default function Home() {
               submit
             </Button>
           </Box>
-          {/* need condition */}
-            {true && 
-              <Typography>Want to make your quiz? <Link
-                href='/signUp'
-                variant='body2'
-                underline='hover'>Sign Up</Link>
-              </Typography>
-            }
+          {signInState === null &&
+            <Typography>Want to make your quiz? <Link
+              href='/signUp'
+              variant='body2'
+              underline='hover'>
+              Sign Up
+            </Link>
+            </Typography>
+          }
         </Box>
       </Container>
     </ThemeProvider>
