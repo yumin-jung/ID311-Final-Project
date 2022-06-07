@@ -6,8 +6,10 @@ export default function SignOut() {
     const router = useRouter();
 
     useEffect(() => {
-        if (sessionStorage.getItem('userCode')) {
+        if (sessionStorage.getItem('userCode') !== null) {
+            console.log(sessionStorage.getItem('userCode'));
             sessionStorage.removeItem('userCode');
+            console.log(sessionStorage.getItem('userCode'));
             router.push({
                 pathname: '/',
             }, `/Home`);

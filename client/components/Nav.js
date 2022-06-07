@@ -11,29 +11,38 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import LiveHelpIcon from '@mui/icons-material/LiveHelp';
-
-const pages = ['PersonalPage', 'ScoreBoard', 'SignOut'];
+import { AppContext } from '../pages/_app'
 
 const Nav = () => {
     const router = useRouter();
     const [anchorElNav, setAnchorElNav] = React.useState(null);
+    const user = React.useContext(AppContext);
+    const [pages, setPages] = React.useState([]);
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
+
+
+    React.useEffect(() => {
+        if (user.quizCode != '') {
+            setPages(['personal page', 'sign out']);
+        }
+        else {
+            setPages(['sign in']);
+        }
+        console.log(pages, 'rendering')
+    }, []);
 
     const handleCloseNavMenu = (event) => {
         setAnchorElNav(null);
         console.log(event.currentTarget.innerText)
         const data = event.currentTarget.innerText;
 
-        if (data.toUpperCase() == pages[0].toUpperCase()) {
-            router.push('/personalPage', undefined, { shallow: true });
-        } else if (data.toUpperCase() == pages[1].toUpperCase()) {
-            router.push('/scoreBoard', undefined, { shallow: true });
-        } else if (data.toUpperCase() == pages[2].toUpperCase()) {
-            router.push('/signOut', undefined, { shallow: true });
-        }
+
+        if (data == 'PersonalPage') router.push('/personalPage', undefined, { shallow: true });
+        else if (data == 'SignOut') router.push('/signOut', undefined, { shallow: true });
+        else if (data == 'sign in') router.push('/signIn', undefined, { shallow: true })
     };
 
     return (
