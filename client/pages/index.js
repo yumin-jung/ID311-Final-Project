@@ -22,12 +22,11 @@ export default function Home() {
   const [codeInput, setcodeInput] = useState('');
 
   const MakeUpperCase = (event) => {
-    if(event.target.value.length<=6) setcodeInput(event.target.value.toUpperCase());
+    if (event.target.value.length <= 6) setcodeInput(event.target.value.toUpperCase());
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(quizList[0].quizCode);
 
     const quizFilter = quizList.filter((quiz) => quiz.quizCode == codeInput.toLowerCase());
     if (quizFilter.length < 1) {
@@ -94,13 +93,16 @@ export default function Home() {
             </Button>
           </Box>
           {/* need condition */}
-            {true && 
-              <Typography>Want to make your quiz? <Link
+          {true &&
+            <Typography>Want to make your quiz?
+              <Link
                 href='/signUp'
                 variant='body2'
-                underline='hover'>Sign Up</Link>
-              </Typography>
-            }
+                underline='hover'>
+                Sign Up
+              </Link>
+            </Typography>
+          }
         </Box>
       </Container>
     </ThemeProvider>

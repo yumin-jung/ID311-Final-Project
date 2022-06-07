@@ -31,7 +31,7 @@ const Nav = () => {
             router.push('/personalPage', undefined, { shallow: true });
         } else if (data.toUpperCase() == pages[1].toUpperCase()) {
             router.push('/scoreBoard', undefined, { shallow: true });
-        } else if (data.toUpperCase() == pages[2].toUpperCase() && sessionStorage.getItem('quizCode')) {
+        } else if (data.toUpperCase() == pages[2].toUpperCase()) {
             router.push('/signOut', undefined, { shallow: true });
         }
     };
