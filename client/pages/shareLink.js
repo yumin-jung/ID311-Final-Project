@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import axios from 'axios';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
+import Tooltip from '@mui/material/Tooltip'
 import { Typography } from '@mui/material';
 
 let codes = [];
-const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com'
-const LOCAL_SERVER_URL = 'http://localhost:8080'
+const DEPLOY_CLIENT_URL = 'https://id311.vercel.app'
+const LOCAL_CLIENT_URL = 'http://localhost:3000'
 
 export default function ShareLink() {
     const [quizCode, setquizCode] = useState(null);
+    const [copiedLink, setcopiedLink] = useState('');
 
     useEffect(() => {
-        setquizCode(sessionStorage.getItem('userCode'));
+        setquizCode(sessionStorage.getItem('userCode').toUpperCase());
     }, []);
 
 
@@ -33,9 +36,21 @@ export default function ShareLink() {
             <Typography align='center' variant='h2'>
                 {quizCode}
             </Typography>
-            <Button fullWidth onClick={GoLink}>
-                Share your quiz
-            </Button>
+            <CopyToClipboard
+                text={LOCAL_CLIENT_URL}
+                onCopy={()=>setcopiedLink(LOCAL_CLIENT_URL)}>
+                    <Tooltip
+                        title={copiedLink === LOCAL_CLIENT_URL
+                        ? "Paste your quiz"
+                        : "Copy your quiz"
+                        }
+                        placement='bottom'
+                    >
+                        <Button fullWidth>
+                            Share your quiz
+                        </Button>
+                    </Tooltip>
+            </CopyToClipboard>
         </Container>
     )
 }

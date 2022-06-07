@@ -96,7 +96,7 @@ export default function SolveQuiz() {
         }}>
             <Box
                 sx={{
-                    bgcolor: '#f8f8f8',
+                    bgcolor: '#fff',
                     boxShadow: 8,
                     borderRadius: 5,
                     p: '2%',
