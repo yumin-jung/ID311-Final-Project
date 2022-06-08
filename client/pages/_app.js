@@ -1,24 +1,20 @@
-import React, { createContext } from 'react';
+import React, { useState } from 'react';
 import '../styles/globals.css'
 import Layout from '../components/Layout'
 import CssBaseline from "@mui/material/CssBaseline";
-
-export const AppContext = createContext();
+import { UserContext } from '../context/UserContext';
 
 function App({ Component, pageProps }) {
-  const user = {
-    quizCode: ''
-  }
+  const [isUser, setIsUser] = useState(false)
+  const [quizCode, setQuizCode] = useState(null);
 
   return (
-    <>
-      <AppContext.Provider value={user}>
-        <CssBaseline />
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </AppContext.Provider>
-    </>
+    <UserContext.Provider value={{ isUser, setIsUser, quizCode, setQuizCode }}>
+      <CssBaseline />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </UserContext.Provider>
   )
 }
 

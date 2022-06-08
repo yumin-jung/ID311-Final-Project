@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useRouter } from 'next/router'
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -11,21 +11,22 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import LiveHelpIcon from '@mui/icons-material/LiveHelp';
-import { AppContext } from '../pages/_app'
+import { UserContext } from '../context/UserContext';
 
 const Nav = () => {
     const router = useRouter();
     const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const user = React.useContext(AppContext);
     const [pages, setPages] = React.useState([]);
+
+    const { isUser, setIsUser, quizCode, setQuizCode } = useContext(UserContext);
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
 
-
+    console.log(quizCode)
     React.useEffect(() => {
-        if (user.quizCode != '') {
+        if (quizCode != '') {
             setPages(['personal page', 'sign out']);
         }
         else {
@@ -141,29 +142,3 @@ const Nav = () => {
 }
 
 export default Nav
-
-
-// <nav className={navStyles.nav}>
-//     <ul>
-//         <li>
-//             <Link href="/">
-//                 <a>Home</a>
-//             </Link>
-//         </li>
-//         <li>
-//             <Link href="/photos">
-//                 <a>Photos</a>
-//             </Link>
-//         </li>
-//         <li>
-//             <Link href="/signIn">
-//                 <a>SignIn</a>
-//             </Link>
-//         </li>
-//         <li>
-//             <Link href="/signUp">
-//                 <a>SignUp</a>
-//             </Link>
-//         </li>
-//     </ul>
-// </nav>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router'
 import Link from 'next/link'
@@ -11,7 +11,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import PersonalPage from './personalPage';
+import { UserContext } from '../context/UserContext';
 
 const theme = createTheme();
 const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
@@ -20,6 +20,10 @@ let userList = [];
 
 export default function SignIn() {
     const router = useRouter()
+
+    const { isUser, setIsUser, quizCode, setQuizCode } = useContext(UserContext);
+    console.log(isUser);
+
 
     useEffect(() => {
         console.log('render')
@@ -40,6 +44,9 @@ export default function SignIn() {
         else {
             if (userInfo.password == savedUserInfo[0].password) {
                 sessionStorage.setItem('userCode', savedUserInfo[0].quizCode);
+                setIsUser(true);
+                setQuizCode(savedUserInfo[0].quizCode);
+
                 router.push({
                     pathname: '/personalPage',
                 }, `/${savedUserInfo[0].quizCode}`);
@@ -68,7 +75,7 @@ export default function SignIn() {
                 <CssBaseline />
                 <Box
                     sx={{
-                        marginTop: 8,
+                        marginTop: 25,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',

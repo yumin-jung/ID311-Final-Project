@@ -11,8 +11,8 @@ const HeadInfo = ({ title, keyword, contents }) => {
 }
 
 HeadInfo.defaultProps = {
-    title: 'ID311',
-    keyword: 'Web powered by Nextjs',
+    title: 'Personal Quiz',
+    keyword: 'Personal Quiz',
     contents: 'ID311 final project'
 }
 
