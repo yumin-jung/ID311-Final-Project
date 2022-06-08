@@ -9,12 +9,14 @@ function App({ Component, pageProps }) {
   const [quizCode, setQuizCode] = useState(null);
 
   return (
-    <UserContext.Provider value={{ isUser, setIsUser, quizCode, setQuizCode }}>
-      <CssBaseline />
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </UserContext.Provider>
+    <>
+      <UserContext.Provider value={{ isUser, setIsUser, quizCode, setQuizCode }}>
+        <CssBaseline />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </UserContext.Provider>
+    </>
   )
 }
 

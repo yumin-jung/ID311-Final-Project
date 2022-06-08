@@ -12,6 +12,7 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import LiveHelpIcon from '@mui/icons-material/LiveHelp';
 import { UserContext } from '../context/UserContext';
+import Link from 'next/link';
 
 const Nav = () => {
     const router = useRouter();
@@ -55,7 +56,6 @@ const Nav = () => {
                         variant="h6"
                         noWrap
                         component="a"
-                        href="/"
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
@@ -66,7 +66,9 @@ const Nav = () => {
                             textDecoration: 'none',
                         }}
                     >
-                        QUIZ
+                        <Link href="/">
+                            QUIZ
+                        </Link>
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -110,7 +112,6 @@ const Nav = () => {
                         variant="h5"
                         noWrap
                         component="a"
-                        href="/"
                         sx={{
                             mr: 2,
                             display: { xs: 'flex', md: 'none' },
@@ -122,7 +123,9 @@ const Nav = () => {
                             textDecoration: 'none',
                         }}
                     >
-                        QUIZ
+                        <Link href="/">
+                            QUIZ
+                        </Link>
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (

@@ -43,7 +43,6 @@ export default function SignIn() {
         if (savedUserInfo == false) alert('Not registered user');
         else {
             if (userInfo.password == savedUserInfo[0].password) {
-                sessionStorage.setItem('userCode', savedUserInfo[0].quizCode);
                 setIsUser(true);
                 setQuizCode(savedUserInfo[0].quizCode);
 

@@ -11,6 +11,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { UserContext } from '../context/UserContext';
 
+
 const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
 const LOCAL_SERVER_URL = 'http://localhost:8080';
 
@@ -45,7 +46,6 @@ export default function Home() {
   };
 
   useEffect(() => {
-    setsignInState(sessionStorage.getItem('userCode'));
     axios.post(LOCAL_SERVER_URL + '/api/quizzes/getQuiz', null)
       .then(response => {
         if (response.data.success) {
