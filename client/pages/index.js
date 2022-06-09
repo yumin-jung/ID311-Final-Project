@@ -10,7 +10,7 @@ import Link from '@mui/material/Link';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { UserContext } from '../context/UserContext';
-
+import Nav from '../components/Nav'
 
 const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
 const LOCAL_SERVER_URL = 'http://localhost:8080';
@@ -20,13 +20,12 @@ let quizList;
 
 export default function Home() {
   const router = useRouter();
-  const [codeInput, setcodeInput] = useState('');
-  const [signInState, setsignInState] = useState(null);
+  // const [codeInput, setcodeInput] = useState('');
+  // const [signInState, setsignInState] = useState(null);
 
   const data = useContext(UserContext);
   console.log(data)
 
-  console.log(signInState);
   const MakeUpperCase = (event) => {
     if (event.target.value.length <= 6) setcodeInput(event.target.value.toUpperCase());
   }
@@ -59,6 +58,7 @@ export default function Home() {
 
   return (
     <ThemeProvider theme={theme}>
+      <Nav />
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -79,7 +79,7 @@ export default function Home() {
               id="code"
               label="Code"
               name="code"
-              value={codeInput}
+              // value={codeInput}
               onChange={MakeUpperCase}
               autoComplete="code"
               autoFocus
@@ -93,17 +93,17 @@ export default function Home() {
               submit
             </Button>
           </Box>
-          {signInState === null &&
-            <Typography>
-              {`Want to make your quiz? `}
-              <Link
-                href='/signUp'
-                variant='body2'
-                underline='hover'>
-                Sign Up
-              </Link>
-            </Typography>
-          }
+          {/* {signInState === null && */}
+          <Typography>
+            {`Want to make your quiz? `}
+            <Link
+              href='/signUp'
+              variant='body2'
+              underline='hover'>
+              Sign Up
+            </Link>
+          </Typography>
+          {/* } */}
         </Box>
       </Container>
     </ThemeProvider>

@@ -1,7 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router'
-import Link from 'next/link'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';

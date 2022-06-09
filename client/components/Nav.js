@@ -11,7 +11,6 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import LiveHelpIcon from '@mui/icons-material/LiveHelp';
-import { UserContext } from '../context/UserContext';
 import Link from 'next/link';
 
 const Nav = () => {
@@ -19,13 +18,12 @@ const Nav = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [pages, setPages] = React.useState([]);
 
-    const { isUser, setIsUser, quizCode, setQuizCode } = useContext(UserContext);
-
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
 
-    console.log(quizCode)
+    const quizCode = '';
+
     React.useEffect(() => {
         if (quizCode != '') {
             setPages(['personal page', 'sign out']);
@@ -55,7 +53,6 @@ const Nav = () => {
                     <Typography
                         variant="h6"
                         noWrap
-                        component="a"
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
@@ -67,7 +64,7 @@ const Nav = () => {
                         }}
                     >
                         <Link href="/">
-                            QUIZ
+                            <a>QUIZ</a>
                         </Link>
                     </Typography>
 
@@ -111,7 +108,6 @@ const Nav = () => {
                     <Typography
                         variant="h5"
                         noWrap
-                        component="a"
                         sx={{
                             mr: 2,
                             display: { xs: 'flex', md: 'none' },
@@ -124,7 +120,7 @@ const Nav = () => {
                         }}
                     >
                         <Link href="/">
-                            QUIZ
+                            <a>QUIZ</a>
                         </Link>
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>

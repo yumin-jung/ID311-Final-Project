@@ -13,13 +13,8 @@ const LOCAL_SERVER_URL = 'http://localhost:8080';
 export default function SolveQuiz() {
     let quizList;
     let quizFilter;
-    let quizCode;
 
     const router = useRouter();
-
-    if (typeof window !== 'undefined') {
-        quizCode = localStorage.getItem("quizCode");
-    }
 
     const [posts, setQuizList] = useState(null);
     const [thisQuiz, setQuiz] = useState(null);

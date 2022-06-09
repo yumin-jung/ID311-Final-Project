@@ -1,5 +1,4 @@
 import HeadInfo from './HeadInfo'
-import Nav from './Nav'
 
 const Layout = ({ children }) => {
     return (
@@ -13,7 +12,6 @@ const Layout = ({ children }) => {
                 href="https://fonts.googleapis.com/icon?family=Material+Icons"
             />
             <HeadInfo />
-            <Nav />
             <div>
                 {children}
             </div>
