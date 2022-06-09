@@ -1,24 +1,13 @@
-import { Typography } from '@mui/material';
 import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
+import { AppContext } from '../context/AppContext';
 
 export default function SignOut() {
     const router = useRouter();
+    const { isUser, setIsUser } = useContext(AppContext);
 
     useEffect(() => {
-        if (sessionStorage.getItem('userCode') !== null) {
-            console.log(sessionStorage.getItem('userCode'));
-            sessionStorage.removeItem('userCode');
-            console.log(sessionStorage.getItem('userCode'));
-            router.push({
-                pathname: '/',
-            }, `/Home`);
-        } else {
-            alert("There is no login information")
-        }
+        setIsUser(false);
+        router.push('/');
     }, []);
-
-    return (
-        <Typography>SignOut</Typography>
-    )
 }

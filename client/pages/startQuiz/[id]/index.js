@@ -1,24 +1,30 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import Link from 'next/link'
 import { useRouter } from 'next/router';
+import { AppContext } from '../../../context/AppContext';
 
 export default function StartQuiz() {
     const router = useRouter();
-    const quizCode = router.query.id;
+
+    // Get data from context API
+    const { quizCode, setQuizNickname } = useContext(AppContext);
 
     const sendData = () => {
-        console.log('go');
-        let nickname = document.getElementById('nickname').value;
-        if (!nickname) return;
-        localStorage.setItem("nickname", nickname);
-        localStorage.setItem("quizCode", quizCode);
-        router.push({
-            pathname: '/solveQuiz/[quizCode]',
-            query: { quizCode: quizCode },
-        }, undefined, { shallow: true })
+        const nickname = document.getElementById('nickname').value;
+
+        // Check nickname is valid
+        if (!nickname) {
+            alert("Please set nickname!")
+        }
+        else {
+            setQuizNickname(nickname);
+            router.push({
+                pathname: '/solveQuiz/[id]',
+                query: { id: quizCode },
+            })
+        }
     }
 
     return (

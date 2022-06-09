@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router'
-import Router from 'next/router'
-import Score from '../components/Score';
-import Message from '../components/Message';
-import Quiz from '../components/Quiz';
+import Score from '../../../components/Score';
+import Message from '../../../components/Message';
+import Quiz from '../../../components/Quiz';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import { AppContext } from '../../../context/AppContext';
 
 const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
 const LOCAL_SERVER_URL = 'http://localhost:8080';
@@ -19,18 +19,21 @@ let msgList = [];
 
 export default function LeaveMessage() {
     const router = useRouter();
-    const pathname = router.pathname;
+    const { quizCode, quizNickname } = useContext(AppContext);
+
+    // Check rendering
+    const [isRenderScore, setIsRenderScore] = useState(false);
+    const [isRenderMsg, setIsRenderMsg] = useState(false);
 
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
 
         const message = {
-            nickname: localStorage.getItem('nickname'),
+            quizCode: quizCode,
+            nickname: quizNickname,
             message: data.get('message')
         }
-
-        console.log(message);
 
         axios.post(LOCAL_SERVER_URL + '/api/messages/saveMessage', message)
             .then(response => {
@@ -40,35 +43,51 @@ export default function LeaveMessage() {
                     alert('Failed to save message')
                 }
             });
-        router.push('/scoreBoard');
+
+        // Go to leave message page
+        router.push({
+            pathname: '/scoreBoard/[id]',
+            query: { id: quizCode },
+        })
     };
 
+    // Get score and message data from DB
     useEffect(() => {
         axios.post(LOCAL_SERVER_URL + '/api/scores/getScore', null)
             .then(response => {
                 if (response.data.success) {
-                    scoreList = response.data.scores.map((score) => {
-                        return { nickname: score.nickname, score: score.score, quizLen: score.quizLen };
+                    const scoreListAll = response.data.scores.map((score) => {
+                        return { quizCode: score.quizCode, nickname: score.nickname, score: score.score, quizLen: score.quizLen };
                     })
-                    console.log(scoreList);
-                } else {
+                    scoreList = scoreListAll.filter((score) => score.quizCode == quizCode)
+                    setIsRenderScore(true)
+                }
+                else {
                     alert('Failed to get scores');
                 }
             })
         axios.post(LOCAL_SERVER_URL + '/api/messages/getMessage', null)
             .then(response => {
                 if (response.data.success) {
-                    msgList = response.data.messages.map((msg) => {
-                        return { nickname: msg.nickname, message: msg.message };
+                    const msgListAll = response.data.messages.map((msg) => {
+                        return { quizCode: msg.quizCode, nickname: msg.nickname, message: msg.message };
                     })
-                    console.log(msgList);
-                } else {
+                    msgList = msgListAll.filter((score) => score.quizCode == quizCode)
+                    setIsRenderMsg(true)
+                }
+                else {
                     alert('Failed to get msgs');
                 }
             })
-        router.push('/leaveMessage', undefined, { shallow: true });
     }, []);
 
+    // Pause rendering until get data
+    if (isRenderScore === false) {
+        return null;
+    }
+    else if (isRenderMsg === false) {
+        return null;
+    }
 
     return (
         <Box sx={{ width: '100%' }} >

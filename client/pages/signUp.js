@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/router'
 import axios from 'axios';
 import Avatar from '@mui/material/Avatar';
@@ -12,13 +12,14 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Nav from '../components/Nav';
 
 const theme = createTheme();
 const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com'
 const LOCAL_SERVER_URL = 'http://localhost:8080'
-let userList = [];
-let codes = [];
 
+let userList = [];
+let codeList = [];
 
 export default function SignUp() {
     const router = useRouter()
@@ -27,10 +28,10 @@ export default function SignUp() {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
 
-        //avoid overlapped quizCode
+        // Avoid overlapped quizCode
         function makeRandomCode() {
             let randomCode = Math.random().toString(36).slice(2, 8);
-            while (codes.includes(randomCode)) {
+            while (codeList.includes(randomCode)) {
                 randomCode = Math.random().toString(36).slice(2, 8);
             }
             return randomCode;
@@ -44,9 +45,11 @@ export default function SignUp() {
             quizCode: makeRandomCode()
         };
 
+        // Check userInfo is valid
         if (userList.includes(userInfo.username)) {
             alert('User already exists');
-        } else {
+        }
+        else {
             axios.post(LOCAL_SERVER_URL + '/api/users/saveUser', userInfo)
                 .then(response => {
                     if (response.data.success) {
@@ -56,10 +59,11 @@ export default function SignUp() {
                         alert('Failed to save user')
                     }
                 });
-            router.push('/signIn', undefined, { shallow: true });
+            router.push('/signIn');
         }
     };
 
+    // Get user data from DB
     useEffect(() => {
         axios.post(LOCAL_SERVER_URL + '/api/users/getUsers', null)
             .then(response => {
@@ -67,11 +71,11 @@ export default function SignUp() {
                     userList = response.data.users.map((user) => {
                         return user.username;
                     })
-                    codes = response.data.users.map((user) => {
+                    codeList = response.data.users.map((user) => {
                         return user.quizCode;
                     })
-                    console.log(userList);
-                } else {
+                }
+                else {
                     alert('Failed to get users');
                 }
             })
@@ -79,6 +83,7 @@ export default function SignUp() {
 
     return (
         <ThemeProvider theme={theme}>
+            <Nav />
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box

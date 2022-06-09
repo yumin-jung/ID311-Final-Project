@@ -8,12 +8,11 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import LiveHelpIcon from '@mui/icons-material/LiveHelp';
 import Link from 'next/link';
 
-const Nav = () => {
+const Nav = ({ isUser }) => {
     const router = useRouter();
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [pages, setPages] = React.useState([]);
@@ -29,9 +28,8 @@ const Nav = () => {
             setPages(['personal page', 'sign out']);
         }
         else {
-            setPages(['sign in']);
+            setPages(['sign in', 'sign out']);
         }
-        console.log(pages, 'rendering')
     }, []);
 
     const handleCloseNavMenu = (event) => {
@@ -41,7 +39,7 @@ const Nav = () => {
 
 
         if (data == 'PersonalPage') router.push('/personalPage', undefined, { shallow: true });
-        else if (data == 'SignOut') router.push('/signOut', undefined, { shallow: true });
+        else if (data == 'sign out') router.push('/signOut');
         else if (data == 'sign in') router.push('/signIn', undefined, { shallow: true })
     };
 

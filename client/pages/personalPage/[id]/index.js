@@ -7,10 +7,10 @@ import List from '@mui/material/List'
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
-import Score from '../components/Score';
-import Message from '../components/Message';
-import { UserContext } from '../context/UserContext';
-import Nav from '../components/Nav';
+import Score from '../../../components/Score';
+import Message from '../../../components/Message';
+import { AppContext } from '../../../context/AppContext';
+import Nav from '../../../components/Nav';
 
 const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
 const LOCAL_SERVER_URL = 'http://localhost:8080';
@@ -20,20 +20,17 @@ export default function PersonalPage() {
     const [quizResult, setquizResult] = useState(null);
     let scoreList = [];
     let msgList = [];
-    let savedCode;
     const router = useRouter();
 
-    const data = useContext(UserContext);
-    console.log(data)
+    const { quizCode } = useContext(AppContext);
 
     useEffect(() => {
-        savedCode = sessionStorage.getItem('userCode');
         axios.post(LOCAL_SERVER_URL + '/api/quizzes/getQuiz', null)
             .then(response => {
                 if (response.data.success) {
                     const quizList = response.data.quiz;
                     console.log(quizList);
-                    setquizResult(quizList.filter((e) => e.quizCode == savedCode));
+                    setquizResult(quizList.filter((e) => e.quizCode == quizCode));
                     console.log('quiz', quizResult);
                 } else {
                     alert('Failed to get users');
@@ -66,7 +63,7 @@ export default function PersonalPage() {
     const MakeQuiz = (event) => {
         router.push({
             pathname: '/makeQuiz',
-        }, `/${savedCode}/makeQuiz`);
+        }, `/${quizCode}/makeQuiz`);
     }
 
     if (quizResult == null || quizResult.length == 0) {

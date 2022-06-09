@@ -10,7 +10,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { UserContext } from '../context/UserContext';
+import { AppContext } from '../context/AppContext';
+import Nav from '../components/Nav';
 
 const theme = createTheme();
 const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
@@ -20,39 +21,44 @@ let userList = [];
 export default function SignIn() {
     const router = useRouter()
 
-    const { isUser, setIsUser, quizCode, setQuizCode } = useContext(UserContext);
-    console.log(isUser);
-
-
-    useEffect(() => {
-        console.log('render')
-    }, []);
+    const { setIsUser, setQuizCode } = useContext(AppContext);
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
         const data = new FormData(event.currentTarget);
-        const userInfo = {
+
+        // Input text by user
+        const userInput = {
             username: data.get('username'),
             password: data.get('password')
         }
 
-        //find user data from DB
-        const savedUserInfo = userList.filter((user) => user.username == userInfo.username);
+        // Find user data in DB
+        const findUserInfo = userList.filter((user) => user.username == userInput.username)[0];
 
-        if (savedUserInfo == false) alert('Not registered user');
+        // Check input is valid
+        if (findUserInfo == false) {
+            alert('Not registered user');
+        }
         else {
-            if (userInfo.password == savedUserInfo[0].password) {
+            if (userInput.password == findUserInfo.password) {
                 setIsUser(true);
-                setQuizCode(savedUserInfo[0].quizCode);
+                setQuizCode(findUserInfo.quizCode);
 
+                // Go to personal page
                 router.push({
-                    pathname: '/personalPage',
-                }, `/${savedUserInfo[0].quizCode}`);
+                    pathname: '/personalPage/[id]',
+                    query: { id: findUserInfo.quizCode },
+                })
             }
-            else alert('Incorrect password!');
+            else {
+                alert('Incorrect password!');
+            }
         }
     };
 
+    // Get user data from DB
     useEffect(() => {
         axios.post(LOCAL_SERVER_URL + '/api/users/getUsers', null)
             .then(response => {
@@ -60,7 +66,6 @@ export default function SignIn() {
                     userList = response.data.users.map((user) => {
                         return { username: user.username, password: user.password, quizCode: user.quizCode };
                     })
-                    console.log(userList);
                 } else {
                     alert('Failed to get users');
                 }
@@ -69,6 +74,7 @@ export default function SignIn() {
 
     return (
         <ThemeProvider theme={theme}>
+            <Nav />
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box

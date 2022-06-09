@@ -4,7 +4,6 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 
 const ScoreBoard = ({ value, userName, score, quizLen }) => {
-    console.log('sdfsd');
     return (
         <ListItem
             secondaryAction={
