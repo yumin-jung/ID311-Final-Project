@@ -10,7 +10,7 @@ import { Typography } from '@mui/material';
 import Score from '../components/Score';
 import Message from '../components/Message';
 import { UserContext } from '../context/UserContext';
-
+import Nav from '../components/Nav';
 
 const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
 const LOCAL_SERVER_URL = 'http://localhost:8080';
@@ -83,81 +83,84 @@ export default function PersonalPage() {
     else {
         console.log(quizResult);
         return (
-            <Container sx={{
-                width: '100%',
-                alignItems: 'center'
-            }} >
-                <Box
-                    sx={{
-                        width: '40%',
-                        p: 2,
-                        minWidth: 400,
-                        alignItems: 'center',
-                    }}
-                >
-                    <Typography variant='h2'>Your Quiz</Typography>
-                </Box>
-                <Grid container direction="row" spacing={20} justifyContent="center" alignItems="center" >
-                    <Grid item xs={5}
-                        container
-                        justifyContent="center"
-                        alignItems="center"
-                        spacing={2}>
-                        <Box
-                            sx={{
-                                width: '100%',
-                                bgcolor: '#fff',
-                                boxShadow: 12,
-                                borderRadius: 4,
-                                p: 2,
-                                minWidth: 360,
-                                marginTop: '5%',
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                                display: 'flex'
-                            }}
-                        >
-                            <Typography component="h1" variant="h5">
-                                Score Board
-                            </Typography>
-                            <List sx={{ width: '100%', maxWidth: 360 }}>
-                                {scoreList.map((score, idx) => (
-                                    <Score key={idx} value={idx + 1} userName={score.nickname} score={score.score} quizLen={score.quizLen} />
-                                ))}
-                            </List>
-                        </Box>
+            <>
+                <Nav />
+                <Container sx={{
+                    width: '100%',
+                    alignItems: 'center'
+                }} >
+                    <Box
+                        sx={{
+                            width: '40%',
+                            p: 2,
+                            minWidth: 400,
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Typography variant='h2'>Your Quiz</Typography>
+                    </Box>
+                    <Grid container direction="row" spacing={20} justifyContent="center" alignItems="center" >
+                        <Grid item xs={5}
+                            container
+                            justifyContent="center"
+                            alignItems="center"
+                            spacing={2}>
+                            <Box
+                                sx={{
+                                    width: '100%',
+                                    bgcolor: '#fff',
+                                    boxShadow: 12,
+                                    borderRadius: 4,
+                                    p: 2,
+                                    minWidth: 360,
+                                    marginTop: '5%',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    display: 'flex'
+                                }}
+                            >
+                                <Typography component="h1" variant="h5">
+                                    Score Board
+                                </Typography>
+                                <List sx={{ width: '100%', maxWidth: 360 }}>
+                                    {scoreList.map((score, idx) => (
+                                        <Score key={idx} value={idx + 1} userName={score.nickname} score={score.score} quizLen={score.quizLen} />
+                                    ))}
+                                </List>
+                            </Box>
+                        </Grid>
+                        <Grid item xs={5}
+                            container
+                            justifyContent="center"
+                            alignItems="center"
+                            spacing={2}>
+                            <Box
+                                sx={{
+                                    width: '100%',
+                                    bgcolor: '#fff',
+                                    boxShadow: 12,
+                                    borderRadius: 4,
+                                    p: 2,
+                                    minWidth: 360,
+                                    marginTop: '5%',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    display: 'flex'
+                                }}
+                            >
+                                <Typography component="h1" variant="h5">
+                                    Messages
+                                </Typography>
+                                <List sx={{ width: '100%', maxWidth: 360 }}>
+                                    {msgList.map((msg, idx) => (
+                                        <Message key={idx} userName={msg.nickname} comment={msg.message} />
+                                    ))}
+                                </List>
+                            </Box>
+                        </Grid>
                     </Grid>
-                    <Grid item xs={5}
-                        container
-                        justifyContent="center"
-                        alignItems="center"
-                        spacing={2}>
-                        <Box
-                            sx={{
-                                width: '100%',
-                                bgcolor: '#fff',
-                                boxShadow: 12,
-                                borderRadius: 4,
-                                p: 2,
-                                minWidth: 360,
-                                marginTop: '5%',
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                                display: 'flex'
-                            }}
-                        >
-                            <Typography component="h1" variant="h5">
-                                Messages
-                            </Typography>
-                            <List sx={{ width: '100%', maxWidth: 360 }}>
-                                {msgList.map((msg, idx) => (
-                                    <Message key={idx} userName={msg.nickname} comment={msg.message} />
-                                ))}
-                            </List>
-                        </Box>
-                    </Grid>
-                </Grid>
-            </Container>
+                </Container>
+            </>
         )
     }
 }

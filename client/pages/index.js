@@ -10,7 +10,7 @@ import Link from '@mui/material/Link';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { UserContext } from '../context/UserContext';
-import Nav from '../components/Nav'
+import Nav from '../components/Nav';
 
 const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
 const LOCAL_SERVER_URL = 'http://localhost:8080';
