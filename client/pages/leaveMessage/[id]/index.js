@@ -202,7 +202,7 @@ export default function LeaveMessage() {
                         </Typography>
                         <List sx={{ width: '100%', maxWidth: 360 }}>
                             {msgList.map((msg, idx) =>
-                                <Message key={idx} userName={msg.nickname} comment={msg.message} />
+                                <Message key={idx} userName={msg.nickname} comment={msg.message} quizCode={quizCode} />
                             )}
                         </List>
                     </Box>
@@ -312,7 +312,7 @@ export default function LeaveMessage() {
                         </Typography>
                         <List sx={{ width: '80%', maxWidth: 360 }}>
                             {msgList.map((msg, idx) =>
-                                <Message key={idx} userName={msg.nickname} comment={msg.message} />
+                                <Message key={idx} userName={msg.nickname} comment={msg.message} quizCode={quizCode} />
                             )}
                         </List>
                     </Box>

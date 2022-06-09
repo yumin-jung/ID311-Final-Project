@@ -16,13 +16,13 @@ const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
 const LOCAL_SERVER_URL = 'http://localhost:8080';
 
 const theme = createTheme();
-let quizList;
+let quizList = [];
 
 export default function Home() {
   const router = useRouter();
   const [codeInput, setcodeInput] = useState('');
 
-  const { isUser, setQuizCode } = useContext(AppContext);
+  const { isUser, quizCode, setQuizCode } = useContext(AppContext);
 
   // Make quiz code upper case
   const makeUpperCase = (event) => {
@@ -52,7 +52,6 @@ export default function Home() {
       .then(response => {
         if (response.data.success) {
           quizList = response.data.quiz
-          console.log(quizList);
         }
         else {
           alert('Failed to get users');
@@ -62,7 +61,7 @@ export default function Home() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Nav />
+      <Nav isUser={isUser} quizCode={quizCode} />
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box

@@ -1,5 +1,6 @@
 import HeadInfo from './HeadInfo'
 
+// Website layout(fonts, header info)
 const Layout = ({ children }) => {
     return (
         <>

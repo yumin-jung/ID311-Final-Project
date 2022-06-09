@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router'
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -12,35 +12,27 @@ import MenuItem from '@mui/material/MenuItem';
 import LiveHelpIcon from '@mui/icons-material/LiveHelp';
 import Link from 'next/link';
 
-const Nav = ({ isUser }) => {
+const Nav = ({ isUser, quizCode }) => {
     const router = useRouter();
-    const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const [pages, setPages] = React.useState([]);
+    const [anchorElNav, setAnchorElNav] = useState(null);
+    const pages = (isUser) ? ["로그인 했을 때", 'personal page', 'sign out'] : ["로그인 안 했을 때", 'sign in'];
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
 
-    const quizCode = '';
-
-    React.useEffect(() => {
-        if (quizCode != '') {
-            setPages(['personal page', 'sign out']);
-        }
-        else {
-            setPages(['sign in', 'sign out']);
-        }
-    }, []);
-
     const handleCloseNavMenu = (event) => {
         setAnchorElNav(null);
-        console.log(event.currentTarget.innerText)
         const data = event.currentTarget.innerText;
 
-
-        if (data == 'PersonalPage') router.push('/personalPage', undefined, { shallow: true });
+        if (data == 'personal page') {
+            router.push({
+                pathname: '/personalPage/[id]',
+                query: { id: quizCode },
+            })
+        }
         else if (data == 'sign out') router.push('/signOut');
-        else if (data == 'sign in') router.push('/signIn', undefined, { shallow: true })
+        else if (data == 'sign in') router.push('/signIn')
     };
 
     return (

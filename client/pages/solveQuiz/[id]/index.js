@@ -23,6 +23,7 @@ export default function SolveQuiz() {
     const [idx, setIdx] = useState(1);
     const [quizScore, setQuizScore] = useState(0);
 
+    // Go to next quiz
     const NextQuiz = () => {
 
         if (idx >= quizList.length) {
@@ -72,7 +73,6 @@ export default function SolveQuiz() {
                         .filter(quiz => quiz.quizCode == quizCode)
                         .map(quiz => { return quiz.quizBundle })
                         .flat();
-
                     setQuizList(quizFilterFromDB);
                     setQuiz(quizFilterFromDB[0]);
                 }

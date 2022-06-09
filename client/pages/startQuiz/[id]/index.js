@@ -11,7 +11,7 @@ export default function StartQuiz() {
     // Get data from context API
     const { quizCode, setQuizNickname } = useContext(AppContext);
 
-    const sendData = () => {
+    const handleSubmit = () => {
         const nickname = document.getElementById('nickname').value;
 
         // Check nickname is valid
@@ -58,7 +58,7 @@ export default function StartQuiz() {
                 />}
                 <Button
                     variant='contained'
-                    onClick={sendData}
+                    onClick={handleSubmit}
                 > Start
                 </Button>
             </Box>

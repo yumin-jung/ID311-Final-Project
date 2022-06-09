@@ -5,7 +5,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { AppContext } from '../context/AppContext';
 
 function App({ Component, pageProps }) {
-
   // Global state with context API
   const [isUser, setIsUser] = useState(false)
   const [quizCode, setQuizCode] = useState(null);

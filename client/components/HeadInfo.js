@@ -1,5 +1,6 @@
 import Head from 'next/head'
 
+// Website header info
 const HeadInfo = ({ title, keyword, contents }) => {
     return (
         <Head>

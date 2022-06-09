@@ -16,7 +16,7 @@ let scoreList = [];
 let msgList = [];
 
 export default function ScoreBoard() {
-    const { quizCode } = useContext(AppContext);
+    const { isUser, quizCode } = useContext(AppContext);
 
     // Check rendering
     const [isRenderScore, setIsRenderScore] = useState(false);
@@ -43,7 +43,7 @@ export default function ScoreBoard() {
                     const msgListAll = response.data.messages.map((msg) => {
                         return { quizCode: msg.quizCode, nickname: msg.nickname, message: msg.message };
                     })
-                    msgList = msgListAll.filter((score) => score.quizCode == quizCode)
+                    msgList = msgListAll.filter((msg) => msg.quizCode == quizCode)
                     setIsRenderMsg(true)
                 }
                 else {
@@ -62,7 +62,7 @@ export default function ScoreBoard() {
 
     return (
         <>
-            <Nav />
+            <Nav isUser={isUser} quizCode={quizCode} />
             <Box sx={{ width: '100%' }} >
                 <Grid container
                     spacing={10}
@@ -142,7 +142,7 @@ export default function ScoreBoard() {
                             </Typography>
                             <List sx={{ width: '100%', maxWidth: 360 }}>
                                 {msgList.map((msg, idx) =>
-                                    <Message key={idx} userName={msg.nickname} comment={msg.message} />
+                                    <Message key={idx} userName={msg.nickname} comment={msg.message} quizCode={quizCode} />
                                 )}
                             </List>
                         </Box>
@@ -218,7 +218,7 @@ export default function ScoreBoard() {
                             </Typography>
                             <List sx={{ width: '80%', maxWidth: 360 }}>
                                 {msgList.map((msg, idx) =>
-                                    <Message key={idx} userName={msg.nickname} comment={msg.message} />
+                                    <Message key={idx} userName={msg.nickname} comment={msg.message} quizCode={quizCode} />
                                 )}
                             </List>
                         </Box>

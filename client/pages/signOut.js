@@ -4,7 +4,7 @@ import { AppContext } from '../context/AppContext';
 
 export default function SignOut() {
     const router = useRouter();
-    const { isUser, setIsUser } = useContext(AppContext);
+    const { setIsUser } = useContext(AppContext);
 
     useEffect(() => {
         setIsUser(false);
