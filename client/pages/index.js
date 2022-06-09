@@ -30,6 +30,7 @@ export default function Home() {
     if (event.target.value.length <= 6) setcodeInput(event.target.value.toUpperCase());
   }
 
+
   const handleSubmit = (event) => {
     event.preventDefault();
 

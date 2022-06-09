@@ -26,13 +26,13 @@ export default function SignUp() {
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        const characters = 'abcdefghijklmnopqrstuvwxyz';
 
         //avoid overlapped quizCode
         function makeRandomCode() {
-            let codeList = new Array(6).fill();
-            let randomCode = codeList.map((e) => characters.charAt(Math.floor(Math.random() * characters.length))).join('')
-            while (codes.includes(randomCode)) randomCode = codeList.map((e) => characters.charAt(Math.floor(Math.random() * characters.length))).join('')
+            let randomCode = Math.random().toString(36).slice(2, 8);
+            while (codes.includes(randomCode)) {
+                randomCode = Math.random().toString(36).slice(2, 8);
+            }
             return randomCode;
         }
 
