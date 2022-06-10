@@ -150,32 +150,37 @@ se
 # Main Challenge 🔥
 
 # References 🌿
-- ### Work in Collaboration
-  - [What is Good Commit?](https://blog.ull.im/engineering/2019/03/10/logs-on-git.html)
-- ### React
-  - #### React Hooks
-    - [useContext Hook](https://ko.reactjs.org/docs/context.html)
-    - [useEffect Hook](https://ko.reactjs.org/docs/hooks-effect.html)
-    - [useState Hook](https://ko.reactjs.org/docs/hooks-state.html)
-  - #### State Management
-    - [Context API vs Redux vs React Query](https://mingule.tistory.com/74)
-- ### Next.js
-  - [Next.js Documentation](https://nextjs.org/docs/getting-started)
-  - #### Features of Next.js
-    - [44Bits YouTube](https://www.youtube.com/watch?v=jg2ha2RIWN0&ab_channel=44BITS)
-    - [코딩앙마 YouTube](https://www.youtube.com/watch?v=Ujjdn2wMIew&list=PLZKTXPmaJk8Lx3TqPlcEAzTL8zcpBz7NP&ab_channel=%EC%BD%94%EB%94%A9%EC%95%99%EB%A7%88)
-    - [데브리 YouTube](https://www.youtube.com/watch?v=pdWQvfQBSGg&ab_channel=%EB%8D%B0%EB%B8%8C%EB%A6%AC)
-  - #### CSR, SSR, and SSG
-    - [NAVER - What is SSR](https://d2.naver.com/helloworld/7804182)
-    - [SSR & SSG](https://velog.io/@longroadhome/FE-SSRServer-Side-Rendering-%EA%B7%B8%EB%A6%AC%EA%B3%A0-SSGStatic-Site-Generation-feat.-NEXT%EB%A5%BC-%EC%A4%91%EC%8B%AC%EC%9C%BC%EB%A1%9C)
-  - #### Resolving Error 
-    - [React Hydration Error](https://nextjs.org/docs/messages/react-hydration-error)
-- ### Material UI
-  - [MUI Documentation](https://mui.com/material-ui/getting-started/overview/)
-- ### Node.js
-  - #### Connect Node.js Server and MongoDB
-    - [John Ahn YouTube](https://www.youtube.com/watch?v=fM0Vj7dBcm8&list=PL9a7QRYt5fqnlSRu--re7N_1Ean5jFsh3&index=4&ab_channel=JohnAhn)
-    - [run_dev_aiden Tech Blog](https://velog.io/@run_dev_aiden/MongoDB-%EC%97%B0%EA%B2%B0%ED%95%98%EA%B8%B0)
-- ### Deploy
-  - #### Heroku
-    - [Deploy Node.js Server with Heroku](https://rkdvnfma90.tistory.com/224)
+
+### Work in Collaboration
+- [What is Good Commit?](https://blog.ull.im/engineering/2019/03/10/logs-on-git.html)
+
+### React
+- #### React Hooks
+  - [useContext Hook](https://ko.reactjs.org/docs/context.html)
+  - [useEffect Hook](https://ko.reactjs.org/docs/hooks-effect.html)
+  - [useState Hook](https://ko.reactjs.org/docs/hooks-state.html)
+- #### State Management
+  - [Context API vs Redux vs React Query](https://mingule.tistory.com/74)
+### Next.js
+- [Next.js Documentation](https://nextjs.org/docs/getting-started)
+- #### Features of Next.js
+  - [44Bits YouTube](https://www.youtube.com/watch?v=jg2ha2RIWN0&ab_channel=44BITS)
+  - [코딩앙마 YouTube](https://www.youtube.com/watch?v=Ujjdn2wMIew&list=PLZKTXPmaJk8Lx3TqPlcEAzTL8zcpBz7NP&ab_channel=%EC%BD%94%EB%94%A9%EC%95%99%EB%A7%88)
+  - [데브리 YouTube](https://www.youtube.com/watch?v=pdWQvfQBSGg&ab_channel=%EB%8D%B0%EB%B8%8C%EB%A6%AC)
+- #### CSR, SSR, and SSG
+  - [NAVER - What is SSR](https://d2.naver.com/helloworld/7804182)
+  - [SSR & SSG](https://velog.io/@longroadhome/FE-SSRServer-Side-Rendering-%EA%B7%B8%EB%A6%AC%EA%B3%A0-SSGStatic-Site-Generation-feat.-NEXT%EB%A5%BC-%EC%A4%91%EC%8B%AC%EC%9C%BC%EB%A1%9C)
+- #### Resolving Error 
+  - [React Hydration Error](https://nextjs.org/docs/messages/react-hydration-error)
+
+### Material UI
+- [MUI Documentation](https://mui.com/material-ui/getting-started/overview/)
+
+### Node.js
+- #### Connect Node.js Server and MongoDB
+  - [John Ahn YouTube](https://www.youtube.com/watch?v=fM0Vj7dBcm8&list=PL9a7QRYt5fqnlSRu--re7N_1Ean5jFsh3&index=4&ab_channel=JohnAhn)
+  - [run_dev_aiden Tech Blog](https://velog.io/@run_dev_aiden/MongoDB-%EC%97%B0%EA%B2%B0%ED%95%98%EA%B8%B0)
+
+### Deploy
+- #### Heroku
+  - [Deploy Node.js Server with Heroku](https://rkdvnfma90.tistory.com/224)
