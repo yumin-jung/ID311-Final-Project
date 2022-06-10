@@ -4,18 +4,18 @@
 - Live Demo: [YouTube Link](https://www.youtube.com/)
 
 ## Contents
-- [Description of the Application 📚](#description-of-the-application-📚)
+- [Description of the Application 📚](#description-of-the-application-)
   - [Flow Chart](#flow-chart)
   - [User Interfaces](#user-interfaces)
-- [Organization of Code 💻](#organization-of-code-💻)
+- [Organization of Code 💻](#organization-of-code-)
   - [Directory Structure](#directory-structure)
   - [Design Patterns](#design-patterns)
   - [Main Functions](#main-functions)
-- [What We Learned ✏️](#what-we-learned-✏️)
+- [What We Learned 🧑‍💻](#what-we-learned-)
   - [Novel Features](#novel-features)
   - [Libraries, Frameworks, and Tools](#libraries-frameworks-and-tools)
-- [Issue and Known Bug 🐞](#issue-and-known-bug-🐞)
-- [References 🌿](#references-🌿)
+- [Issue and Known Bug 🐞](#issue-and-known-bug-)
+- [References 🌿](#references-)
 
 # Description of the Application 📚
 
@@ -128,7 +128,7 @@ This is **Directory Structure** of our application
 ## Main Functions
 <!-- What are the main functions/classes? -->
 ### Functions in Client
-#### Functions in pages/_app.js
+#### Functions in `pages/_app.js`
 - `APP()`
   - Top component of every React components.
   - Wrap all pages with the global layout.
@@ -161,7 +161,7 @@ This is **Directory Structure** of our application
 - `mongoose.model("{Name}", {name}Schema)`
   - Specify the structure and conditions of the information to be stored in the DB.
 
-# What We Learned ✏️
+# What We Learned 🧑‍💻
 ## Novel Features
 
 ## Libraries, Frameworks, and Tools
