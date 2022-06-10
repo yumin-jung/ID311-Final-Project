@@ -79,24 +79,26 @@ This is flow chart of our application.
 ## Main Functions
 <!-- What are the main functions/classes? -->
 ### Functions in Client
-- Functions in pages/_app.js
-  - `APP()`
-    - Top component of every React components.
-    - Wrap all pages with the global layout.
-    - Especially, wrap all components with a global state using **Context API**.
+#### Functions in pages/_app.js
+- `APP()`
+  - Top component of every React components.
+  - Wrap all pages with the global layout.
+  - Especially, wrap all components with a global state using **Context API**.
 
 ### Functions in Server
-- Functions in index.js
-  - `app.use('/api/{path}', require('./routes/{path}'))`
-    - By using the router, the structure of the server has been simplified and easily scalable.
-  - `mongoose.connect()`
-    - Connect Node.js server & MongoDB
-- Functions in routes/{path}.js
-  - `router.post()`
-    - Post CRUD-related requests to MongoDB.
-- Functions in model/{schema}.model.js
-  - `mongoose.model("{Name}", {name}Schema)`
-    - Specify the structure and conditions of the information to be stored in the DB.
+#### Functions in index.js
+- `app.use('/api/{path}', require('./routes/{path}'))`
+  - By using the router, the structure of the server has been simplified and easily scalable.
+- `mongoose.connect()`
+  - Connect Node.js server & MongoDB
+
+#### Functions in routes/{path}.js
+- `router.post()`
+  - Post CRUD-related requests to MongoDB.
+
+#### Functions in model/{schema}.model.js
+- `mongoose.model("{Name}", {name}Schema)`
+  - Specify the structure and conditions of the information to be stored in the DB.
 
 ## Directory Structure
 This is **Directory Structure** of our application
