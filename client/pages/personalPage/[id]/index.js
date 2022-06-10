@@ -14,74 +14,120 @@ import Nav from '../../../components/Nav';
 
 const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
 const LOCAL_SERVER_URL = 'http://localhost:8080';
-
+let userList = [];
+let quizList = [];
+let scoreList = [];
+let msgList = [];
 
 export default function PersonalPage() {
-    const [quizResult, setquizResult] = useState(null);
-    let scoreList = [];
-    let msgList = [];
     const router = useRouter();
+    const { isUser, quizCode } = useContext(AppContext);
 
-    const { quizCode } = useContext(AppContext);
+    // Check rendering
+    const [isRenderUser, setIsRenderUser] = useState(false);
+    const [isRenderQuiz, setIsRenderQuiz] = useState(false);
+    const [isRenderScore, setIsRenderScore] = useState(false);
+    const [isRenderMsg, setIsRenderMsg] = useState(false);
 
     useEffect(() => {
-        axios.post(LOCAL_SERVER_URL + '/api/quizzes/getQuiz', null)
+        // Get userlist from DB
+        axios.post(LOCAL_SERVER_URL + '/api/users/getUsers', null)
             .then(response => {
                 if (response.data.success) {
-                    const quizList = response.data.quiz;
-                    console.log(quizList);
-                    setquizResult(quizList.filter((e) => e.quizCode == quizCode));
-                    console.log('quiz', quizResult);
+                    const userListAll = response.data.users.map((user) => {
+                        return { username: user.username, password: user.password, quizCode: user.quizCode };
+                    })
+                    userList = userListAll.filter((user) => user.quizCode == quizCode)
+                    setIsRenderUser(true);
                 } else {
                     alert('Failed to get users');
                 }
             })
-        if (quizResult != []) {
-            axios.post(LOCAL_SERVER_URL + '/api/scores/getScore', null)
-                .then(response => {
-                    if (response.data.success) {
-                        // scoreList = response.data.scores
-                        scoreList = response.data.scores.map((score) => {
-                            return { quizCode: score.quizCode, nickname: score.nickname, score: score.score, quizLen: score.quizLen };
-                        })
-                        // console.log(scoreList);
-                    }
-                })
-            axios.post(LOCAL_SERVER_URL + '/api/messages/getMessage', null)
-                .then(response => {
-                    if (response.data.success) {
-                        msgList = response.data.messages.map((msg) => {
-                            return { quizCode: msg.quizCode, nickname: msg.nickname, message: msg.message };
-                        })
-                        // console.log(msgList);
-                    }
-                })
 
-        }
+        // Get quizlist from DB
+        axios.post(LOCAL_SERVER_URL + '/api/quizzes/getQuiz', null)
+            .then(response => {
+                if (response.data.success) {
+                    const quizListAll = response.data.quiz;
+                    quizList = quizListAll.filter((quiz) => quiz.quizCode == quizCode)
+                    setIsRenderQuiz(true);
+                } else {
+                    alert('Failed to get quizzes');
+                }
+            })
+
+        // Get score data
+        axios.post(LOCAL_SERVER_URL + '/api/scores/getScore', null)
+            .then(response => {
+                if (response.data.success) {
+                    const scoreListAll = response.data.scores.map((score) => {
+                        return { quizCode: score.quizCode, nickname: score.nickname, score: score.score, quizLen: score.quizLen };
+                    })
+                    scoreList = scoreListAll.filter((score) => score.quizCode == quizCode)
+                    console.log(scoreList)
+                    setIsRenderScore(true)
+                }
+                else {
+                    alert('Failed to get scores');
+                }
+            })
+
+        // Get message data
+        axios.post(LOCAL_SERVER_URL + '/api/messages/getMessage', null)
+            .then(response => {
+                if (response.data.success) {
+                    const msgListAll = response.data.messages.map((msg) => {
+                        return { quizCode: msg.quizCode, nickname: msg.nickname, message: msg.message };
+                    })
+                    msgList = msgListAll.filter((msg) => msg.quizCode == quizCode)
+                    setIsRenderMsg(true)
+                }
+                else {
+                    alert('Failed to get msgs');
+                }
+            })
     }, []);
+
+    // Pause rendering until get data
+    if (isRenderUser === false) {
+        return null;
+    }
+    if (isRenderQuiz === false) {
+        return null;
+    }
+    if (isRenderScore === false) {
+        return null;
+    }
+    if (isRenderMsg === false) {
+        return null;
+    }
 
     const MakeQuiz = (event) => {
         router.push({
-            pathname: '/makeQuiz',
-        }, `/${quizCode}/makeQuiz`);
+            pathname: '/makeQuiz/[id]',
+            query: { id: quizCode },
+        })
     }
 
-    if (quizResult == null || quizResult.length == 0) {
+    console.log(scoreList, msgList)
+    if (quizList.length == 0) {
         return (
-            <Container sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center'
-            }}>
-                <Button onClick={MakeQuiz}>Make Your Quiz</Button>
-            </Container>
+            <>
+                <Nav isUser={isUser} quizCode={quizCode} />
+                <Container sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center'
+                }}>
+                    <Button onClick={MakeQuiz}>Make Your Quiz</Button>
+                </Container>
+            </>
         )
     }
     else {
-        console.log(quizResult);
         return (
             <>
-                <Nav />
+                <Nav isUser={isUser} quizCode={quizCode} />
                 <Container sx={{
                     width: '100%',
                     alignItems: 'center'
@@ -150,7 +196,7 @@ export default function PersonalPage() {
                                 </Typography>
                                 <List sx={{ width: '100%', maxWidth: 360 }}>
                                     {msgList.map((msg, idx) => (
-                                        <Message key={idx} userName={msg.nickname} comment={msg.message} />
+                                        <Message key={idx} userName={msg.nickname} comment={msg.message} quizCode={quizCode} />
                                     ))}
                                 </List>
                             </Box>

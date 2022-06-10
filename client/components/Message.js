@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import ListItem from '@mui/material/ListItem';
@@ -10,9 +10,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
 const LOCAL_SERVER_URL = 'http://localhost:8080';
 
-const Message = ({ userName, comment }) => {
+const Message = ({ userName, comment, quizCode }) => {
     const router = useRouter();
 
+    // Delete message
     const deleteMessage = (event) => {
         event.preventDefault();
 
@@ -21,6 +22,7 @@ const Message = ({ userName, comment }) => {
             message: comment
         }
 
+        // Delete message from DB
         axios.post(LOCAL_SERVER_URL + '/api/messages/deleteMessage', msgInfo)
             .then(response => {
                 if (!response.data.success) {
@@ -28,7 +30,7 @@ const Message = ({ userName, comment }) => {
                 }
             })
 
-        window.location.replace(window.location.href);
+        router.push('/')
     }
 
     return (
