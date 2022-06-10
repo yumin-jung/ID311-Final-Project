@@ -83,13 +83,13 @@ This is **Directory Structure** of our application
 
 - **Reusable components** are stored in the `component` directory.
 - **Global store component** is stored in the `context` directory.
-- **Pages of the application** are stored horizontally in the `pages` folder.
+- **Pages of the application** are stored horizontally in the `pages` directory.
 
 ### Server Directory
 <img src="data/server-structure.png" width="100%">
 
-- **Paths that request data from DB** are stored in the `routes` directory.
 - **Schema of the model** is stored in the `models` directory.
+- **Paths that request data from DB** are stored in the `routes` directory.
 
 ## Design Patterns
 <!-- If you used patterns, what did you use them for, and how do different parts of your code speak to each other? -->
@@ -145,7 +145,6 @@ This is **Directory Structure** of our application
   - Specify the structure and conditions of the information to be stored in the DB.
 
 # What We Learned ✏️
-se
 ## Novel Features
 
 ## Libraries, Frameworks, and Tools
@@ -161,7 +160,7 @@ se
 
 ### Axios
 
-# Main Challenge 🔥
+# Issue and Known Bug 🐞
 
 # References 🌿
 
