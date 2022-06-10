@@ -98,7 +98,15 @@ This is flow chart of our application.
   - `mongoose.model("{Name}", {name}Schema)`
     - Specify the structure and conditions of the information to be stored in the DB.
 
-## Design Patterns and Architecture
+## Directory Structure
+This is **Directory Structure** of our application
+### Client Directory
+<img src="data/client-structure.png" width="100%">
+
+### Server Directory
+<img src="data/server-structure.png" width="100%">
+
+## Design Patterns
 <!-- If you used patterns, what did you use them for, and how do different parts of your code speak to each other? -->
 ### Atomic Design Pattern
 - client - components & pages 
