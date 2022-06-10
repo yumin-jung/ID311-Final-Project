@@ -76,30 +76,6 @@
 This is flow chart of our application.
 <img src="data/flowchart.png" width="100%">
 
-## Main Functions
-<!-- What are the main functions/classes? -->
-### Functions in Client
-#### Functions in pages/_app.js
-- `APP()`
-  - Top component of every React components.
-  - Wrap all pages with the global layout.
-  - Especially, wrap all components with a global state using **Context API**.
-
-### Functions in Server
-#### Functions in index.js
-- `app.use('/api/{path}', require('./routes/{path}'))`
-  - By using the router, the structure of the server has been simplified and easily scalable.
-- `mongoose.connect()`
-  - Connect Node.js server & MongoDB
-
-#### Functions in routes/{path}.js
-- `router.post()`
-  - Post CRUD-related requests to MongoDB.
-
-#### Functions in model/{schema}.model.js
-- `mongoose.model("{Name}", {name}Schema)`
-  - Specify the structure and conditions of the information to be stored in the DB.
-
 ## Directory Structure
 This is **Directory Structure** of our application
 ### Client Directory
@@ -131,6 +107,42 @@ This is **Directory Structure** of our application
 - Server
 
 ### Module
+
+## Main Functions
+<!-- What are the main functions/classes? -->
+### Functions in Client
+#### Functions in pages/_app.js
+- `APP()`
+  - Top component of every React components.
+  - Wrap all pages with the global layout.
+  - Especially, wrap all components with a global state using **Context API**.
+
+#### Functions in context/AppContext.js
+- `createContext(null)`
+  - Creates a **global store** used in the application.
+
+#### Functions in components directory
+- Components like Nav are rendered differently depending on the **state of the page**.
+- State of the page is transferred with **props**.
+
+#### Functions in pages directory
+- **Render** each page of the application.
+- Pages created with [id] directory like scoreBoard provides **dynamic routing** using **queries**.
+
+### Functions in Server
+#### Functions in index.js
+- `app.use('/api/{path}', require('./routes/{path}'))`
+  - By using the router, the structure of the server has been **simplified and easily scalable**.
+- `mongoose.connect()`
+  - Connect Node.js server & MongoDB
+
+#### Functions in routes/{path}.js
+- `router.post()`
+  - Post CRUD-related requests to MongoDB.
+
+#### Functions in model/{schema}.model.js
+- `mongoose.model("{Name}", {name}Schema)`
+  - Specify the structure and conditions of the information to be stored in the DB.
 
 # What We Learned ✏️
 se
