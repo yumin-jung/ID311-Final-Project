@@ -4,18 +4,49 @@
 - Live Demo: [YouTube Link](https://www.youtube.com/)
 
 ## Contents
+- [Personal Quiz 🙂](#personal-quiz-)
+  - [Contents](#contents)
 - [Description of the Application 📚](#description-of-the-application-)
   - [Flow Chart](#flow-chart)
   - [User Interfaces](#user-interfaces)
 - [Organization of Code 💻](#organization-of-code-)
   - [Directory Structure](#directory-structure)
+    - [Client Directory](#client-directory)
+    - [Server Directory](#server-directory)
   - [Design Patterns](#design-patterns)
+    - [Atomic Design Pattern](#atomic-design-pattern)
+    - [Observer Design Pattern](#observer-design-pattern)
+    - [Provider Design Pattern](#provider-design-pattern)
+    - [Routing Design Pattern](#routing-design-pattern)
+    - [Module](#module)
   - [Main Functions](#main-functions)
+    - [Functions in Client](#functions-in-client)
+      - [pages/_app.js](#pages_appjs)
+      - [context/AppContext.js](#contextappcontextjs)
+      - [components directory](#components-directory)
+      - [pages directory](#pages-directory)
+    - [Functions in Server](#functions-in-server)
+      - [index.js](#indexjs)
+      - [routes/{path}.js](#routespathjs)
+      - [model/{schema}.model.js](#modelschemamodeljs)
 - [What We Learned 🧑‍💻](#what-we-learned-)
   - [Novel Features](#novel-features)
   - [Libraries, Frameworks, and Tools](#libraries-frameworks-and-tools)
+    - [React](#react)
+    - [Next.js](#nextjs)
+    - [Material UI](#material-ui)
+    - [MongoDB](#mongodb)
+    - [Vercel](#vercel)
+    - [Heroku](#heroku)
+    - [Axios](#axios)
 - [Issue and Known Bug 🐞](#issue-and-known-bug-)
 - [References 🌿](#references-)
+    - [Work in Collaboration](#work-in-collaboration)
+    - [React](#react-1)
+    - [Next.js](#nextjs-1)
+    - [Material UI](#material-ui-1)
+    - [Node.js](#nodejs)
+    - [Deploy](#deploy)
 
 # Description of the Application 📚
 
@@ -128,36 +159,36 @@ This is **Directory Structure** of our application
 ## Main Functions
 <!-- What are the main functions/classes? -->
 ### Functions in Client
-#### Functions in pages/_app.js
+#### pages/_app.js
 - `APP()`
   - Top component of every React components.
   - Wrap all pages with the global layout.
   - Especially, wrap all components with a global state using **Context API**.
 
-#### Functions in context/AppContext.js
+#### context/AppContext.js
 - `createContext(null)`
   - Creates a **global store** used in the application.
 
-#### Functions in components directory
+#### components directory
 - Components like Nav are rendered differently depending on the **state of the page**.
 - State of the page is transferred with **props**.
 
-#### Functions in pages directory
+#### pages directory
 - **Render** each page of the application.
 - Pages created with [id] directory like scoreBoard provides **dynamic routing** using **queries**.
 
 ### Functions in Server
-#### Functions in index.js
+#### index.js
 - `app.use('/api/{path}', require('./routes/{path}'))`
   - By using the router, the structure of the server has been **simplified and easily scalable**.
 - `mongoose.connect()`
   - Connect Node.js server & MongoDB
 
-#### Functions in routes/{path}.js
+#### routes/{path}.js
 - `router.post()`
   - Post CRUD-related requests to MongoDB.
 
-#### Functions in model/{schema}.model.js
+#### model/{schema}.model.js
 - `mongoose.model("{Name}", {name}Schema)`
   - Specify the structure and conditions of the information to be stored in the DB.
 
