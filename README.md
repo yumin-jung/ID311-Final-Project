@@ -4,8 +4,6 @@
 - Live Demo: [YouTube Link](https://www.youtube.com/)
 
 ## Contents
-- [Personal Quiz 🙂](#personal-quiz-)
-  - [Contents](#contents)
 - [Description of the Application 📚](#description-of-the-application-)
   - [Flow Chart](#flow-chart)
   - [User Interfaces](#user-interfaces)
@@ -13,10 +11,7 @@
   - [Directory Structure](#directory-structure)
   - [Design Patterns](#design-patterns)
   - [Main Functions](#main-functions)
-    - [Functions in Client](#functions-in-client)
-    - [Functions in Server](#functions-in-server)
 - [What We Learned 🧑‍💻](#what-we-learned-)
-  - [Novel Features](#novel-features)
   - [Libraries, Frameworks, and Tools](#libraries-frameworks-and-tools)
 - [Issue and Known Bug 🐞](#issue-and-known-bug-)
 - [References 🌿](#references-)
@@ -115,19 +110,78 @@ This is **Directory Structure** of our application
 ## Design Patterns
 <!-- If you used patterns, what did you use them for, and how do different parts of your code speak to each other? -->
 ### Atomic Design Pattern
-- client - components & pages 
+<img src="data/atomic-design-pattern.png" width="80%">
+
+- Divide the components and pages by `Atomic Design Pattern`.
+- Why did we use Atomic Design Pattern?
+  - Increase `reusability` of components.
+  - Increase `scalability` of pages and components.
 
 ### Observer Design Pattern
-- react - props
+- Pages communicate with components by `props`.
+  
+  ```js
+  return (
+    <ThemeProvider theme={theme}>
+      <Nav isUser={isUser} quizCode={quizCode} />
+    ...
+  )
+  ```
+
+- Why did we use Observer Design Pattern?
+  - Increase `reusability` because components receive data only through props.
+  - Components and pages can be managed `independently`.
+  - Make pages and components `speak to each other`.
+
 
 ### Provider Design Pattern
-- Context API
+- Share data across the tree descendant nodes with Context API
   
-### Routing Design Pattern
-- Client - Next.js Dynamic Routing
-- Server
+  ```js
+  function App({ Component, pageProps }) {
+  const [isUser, setIsUser] = useState(false)
+  const [quizCode, setQuizCode] = useState(null);
+  const [quizNickname, setQuizNickname] = useState(null);
+  const [score, setScore] = useState(0);
 
-### Module
+  return (
+    <AppContext.Provider
+      value={{
+        isUser,
+        setIsUser,
+        quizCode,
+        setQuizCode,
+        quizNickname,
+        setQuizNickname,
+        score,
+        setScore
+      }}
+    >
+      <CssBaseline />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </AppContext.Provider>
+  )}
+  ```
+- Why did we use Provider Design Pattern?
+  - Every components and pages can `share the same state` of application.
+  - Solving `prop drilling` in React.
+  - Make pages `speak to each other`.
+
+### Routing Design Pattern
+- In server, request from client was divided into routes directory by `path`.
+  
+  ```js
+  app.use('/api/users', require('./routes/users'));
+  app.use('/api/quizzes', require('./routes/quizzes'));
+  app.use('/api/scores', require('./routes/scores'));
+  app.use('/api/messages', require('./routes/messages'));
+  ```
+
+- Why did we use Routing Design Pattern?
+  - Increase `readability` and `ease of management` by Store code separately.
+  - `Easy to debug` by tying them together with the same personality.
 
 ## Main Functions
 <!-- What are the main functions/classes? -->
@@ -166,20 +220,41 @@ This is **Directory Structure** of our application
   - Specify the structure and conditions of the information to be stored in the DB.
 
 # What We Learned 🧑‍💻
-## Novel Features
-
 ## Libraries, Frameworks, and Tools
-
 ### React
+<img src="data/react-logo.png" width="40%">
+
+- Designed to `separate` and `synthesize` components to maximize the reusability.
+- Write code `concisely` using React hooks.
+
 ### Next.js
+<img src="data/nextjs-logo.png" width="40%">
+
+- Easy to develop separate pages and components.
+- Easy to implement `dynamic routing`.
+- Provides functions related to `router` and `image`.
+
 ### Material UI
+<img src="data/mui-logo.png" width="40%">
+
+- `Easily implement UI` without writing css one by one.
+- MUI's sx option allows to insert the specific css.
 
 ### MongoDB
+<img src="data/mongodb-logo.png" width="40%">
 
-### Vercel
-### Heroku
+- Can store many different forms of data.
+- MongoDB has a good `scalability` and `flexibility`.
 
 ### Axios
+- HTTP Communication Library.
+- Based on `promise`.
+
+### Vercel
+- `Easy to deploy` Next.js app with connect GitHub repo to vercel.
+
+### Heroku
+- `Easy to deploy` Node.js server with push code to Heroku CLI.
 
 # Issue and Known Bug 🐞
 
@@ -195,6 +270,7 @@ This is **Directory Structure** of our application
   - [useState Hook](https://ko.reactjs.org/docs/hooks-state.html)
 - #### State Management
   - [Context API vs Redux vs React Query](https://mingule.tistory.com/74)
+
 ### Next.js
 - [Next.js Documentation](https://nextjs.org/docs/getting-started)
 - #### Features of Next.js
@@ -215,6 +291,8 @@ This is **Directory Structure** of our application
   - [John Ahn YouTube](https://www.youtube.com/watch?v=fM0Vj7dBcm8&list=PL9a7QRYt5fqnlSRu--re7N_1Ean5jFsh3&index=4&ab_channel=JohnAhn)
   - [run_dev_aiden Tech Blog](https://velog.io/@run_dev_aiden/MongoDB-%EC%97%B0%EA%B2%B0%ED%95%98%EA%B8%B0)
 
-### Deploy
-- #### Heroku
+### Axios
+  - [Ajax vs Axios vs fetch](https://velog.io/@kysung95/%EA%B0%9C%EB%B0%9C%EC%83%81%EC%8B%9D-Ajax%EC%99%80-Axios-%EA%B7%B8%EB%A6%AC%EA%B3%A0-fetch)
+
+### Heroku
   - [Deploy Node.js Server with Heroku](https://rkdvnfma90.tistory.com/224)
