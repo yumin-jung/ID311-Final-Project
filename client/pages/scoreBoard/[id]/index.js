@@ -24,7 +24,7 @@ export default function ScoreBoard() {
 
     // Get score and message data from DB when render
     useEffect(() => {
-        axios.post(LOCAL_SERVER_URL + '/api/scores/getScore', null)
+        axios.post(DEPLOY_SERVER_URL + '/api/scores/getScore', null)
             .then(response => {
                 if (response.data.success) {
                     const scoreListAll = response.data.scores.map((score) => {
@@ -37,7 +37,7 @@ export default function ScoreBoard() {
                     alert('Failed to get scores');
                 }
             })
-        axios.post(LOCAL_SERVER_URL + '/api/messages/getMessage', null)
+        axios.post(DEPLOY_SERVER_URL + '/api/messages/getMessage', null)
             .then(response => {
                 if (response.data.success) {
                     const msgListAll = response.data.messages.map((msg) => {

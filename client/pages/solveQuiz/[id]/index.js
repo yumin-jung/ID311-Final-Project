@@ -36,7 +36,7 @@ export default function SolveQuiz() {
             };
 
             // Save score to DB
-            axios.post(LOCAL_SERVER_URL + '/api/scores/saveScore', scoreInfo)
+            axios.post(DEPLOY_SERVER_URL + '/api/scores/saveScore', scoreInfo)
                 .then(response => {
                     if (response.data.success) {
                         console.log(`Succeed to save score info`)
@@ -65,7 +65,7 @@ export default function SolveQuiz() {
 
     // Get quiz data from DB
     useEffect(() => {
-        axios.post(LOCAL_SERVER_URL + '/api/quizzes/getQuiz', null)
+        axios.post(DEPLOY_SERVER_URL + '/api/quizzes/getQuiz', null)
             .then(response => {
                 if (response.data.success) {
                     quizListFromDB = response.data.quiz

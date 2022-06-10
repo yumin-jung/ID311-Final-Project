@@ -20,7 +20,7 @@ export default function MakeQuiz() {
     const [questionList, setquestionList] = useState(null);
 
     useEffect(() => {
-        axios.post(LOCAL_SERVER_URL + '/api/users/getUsers', null)
+        axios.post(DEPLOY_SERVER_URL + '/api/users/getUsers', null)
             .then(response => {
                 if (response.data.success) {
                     const userListAll = response.data.users.map((user) => {
@@ -58,7 +58,7 @@ export default function MakeQuiz() {
             quizLength: qBundle.length,
         }
 
-        axios.post(LOCAL_SERVER_URL + '/api/quizzes/saveQuiz', quizData)
+        axios.post(DEPLOY_SERVER_URL + '/api/quizzes/saveQuiz', quizData)
             .then(response => {
                 if (response.data.success) {
                     console.log(`Succeed to save ${response.data.quiz}`)

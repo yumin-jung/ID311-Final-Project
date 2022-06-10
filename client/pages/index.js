@@ -48,7 +48,7 @@ export default function Home() {
 
   // Get data from DB
   useEffect(() => {
-    axios.post(LOCAL_SERVER_URL + '/api/quizzes/getQuiz', null)
+    axios.post(DEPLOY_SERVER_URL + '/api/quizzes/getQuiz', null)
       .then(response => {
         if (response.data.success) {
           quizList = response.data.quiz

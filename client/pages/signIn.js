@@ -60,7 +60,7 @@ export default function SignIn() {
 
     // Get user data from DB
     useEffect(() => {
-        axios.post(LOCAL_SERVER_URL + '/api/users/getUsers', null)
+        axios.post(DEPLOY_SERVER_URL + '/api/users/getUsers', null)
             .then(response => {
                 if (response.data.success) {
                     userList = response.data.users.map((user) => {

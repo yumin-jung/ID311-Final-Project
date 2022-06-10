@@ -50,7 +50,7 @@ export default function SignUp() {
             alert('User already exists');
         }
         else {
-            axios.post(LOCAL_SERVER_URL + '/api/users/saveUser', userInfo)
+            axios.post(DEPLOY_SERVER_URL + '/api/users/saveUser', userInfo)
                 .then(response => {
                     if (response.data.success) {
                         console.log(`Succeed to save ${response.data.user.username}'s info`)
@@ -65,7 +65,7 @@ export default function SignUp() {
 
     // Get user data from DB
     useEffect(() => {
-        axios.post(LOCAL_SERVER_URL + '/api/users/getUsers', null)
+        axios.post(DEPLOY_SERVER_URL + '/api/users/getUsers', null)
             .then(response => {
                 if (response.data.success) {
                     userList = response.data.users.map((user) => {

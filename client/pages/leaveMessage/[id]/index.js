@@ -35,7 +35,7 @@ export default function LeaveMessage() {
             message: data.get('message')
         }
 
-        axios.post(LOCAL_SERVER_URL + '/api/messages/saveMessage', message)
+        axios.post(DEPLOY_SERVER_URL + '/api/messages/saveMessage', message)
             .then(response => {
                 if (response.data.success) {
                     console.log(`Succeed to save msg`)
@@ -53,7 +53,7 @@ export default function LeaveMessage() {
 
     // Get score and message data from DB
     useEffect(() => {
-        axios.post(LOCAL_SERVER_URL + '/api/scores/getScore', null)
+        axios.post(DEPLOY_SERVER_URL + '/api/scores/getScore', null)
             .then(response => {
                 if (response.data.success) {
                     const scoreListAll = response.data.scores.map((score) => {
@@ -66,7 +66,7 @@ export default function LeaveMessage() {
                     alert('Failed to get scores');
                 }
             })
-        axios.post(LOCAL_SERVER_URL + '/api/messages/getMessage', null)
+        axios.post(DEPLOY_SERVER_URL + '/api/messages/getMessage', null)
             .then(response => {
                 if (response.data.success) {
                     const msgListAll = response.data.messages.map((msg) => {
