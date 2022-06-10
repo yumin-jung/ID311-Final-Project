@@ -4,6 +4,11 @@
 - Live Demo: [YouTube Link](https://www.youtube.com/)
 
 # Description of the Application 📚
+
+## Flow Chart
+This is flow chart of our application.
+<img src="data/flowchart.png" width="100%">
+
 ## User Interfaces
 <!-- How It Works & What the User Has to Do -->
 - ### Home Page
@@ -72,9 +77,6 @@
   - 2
 
 # Organization of Code 💻
-## Flow Charts
-This is flow chart of our application.
-<img src="data/flowchart.png" width="100%">
 
 ## Directory Structure
 This is **Directory Structure** of our application
