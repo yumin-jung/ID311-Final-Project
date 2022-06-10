@@ -128,7 +128,7 @@ This is **Directory Structure** of our application
 ## Main Functions
 <!-- What are the main functions/classes? -->
 ### Functions in Client
-#### Functions in `pages/_app.js`
+#### Functions in pages/_app.js
 - `APP()`
   - Top component of every React components.
   - Wrap all pages with the global layout.
