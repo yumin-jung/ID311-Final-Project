@@ -3,6 +3,20 @@
 - Git Repository: [GitHub Link](https://github.com/yumin-jung/ID311-Final-Project)
 - Live Demo: [YouTube Link](https://www.youtube.com/)
 
+## Contents
+- [Description of the Application 📚](#description-of-the-application-📚)
+  - [Flow Chart](#flow-chart)
+  - [User Interfaces](#user-interfaces)
+- [Organization of Code 💻](#organization-of-code-💻)
+  - [Directory Structure](#directory-structure)
+  - [Design Patterns](#design-patterns)
+  - [Main Functions](#main-functions)
+- [What We Learned ✏️](#what-we-learned-✏️)
+  - [Novel Features](#novel-features)
+  - [Libraries, Frameworks, and Tools](#libraries-frameworks-and-tools)
+- [Issue and Known Bug 🐞](#issue-and-known-bug-🐞)
+- [References 🌿](#references-🌿)
+
 # Description of the Application 📚
 
 ## Flow Chart
@@ -80,6 +94,7 @@ This is flow chart of our application.
 
 ## Directory Structure
 This is **Directory Structure** of our application
+
 ### Client Directory
 <img src="data/client-structure.png" width="100%">
 
