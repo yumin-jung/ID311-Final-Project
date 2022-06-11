@@ -20,74 +20,75 @@
 
 ## Flow Chart
 This is flow chart of our application.
-<img src="data/flowchart.png" width="100%">
+<img src="data/flowchart.jpg" width="100%">
 
 ## User Interfaces
 <!-- How It Works & What the User Has to Do -->
 - ### Home Page
-  <img src="data/home-page.png" width="80%" height="80%">
+  <img src="data/main_page.png" width="80%" height="80%">
 
-  - 1
-  - 2
+  - Input the maker's quiz code
+  - When writing the quiz code, the button for next page appears
 
-- ### SignIn Page
-  <img src="data/signIn-page.png" width="80%" height="80%">
 
-  - 1
-  - 2
+  
+- ### SignUp/In Page
+  <img src="data/sign up.png" width="80%" height="80%">
+  <img src="data/sign in.png" width="80%" height="80%">
 
-- ### SignUp Page
-  <img src="data/signUp-page.png" width="80%" height="80%">
+  - Putting first name, last name, username, and password, users can sign up our website
+  - By matching the username and password, users can access their personal page
 
-  - 1
-  - 2
 
-- ### SignOut Page
-
-  - 1
-  - 2
   
 - ### Personal Page
-  <img src="data/personal-page.png" width="80%" height="80%">
+  <img src="data/my page_make quiz.png" width="80%" height="80%">
+  <img src="data/my page_no one.png" width="80%" height="80%">
+  <img src="data/my page.png" width="80%" height="80%">
 
-  - 1
-  - 2
+  - If there is no quiz made before, there is a 'make quiz' button in the personal page
+  - By clicking the button, the maker will make his/her own quiz
+  - After making a quiz, there is a pattern not filled up
+  - If friends solve quizzes, the patterns start to be completed
 
 - ### MakeQuiz Page
-- <img src="data/makeQuiz-page.png" width="80%" height="80%">
+  <img src="" width="80%" height="80%">
 
   - 1
   - 2
+
+
+
+
 
 - ### ShareLink Page
-  <img src="data/shareLink-page.png" width="80%" height="80%">
+  <img src="data/share_quiz.png" width="80%" height="80%">
 
-  - 1
-  - 2
+  - By clicking 'share quiz' button, users can copy the texts with quiz link in clipboard
+
+
 
 - ### StartQuiz Page
-  <img src="data/startQuiz-page.png" width="80%" height="80%">
+  <img src="data/start_quiz.png" width="80%" height="80%">
 
-  - 1
-  - 2
+  - Solvers can set their own nickname before starting the quiz
+  - The nickname cannot be overlapped with each other
 
 - ### SolveQuiz Page
-  <img src="data/solveQuiz-page.png" width="80%" height="80%">
+  <img src="data/solve_quiz.png" width="80%" height="80%">
+    <img src="data/solve_quiz_previous.png" width="80%" height="80%">
 
-  - 1
-  - 2
+  - On the top, there is a progress bar to show how many questions remain
+  - There are at least 2 options, and maximum is 4 options
+  - By left arrow button, they can go back to the previous question
 
-- ### LeaveMessage Page
-  <img src="data/leaveMessage-page.png" width="80%" height="80%">
+- ### LeaveResult Page
+  <img src="data/check_result.png" width="80%" height="80%">
+  <img src="data/leave_result.png" width="80%" height="80%">
 
-  - 1
-  - 2
+  - Solvers can view the remaining patterns they can fill up and their scores
+  - They will choose one of colors and the postions they want to fill up, and they can leave a small message
 
-- ### ScoreBoard Page
-  <img src="data/scoreBoard-page.png" width="80%" height="80%">
-
-  - 1
-  - 2
 
 # Organization of Code 💻
 
