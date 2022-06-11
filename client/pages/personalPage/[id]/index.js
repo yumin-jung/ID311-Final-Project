@@ -31,7 +31,7 @@ export default function PersonalPage() {
 
     useEffect(() => {
         // Get userlist from DB
-        axios.post(LOCAL_SERVER_URL + '/api/users/getUsers', null)
+        axios.post(DEPLOY_SERVER_URL + '/api/users/getUsers', null)
             .then(response => {
                 if (response.data.success) {
                     const userListAll = response.data.users.map((user) => {
@@ -45,7 +45,7 @@ export default function PersonalPage() {
             })
 
         // Get quizlist from DB
-        axios.post(LOCAL_SERVER_URL + '/api/quizzes/getQuiz', null)
+        axios.post(DEPLOY_SERVER_URL + '/api/quizzes/getQuiz', null)
             .then(response => {
                 if (response.data.success) {
                     const quizListAll = response.data.quiz;
@@ -57,7 +57,7 @@ export default function PersonalPage() {
             })
 
         // Get score data
-        axios.post(LOCAL_SERVER_URL + '/api/scores/getScore', null)
+        axios.post(DEPLOY_SERVER_URL + '/api/scores/getScore', null)
             .then(response => {
                 if (response.data.success) {
                     const scoreListAll = response.data.scores.map((score) => {
@@ -73,7 +73,7 @@ export default function PersonalPage() {
             })
 
         // Get message data
-        axios.post(LOCAL_SERVER_URL + '/api/messages/getMessage', null)
+        axios.post(DEPLOY_SERVER_URL + '/api/messages/getMessage', null)
             .then(response => {
                 if (response.data.success) {
                     const msgListAll = response.data.messages.map((msg) => {

@@ -23,7 +23,7 @@ const Message = ({ userName, comment, quizCode }) => {
         }
 
         // Delete message from DB
-        axios.post(LOCAL_SERVER_URL + '/api/messages/deleteMessage', msgInfo)
+        axios.post(DEPLOY_SERVER_URL + '/api/messages/deleteMessage', msgInfo)
             .then(response => {
                 if (!response.data.success) {
                     alert('Failed to delete message')
