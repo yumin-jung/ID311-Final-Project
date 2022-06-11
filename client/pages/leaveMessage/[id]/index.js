@@ -59,7 +59,11 @@ export default function LeaveMessage() {
                     const scoreListAll = response.data.scores.map((score) => {
                         return { quizCode: score.quizCode, nickname: score.nickname, score: score.score, quizLen: score.quizLen };
                     })
-                    scoreList = scoreListAll.filter((score) => score.quizCode == quizCode)
+                    const scoreListFilter = scoreListAll.filter((score) => score.quizCode == quizCode)
+                    scoreListFilter.sort(function compare(a, b) {
+                        return b.score - a.score;
+                    });
+                    scoreList = scoreListFilter.slice(0, 8);
                     setIsRenderScore(true)
                 }
                 else {
