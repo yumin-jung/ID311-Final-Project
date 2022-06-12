@@ -20,9 +20,9 @@ router.post('/getMessage', (req, res) => {
 
 router.post('/deleteMessage', (req, res) => {
     const messageList = mongoose.model('Message');
-    messageList.findOneAndDelete({ nickname: req.body.nickname, message: req.body.message }, (err) => {
+    messageList.findOneAndDelete({ solver: req.body.solver, message: req.body.message }, (err) => {
         if (err) res.json({ success: false, err });
-        console.log('delete message');
+        else res.status(200).json({ success: true });
     });
 });
 

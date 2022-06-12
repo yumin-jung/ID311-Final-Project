@@ -113,7 +113,6 @@ export default function PersonalPage() {
         })
     }
 
-    console.log(scoreList, msgList)
     if (quizList.length == 0) {
         return (
             <>

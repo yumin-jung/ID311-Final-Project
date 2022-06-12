@@ -6,9 +6,8 @@ const messageSchema = Schema(
         quizCode: {
             type: String,
         },
-        nickname: {
-            type: String,
-        },
+        //nickname, color, order of pattern
+        solver: [Object],
         message: {
             type: String,
         }
