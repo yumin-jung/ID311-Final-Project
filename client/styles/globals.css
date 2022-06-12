@@ -1,9 +1,36 @@
+@font-face {
+	font-family: 'BAUHS93';
+	src: url('../public/BAUHS93.eot');
+	src: local('BAUHS93'), url('../public/BAUHS93.woff') format('woff'), url('../public/BAUHS93.ttf') format('truetype');
+}
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+* { 
+  font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background-color: #EEDFCC;
+}
+
+body{
+  display: flex;
+  height: 95vh;
+  align-items: center;
+  justify-content: center;
+
+}
+
+:root {
+  --red:#EE442B;
+  --yellow: #F8B61A;
+  --blue: #0168B5;
+  --black: #000;
 }
 
 a {
@@ -18,4 +45,154 @@ a {
 ul {
   /* Remove ul's default dot */
   list-style: none;
+}
+
+.logo{
+  display: flex;
+  height: 100px;
+  margin: 0;
+  padding: 0;
+
+}
+
+.logo > div{
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
+  margin-right: 18px;
+}
+
+.logo > div:last-child{
+  margin-right: 0;
+}
+
+.red{
+  background-color: var(--red);
+}
+.blue{
+  background-color: var(--blue);
+}
+.yellow{
+  background-color: var(--yellow);
+}
+.black{
+  background-color: var(--black);
+}
+
+.r1{
+  transform: rotateZ(90deg);
+}
+.r2{
+  transform: rotateZ(180deg);
+}
+.r3{
+  transform: rotateZ(270deg);
+}
+
+.quarter{
+  width: 50px;
+  height: 50px;
+  border-top-right-radius: 50px;
+  z-index: 2;
+}
+
+.half{
+  width: 50px;
+  height: 100px;
+  grid-row: span 2;
+  border-radius: 0 50px 50px 0;
+}
+
+.smallCir{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.bigCir{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  transform-origin: top left;
+  transform: scale(2);
+}
+
+.longBox{
+  width: 50px;
+  height: 50px;
+  position: relative;
+  transform-origin: bottom;
+  transform: scaleY(1.5);
+}
+
+.bauh{
+  font-family: 'BAUHS93';
+  display: block;
+  font-size: 2em;
+  margin-bottom: 0.8em;
+}
+/* 
+.blackBtn{
+  background-color: var(--black);
+  box-shadow: none;
+  border-radius: 0;
+  height: 4em;
+  z-index: 2;
+  color: white;
+  font-size: 1.3em;
+  font-weight: 500;
+} */
+.unBtn{
+  background-color: var(--blue);
+  box-shadow: none;
+  border-radius: 0;
+  height: 4em;
+  border-top-right-radius: 4em;
+  z-index: 2;
+  color: var(--black);
+  font-size: 1.3em;
+  font-weight: 500;
+}
+.unBtn:after{
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: var(--yellow);
+  border-bottom-right-radius: 4em;
+  z-index: -1;
+}
+.unBtn2{
+  background-color: var(--red);
+  color: white;
+}
+.unBtn2::after{
+  background-color: var(--black);
+}
+
+.unBtn:active{
+  filter: blur(10);
+}
+
+input{
+  width: 100%;
+  font-size: 1.4em;
+  box-sizing: border-box;
+  border: 2px solid black;
+  border-radius: 0;
+  outline: none;
+  background-color: transparent;
+  font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  font-weight: 400;
+  padding: 1em;
+}
+input::placeholder{
+  color: rgba(104, 64, 21, 0.304);
+}
+input:-internal-autofill-selected{
+  background-color: #000;
 }

@@ -11,6 +11,7 @@ import Score from '../../../components/Score';
 import Message from '../../../components/Message';
 import { AppContext } from '../../../context/AppContext';
 import Nav from '../../../components/Nav';
+import Logo from '../../../components/Logo';
 
 const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
 const LOCAL_SERVER_URL = 'http://localhost:8080';
@@ -117,12 +118,22 @@ export default function PersonalPage() {
         return (
             <>
                 <Nav isUser={isUser} quizCode={quizCode} />
-                <Container sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center'
-                }}>
-                    <Button onClick={MakeQuiz}>Make Your Quiz</Button>
+                <Container
+                    component="main" 
+                    maxWidth="xs"
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center'
+                    }}>
+                    <Logo size='0.9'></Logo>
+                    <Button onClick={MakeQuiz}
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 5, mb: 2, backgroundColor: 'black', borderRadius: 0, fontSize: '1.3em', padding: '1em', width: '0.9'}} 
+                        className='blackBtn'>
+                        MAKE QUIZ
+                    </Button>
                 </Container>
             </>
         )
@@ -133,7 +144,7 @@ export default function PersonalPage() {
                 <Nav isUser={isUser} quizCode={quizCode} />
                 <Container sx={{
                     width: '100%',
-                    alignItems: 'center'
+                    alignItems: 'center',
                 }} >
                     <Box
                         sx={{
@@ -154,7 +165,6 @@ export default function PersonalPage() {
                             <Box
                                 sx={{
                                     width: '100%',
-                                    bgcolor: '#fff',
                                     boxShadow: 12,
                                     borderRadius: 4,
                                     p: 2,
@@ -183,7 +193,6 @@ export default function PersonalPage() {
                             <Box
                                 sx={{
                                     width: '100%',
-                                    bgcolor: '#fff',
                                     boxShadow: 12,
                                     borderRadius: 4,
                                     p: 2,

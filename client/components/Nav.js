@@ -11,6 +11,7 @@ import Container from '@mui/material/Container';
 import MenuItem from '@mui/material/MenuItem';
 import LiveHelpIcon from '@mui/icons-material/LiveHelp';
 import Link from 'next/link';
+import Logo from './Logo';
 
 const Nav = ({ isUser, quizCode }) => {
     const router = useRouter();
@@ -36,10 +37,10 @@ const Nav = ({ isUser, quizCode }) => {
     };
 
     return (
-        <AppBar position="static">
+        <AppBar position="fixed">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <LiveHelpIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+                    {/* <LiveHelpIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
                     <Typography
                         variant="h6"
                         noWrap
@@ -53,11 +54,7 @@ const Nav = ({ isUser, quizCode }) => {
                             textDecoration: 'none',
                         }}
                     >
-                        <Link href="/">
-                            <a>QUIZ</a>
-                        </Link>
                     </Typography>
-
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                             size="large"
@@ -94,7 +91,7 @@ const Nav = ({ isUser, quizCode }) => {
                             ))}
                         </Menu>
                     </Box>
-                    <LiveHelpIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+                    {/* <LiveHelpIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
                     <Typography
                         variant="h5"
                         noWrap
@@ -109,9 +106,6 @@ const Nav = ({ isUser, quizCode }) => {
                             textDecoration: 'none',
                         }}
                     >
-                        <Link href="/">
-                            <a>QUIZ</a>
-                        </Link>
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (

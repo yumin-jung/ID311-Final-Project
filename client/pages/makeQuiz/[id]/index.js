@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { AppContext } from '../../../context/AppContext';
 import Nav from '../../../components/Nav';
+import Logo from '../../../components/Logo';
 
 const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com'
 const LOCAL_SERVER_URL = 'http://localhost:8080'
@@ -89,6 +90,7 @@ export default function MakeQuiz() {
                 flexDirection: 'column',
                 alignItems: 'center'
             }}>
+                
                 <Box
                     sx={{
                         p: '2%',
@@ -96,6 +98,7 @@ export default function MakeQuiz() {
                         width: '40%',
                     }}
                 >
+                    <Logo></Logo>
                     {questionList.map((bundles, idx) => (
                         <MakeOneQuiz key={idx}
                             order={idx + 1}

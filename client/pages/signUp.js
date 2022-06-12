@@ -87,60 +87,58 @@ export default function SignUp() {
                 <CssBaseline />
                 <Box
                     sx={{
-                        marginTop: 20,
                         display: 'flex',
                         flexDirection: 'column',
-                        alignItems: 'center',
+                        alignItems: 'flex-start',
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
-                    </Avatar>
-                    <Typography component="h1" variant="h5">
-                        Sign up
+                    <Typography component="h1" variant="h5" className='bauh'>
+                        SIGN UP
                     </Typography>
-                    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                        <Grid container spacing={2}>
+                    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 0 }}>
+                        <Grid container spacing={1.4}>
                             <Grid item xs={12} sm={6}>
-                                <TextField
+                                <input
+                                    required
                                     autoComplete="given-name"
                                     name="firstName"
-                                    required
-                                    fullWidth
                                     id="firstName"
                                     label="First Name"
                                     autoFocus
+                                    className='smallIn'
+                                    placeholder='First Name'
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
-                                <TextField
+                                <input
                                     required
-                                    fullWidth
                                     id="lastName"
                                     label="Last Name"
                                     name="lastName"
                                     autoComplete="family-name"
+                                    placeholder='Last Name'
+                                    className='smallIn'
                                 />
                             </Grid>
                             <Grid item xs={12}>
-                                <TextField
+                                <input
                                     required
-                                    fullWidth
                                     id="username"
                                     label="Username"
                                     name="username"
                                     autoComplete="username"
+                                    placeholder='Username'
                                 />
                             </Grid>
                             <Grid item xs={12}>
-                                <TextField
+                                <input
                                     required
-                                    fullWidth
                                     name="password"
                                     label="Password"
                                     type="password"
                                     id="password"
                                     autoComplete="new-password"
+                                    placeholder='Password'
                                 />
                             </Grid>
                         </Grid>
@@ -148,7 +146,8 @@ export default function SignUp() {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
+                            sx={{ mt: 1.4, mb: 2 }}
+                            className="unBtn"
                         >
                             Sign Up
                         </Button>

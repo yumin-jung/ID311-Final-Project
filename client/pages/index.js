@@ -11,6 +11,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { AppContext } from '../context/AppContext';
 import Nav from '../components/Nav';
+import CodeLogo from '../components/CodeLogo';
 
 const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
 const LOCAL_SERVER_URL = 'http://localhost:8080';
@@ -72,9 +73,7 @@ export default function Home() {
             alignItems: 'center',
           }}
         >
-          <Typography align="center" component="h1" variant="h3">
-            Personal Quiz
-          </Typography>
+          <CodeLogo></CodeLogo>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
