@@ -24,6 +24,11 @@ function App({ Component, pageProps }) {
         setScore
       }}
     >
+      <style jsx global>{`
+                body {
+                    background-color: transparent;
+                }
+                `}</style>
       <CssBaseline />
       <Layout>
         <Component {...pageProps} />

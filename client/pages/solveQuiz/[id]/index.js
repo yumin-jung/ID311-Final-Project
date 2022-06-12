@@ -6,6 +6,7 @@ import Stack from '@mui/material/Stack';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { AppContext } from '../../../context/AppContext';
+import { Container } from '@mui/system';
 
 const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
 const LOCAL_SERVER_URL = 'http://localhost:8080';
@@ -91,63 +92,59 @@ export default function SolveQuiz() {
     }
 
     return (
-        <Box sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center'
-        }}>
+        <Container component="main" maxWidth="xs" height="100vh">
             <Box
                 sx={{
-                    boxShadow: 8,
-                    borderRadius: 5,
-                    p: '2%',
-                    marginTop: 20,
-                    minWidth: 360,
-                    width: '40%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center'
+                    minWidth: 350,
+                    width: '90%',
+                    height: '100%'
                 }}
-            >
+            >   
                 <Box
-                    component="main"
-                    maxWidth="xs"
+                    width="100%"
                     sx={{
-                        marginBottom: 2
+                        margin: 'auto'
                     }}
                 >
-                    <Box
-                        sx={{
-                            mt: '10%', mb: '8%',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Typography>
-                            Question {idx}
-                        </Typography>
-                        <Typography variant="h6">
-                            {thisQuiz.question}
-                        </Typography>
-                    </Box>
+                    <div className='stateBar'>
+                        <div className='solvedBar'  style={{
+                            width: ((idx)/(quizList.length+1) * 100)+'%'
+                        }}></div>
+                    </div>
+                    <Typography variant="h6" className='question'>
+                        {thisQuiz.question}
+                    </Typography>
+                </Box>
+                <Box
+                    component="main"
+                    className='optionBox'
+                >
+                    
                     {thisQuiz.options.map((value, idx) => (
-                        <Stack key={idx} direction="row" spacing={0} mb="5px">
-                            <Button variant={selected == idx ? "contained" : "outlined"}
+                        <Stack key={idx} direction="row" spacing={0}>
+                            <button className={(selected == idx ? "selectedOpt" : "")+" qOption"}
                                 fullWidth
                                 onClick={() => { setSelection(idx) }}>
                                 {value}
-                            </Button>
+                            </button>
                         </Stack>
                     ))}
+                    <Box
+                        sx={{
+                            position: 'relative',
+                            width: '100%',
+                            bottom: '4.95em'
+                        }}
+                    >
+                        <button
+                            onClick={NextQuiz}
+                            className={(selected > -1? 'somethingSelected':'')+' rightArrow rightArrowQuiz'}
+                        > 
+                        </button>
+                    </Box>
                 </Box>
-                <Button
-                    variant='contained'
-                    size="small"
-                    onClick={NextQuiz}
-                > Next
-                </Button>
+                
             </Box>
-        </Box>
+        </Container>
     )
 }

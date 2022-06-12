@@ -31,11 +31,7 @@ export default function ScoreBoard() {
                     const quizListAll = response.data.quiz.map((quiz) => {
                         return { quizCode: quiz.quizCode, patterns: quiz.patterns };
                     })
-<<<<<<< HEAD
-                    patterns = quizListAll.filter((quiz) => quiz.quizCode == quizCode)[0].patterns;
-=======
                     patterns = quizListAll.filter((quiz) => quiz.quizCode == quizCode).patterns;
->>>>>>> developMM
                 }
             })
         axios.post(DEPLOY_SERVER_URL + '/api/scores/getScore', null)

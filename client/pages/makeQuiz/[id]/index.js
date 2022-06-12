@@ -17,6 +17,7 @@ export default function MakeQuiz() {
     const router = useRouter();
     const { isUser, quizCode } = useContext(AppContext);
     const qBundle = [];
+    const [idx, setIdx] = useState(0);
 
     const [questionList, setquestionList] = useState(null);
 
@@ -46,6 +47,7 @@ export default function MakeQuiz() {
         let questions = [...questionList];
         questions.push({ question: `${userInfo.username}(이)의`, options: [''], selected: 0 });
         setquestionList(questions);
+        setIdx(idx + 1);
     }
 
     // Send quiz data
@@ -90,7 +92,8 @@ export default function MakeQuiz() {
             <Box sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'center'
+                alignItems: 'center',
+                height: '100vh'
             }}>
                 
                 <Box
@@ -100,28 +103,28 @@ export default function MakeQuiz() {
                         width: '40%',
                     }}
                 >
-                    <Logo></Logo>
-                    {questionList.map((bundles, idx) => (
-                        <MakeOneQuiz key={idx}
-                            order={idx + 1}
-                            question={bundles.question}
-                            presetOptions={bundles.options}
-                            presetRadio={bundles.selected}
-                            loadData={loadData} />
-                    ))}
-                    <Button
-                        onClick={AddQuestion}
-                        fullWidth
-                    > + Add a question
-                    </Button>
-                    <Button
+                    
+                    <MakeOneQuiz key={idx}
+                        order={idx + 1}
+                        question={questionList[idx].question}
+                        presetOptions={questionList[idx].options}
+                        presetRadio={questionList[idx].selected}
+                        loadData={loadData} />
+                    
+                    
+                    {/* <Button
                         variant='contained'
                         fullWidth
                         onClick={sendData}
                     > Submit
-                    </Button>
+                    </Button> */}
                 </Box>
             </Box>
+            <button
+                onClick={AddQuestion}
+                className='addQuestionBtn'
+            > ADD QUESTION
+            </button>
         </>
     )
 }

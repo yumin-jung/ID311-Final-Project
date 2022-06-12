@@ -4,6 +4,9 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { useRouter } from 'next/router';
 import { AppContext } from '../../../context/AppContext';
+import { Typography } from '@mui/material';
+import { Container } from '@mui/system';
+import CssBaseline from '@mui/material/CssBaseline';
 
 export default function StartQuiz() {
     const router = useRouter();
@@ -28,40 +31,31 @@ export default function StartQuiz() {
     }
 
     return (
-        <Box sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center'
-        }}>
-            <Box
-                sx={{
-                    bgcolor: '#f8f8f8',
-                    boxShadow: 8,
-                    borderRadius: 8,
-                    p: '2%',
-                    minWidth: 360,
-                    width: '40%',
-                    marginTop: '20%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center'
-                }}
-            >
-                {<TextField
+        <Container component="main" maxWidth="xs" sx={{maxWidth: '444px'}}>
+            <CssBaseline />
+            <Box sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                width: '90%',
+                margin: 'auto'
+            }}>
+                <Typography component="h1" variant="h5" className='bauh' style={{fontFamily: 'BAUHS93',fontSize: '2em', marginBottom: '0.8em', width: '500px'}}>
+                        NICKNAME
+                </Typography>
+                {<input
                     id="nickname"
                     label="Nickname"
-                    variant="outlined"
-                    margin="normal"
-                    sx={{
-                        textAlign: 'center'
-                    }}
+                    placeholder="Nickname"
                 />}
-                <Button
-                    variant='contained'
+                <button
+                    type="submit"
                     onClick={handleSubmit}
-                > Start
-                </Button>
+                    className="unBtn unBtn2"
+                >
+                    START
+                </button>
             </Box>
-        </Box>
+        </Container>
     )
 }
