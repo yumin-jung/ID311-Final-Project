@@ -25,7 +25,7 @@ export default function SignUp() {
     const router = useRouter()
 
     const handleSubmit = (event) => {
-        event.preventDefault();
+        // event.preventDefault();
         const data = new FormData(event.currentTarget);
 
         // Avoid overlapped quizCode
