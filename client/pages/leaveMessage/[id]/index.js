@@ -25,30 +25,32 @@ export default function LeaveMessage() {
     const [isRenderScore, setIsRenderScore] = useState(false);
     const [isRenderMsg, setIsRenderMsg] = useState(false);
 
+    // Choose color and location of patterns
+    const [color, setColor] = useState(false);
+    const [order, setOrder] = useState(false);
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
 
         const message = {
+            solver: {nickname: quizNickname, color: color, order: order},
             quizCode: quizCode,
-            nickname: quizNickname,
             message: data.get('message')
         }
 
         axios.post(DEPLOY_SERVER_URL + '/api/messages/saveMessage', message)
             .then(response => {
                 if (response.data.success) {
-                    console.log(`Succeed to save msg`)
+                    // Go to leave message page
+                    router.push({
+                        pathname: '/scoreBoard/[id]',
+                        query: { id: quizCode },
+                    })
                 } else {
                     alert('Failed to save message')
                 }
             });
-
-        // Go to leave message page
-        router.push({
-            pathname: '/scoreBoard/[id]',
-            query: { id: quizCode },
-        })
     };
 
     // Get score and message data from DB
@@ -59,25 +61,32 @@ export default function LeaveMessage() {
                     const scoreListAll = response.data.scores.map((score) => {
                         return { quizCode: score.quizCode, nickname: score.nickname, score: score.score, quizLen: score.quizLen };
                     })
-                    scoreList = scoreListAll.filter((score) => score.quizCode == quizCode)
-                    setIsRenderScore(true)
+                    const scoreListFilter = scoreListAll.filter((score) => score.quizCode == quizCode)
+                    scoreListFilter.sort(function compare(a, b) {
+                        return b.score - a.score;
+                    });
+                    scoreList = scoreListFilter.slice(0, 8);
+
                 }
                 else {
                     alert('Failed to get scores');
                 }
+            }).then(() => {
+                setIsRenderScore(true)
             })
         axios.post(DEPLOY_SERVER_URL + '/api/messages/getMessage', null)
             .then(response => {
                 if (response.data.success) {
                     const msgListAll = response.data.messages.map((msg) => {
-                        return { quizCode: msg.quizCode, nickname: msg.nickname, message: msg.message };
+                        return { quizCode: msg.quizCode, nickname: msg.solver[0].nickname, color: msg.solver[0].color, order: msg.solver[0].order, message: msg.message };
                     })
                     msgList = msgListAll.filter((score) => score.quizCode == quizCode)
-                    setIsRenderMsg(true)
                 }
                 else {
                     alert('Failed to get msgs');
                 }
+            }).then(() => {
+                setIsRenderMsg(true);
             })
     }, []);
 

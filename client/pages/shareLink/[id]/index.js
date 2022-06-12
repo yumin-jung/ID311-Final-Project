@@ -10,24 +10,17 @@ import Nav from '../../../components/Nav';
 
 const DEPLOY_CLIENT_URL = 'https://id311.vercel.app'
 const LOCAL_CLIENT_URL = 'http://localhost:3000'
-let codes = [];
 
 export default function ShareLink() {
     const { isUser, quizCode } = useContext(AppContext);
+    const [copiedLink, setcopiedLink] = useState(``);
 
-    const [copiedLink, setcopiedLink] = useState('');
-
-    const GoLink = (event) => {
-        // <Link 
-        //     as={`&{userInfo.firstName}/quiz`}
-        //     href={{
-        //         pathname: 'makeQuiz',
-        //         query: { quiz: { question: userInfo.quizCode}}
-        //     }}
-        // >
-        // <a>{quiz.title}</a>
-        // </Link>
+    const CopyLink = () => {
+        console.log(copiedLink);
+        setcopiedLink(`my code : ${quizCode}\ngo to here : ${DEPLOY_CLIENT_URL}`);
     }
+    useEffect(()=> {
+    })
 
     return (
         <>
@@ -37,10 +30,10 @@ export default function ShareLink() {
                     {quizCode}
                 </Typography>
                 <CopyToClipboard
-                    text={LOCAL_CLIENT_URL}
-                    onCopy={() => setcopiedLink(LOCAL_CLIENT_URL)}>
+                    text={copiedLink}
+                    onCopy={CopyLink}>
                     <Tooltip
-                        title={copiedLink === LOCAL_CLIENT_URL
+                        title={copiedLink == `my code : ${quizCode}\ngo to here : ${DEPLOY_CLIENT_URL}`
                             ? "Paste your quiz"
                             : "Copy your quiz"
                         }

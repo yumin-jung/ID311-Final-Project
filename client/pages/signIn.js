@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router'
 import Avatar from '@mui/material/Avatar';
@@ -20,6 +20,9 @@ let userList = [];
 
 export default function SignIn() {
     const router = useRouter()
+
+    // Check rendering
+    const [isGetPwd, setIsGetPwd] = useState(null);
 
     const { setIsUser, setQuizCode } = useContext(AppContext);
 
@@ -66,11 +69,18 @@ export default function SignIn() {
                     userList = response.data.users.map((user) => {
                         return { username: user.username, password: user.password, quizCode: user.quizCode };
                     })
+                    setIsGetPwd(true);
+                    console.log(userList);
                 } else {
                     alert('Failed to get users');
                 }
             })
     }, []);
+
+    // Pause rendering until get data
+    if (isGetPwd === null) {
+        return null;
+    }
 
     return (
         <ThemeProvider theme={theme}>
