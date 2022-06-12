@@ -22,7 +22,7 @@ export default function SignIn() {
     const router = useRouter()
 
     // Check rendering
-    const [isGetPwd, setIsGetPwd] = useState(false);
+    const [isGetPwd, setIsGetPwd] = useState(null);
 
     const { setIsUser, setQuizCode } = useContext(AppContext);
 
@@ -77,7 +77,7 @@ export default function SignIn() {
     }, []);
 
     // Pause rendering until get data
-    if (isGetPwd === false) {
+    if (isGetPwd === null) {
         return null;
     }
 
