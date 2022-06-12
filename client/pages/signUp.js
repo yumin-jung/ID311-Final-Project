@@ -54,12 +54,11 @@ export default function SignUp() {
                 .then(response => {
                     if (response.data.success) {
                         console.log(`Succeed to save ${response.data.user.username}'s info`)
-                        console.log(userInfo);
+                        router.push('/signIn');
                     } else {
                         alert('Failed to save user')
                     }
                 });
-            router.push('/signIn');
         }
     };
 

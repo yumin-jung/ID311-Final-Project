@@ -61,17 +61,15 @@ export default function MakeQuiz() {
         axios.post(DEPLOY_SERVER_URL + '/api/quizzes/saveQuiz', quizData)
             .then(response => {
                 if (response.data.success) {
-                    console.log(`Succeed to save ${response.data.quiz}`)
+                    // Go to shareLink oage with query
+                    router.push({
+                        pathname: '/shareLink/[id]',
+                        query: { id: userInfo.quizCode },
+                    })
                 } else {
                     alert('Failed to save user')
                 }
             });
-
-        // Go to shareLink oage with query
-        router.push({
-            pathname: '/shareLink/[id]',
-            query: { id: userInfo.quizCode },
-        })
     }
 
     const loadData = (idx, data) => {

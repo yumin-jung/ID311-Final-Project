@@ -39,9 +39,7 @@ export default function SignIn() {
 
         // Find user data in DB
         const findUserInfo = userList.filter((user) => user.username == userInput.username)[0];
-        console.log(userInput)
-        console.log(userList)
-        console.log(findUserInfo)
+
         // Check input is valid
         if (findUserInfo == false) {
             alert('Not registered user');
