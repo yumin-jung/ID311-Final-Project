@@ -21,6 +21,9 @@ let userList = [];
 export default function SignIn() {
     const router = useRouter()
 
+    // Check rendering
+    const [isGetPwd, setIsGetPwd] = useState(false);
+
     const { setIsUser, setQuizCode } = useContext(AppContext);
 
     const handleSubmit = (event) => {
@@ -66,11 +69,17 @@ export default function SignIn() {
                     userList = response.data.users.map((user) => {
                         return { username: user.username, password: user.password, quizCode: user.quizCode };
                     })
+                    setIsGetPwd(true);
                 } else {
                     alert('Failed to get users');
                 }
             })
     }, []);
+
+    // Pause rendering until get data
+    if (isGetPwd === false) {
+        return null;
+    }
 
     return (
         <ThemeProvider theme={theme}>
