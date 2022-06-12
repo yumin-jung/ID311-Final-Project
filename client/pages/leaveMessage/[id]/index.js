@@ -78,7 +78,7 @@ export default function LeaveMessage() {
             .then(response => {
                 if (response.data.success) {
                     const msgListAll = response.data.messages.map((msg) => {
-                        return { quizCode: msg.quizCode, nickname: msg.solver[0].nickname, color: msg.solver[0].color, order: msg.solver[0].order, message: msg.message };
+                        return { quizCode: msg.quizCode, nickname: msg.solver.nickname, color: msg.solver.color, order: msg.solver.order, message: msg.message };
                     })
                     msgList = msgListAll.filter((score) => score.quizCode == quizCode)
                 }
