@@ -56,6 +56,8 @@ export default function MakeQuiz() {
             quizCode: userInfo.quizCode,
             quizBundle: qBundle,
             quizLength: qBundle.length,
+            //5 types of shapes -> make array
+            patterns: new Array(24).fill().map((e) => Math.floor(Math.random()*5))
         }
 
         axios.post(DEPLOY_SERVER_URL + '/api/quizzes/saveQuiz', quizData)
@@ -66,6 +68,8 @@ export default function MakeQuiz() {
                         pathname: '/shareLink/[id]',
                         query: { id: userInfo.quizCode },
                     })
+                    console.log(`Succeed to save ${response.data.quiz}`)
+                    console.log(quizData);
                 } else {
                     alert('Failed to save user')
                 }

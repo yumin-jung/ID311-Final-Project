@@ -12,6 +12,7 @@ import { AppContext } from '../../../context/AppContext';
 
 const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
 const LOCAL_SERVER_URL = 'http://localhost:8080';
+let patterns;
 let scoreList = [];
 let msgList = [];
 
@@ -24,6 +25,15 @@ export default function ScoreBoard() {
 
     // Get score and message data from DB when render
     useEffect(() => {
+        axios.post(DEPLOY_SERVER_URL + '/api/quizzes/getQuiz', null)
+            .then(response => {
+                if(response.data.success) {
+                    const quizListAll = response.data.quiz.map((quiz) => {
+                        return { quizCode: quiz.quizCode, patterns: quiz.patterns };
+                    })
+                    patterns = quizListAll.filter((quiz) => quiz.quizCode == quizCode)[0].patterns;
+                }
+            })
         axios.post(DEPLOY_SERVER_URL + '/api/scores/getScore', null)
             .then(response => {
                 if (response.data.success) {
@@ -45,7 +55,7 @@ export default function ScoreBoard() {
             .then(response => {
                 if (response.data.success) {
                     const msgListAll = response.data.messages.map((msg) => {
-                        return { quizCode: msg.quizCode, nickname: msg.nickname, message: msg.message };
+                        return { quizCode: msg.quizCode, nickname: msg.solver[0].nickname, color: msg.solver[0].color, order: msg.solver[0].order, message: msg.message };
                     })
                     msgList = msgListAll.filter((msg) => msg.quizCode == quizCode)
                     setIsRenderMsg(true)

@@ -70,6 +70,7 @@ export default function SignIn() {
                         return { username: user.username, password: user.password, quizCode: user.quizCode };
                     })
                     setIsGetPwd(true);
+                    console.log(userList);
                 } else {
                     alert('Failed to get users');
                 }

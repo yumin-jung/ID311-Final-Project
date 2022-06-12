@@ -12,7 +12,8 @@ const quizSchema = Schema(
         quizBundle: [Object],
         quizLength: {
             type: Number,
-        }
+        },
+        patterns: [Array],
     }
 )
 

@@ -25,13 +25,17 @@ export default function LeaveMessage() {
     const [isRenderScore, setIsRenderScore] = useState(false);
     const [isRenderMsg, setIsRenderMsg] = useState(false);
 
+    // Choose color and location of patterns
+    const [color, setColor] = useState(false);
+    const [order, setOrder] = useState(false);
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
 
         const message = {
+            solver: {nickname: quizNickname, color: color, order: order},
             quizCode: quizCode,
-            nickname: quizNickname,
             message: data.get('message')
         }
 
@@ -74,7 +78,7 @@ export default function LeaveMessage() {
             .then(response => {
                 if (response.data.success) {
                     const msgListAll = response.data.messages.map((msg) => {
-                        return { quizCode: msg.quizCode, nickname: msg.nickname, message: msg.message };
+                        return { quizCode: msg.quizCode, nickname: msg.solver[0].nickname, color: msg.solver[0].color, order: msg.solver[0].order, message: msg.message };
                     })
                     msgList = msgListAll.filter((score) => score.quizCode == quizCode)
                 }
