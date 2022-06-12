@@ -116,6 +116,11 @@ export default function PersonalPage() {
     if (quizList.length == 0) {
         return (
             <>
+                <style jsx global>{`
+                body {
+                    background: #EEDFCC};
+                }
+                `}</style>
                 <Nav isUser={isUser} quizCode={quizCode} />
                 <Container
                     component="main" 
@@ -126,13 +131,11 @@ export default function PersonalPage() {
                         alignItems: 'center'
                     }}>
                     <Logo size='0.9'></Logo>
-                    <Button onClick={MakeQuiz}
-                        fullWidth
-                        variant="contained"
+                    <button onClick={MakeQuiz}
                         sx={{ mt: 5, mb: 2, backgroundColor: 'black', borderRadius: 0, fontSize: '1.3em', padding: '1em', width: '0.9'}} 
                         className='blackBtn'>
                         MAKE QUIZ
-                    </Button>
+                    </button>
                 </Container>
             </>
         )

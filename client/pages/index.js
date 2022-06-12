@@ -67,17 +67,14 @@ export default function Home() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: '70%',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
         >
           <CodeLogo></CodeLogo>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              fullWidth
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 8, display: 'flex', alignItems: 'center' }} style={{ position: "relative" }}>
+            <input
               id="code"
               label="Code"
               name="code"
@@ -85,15 +82,16 @@ export default function Home() {
               onChange={makeUpperCase}
               autoComplete="code"
               autoFocus
+              placeholder='Input the code'
+              className='inputCodeBox'
             />
-            <Button
+            <div className="line"></div>
+            <button
               type="submit"
-              fullWidth
               variant="contained"
-              sx={{ mt: 2, mb: 2 }}
+              className='rightArrow'
             >
-              submit
-            </Button>
+            </button>
           </Box>
           {isUser === false &&
             <Typography>

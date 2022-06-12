@@ -85,6 +85,7 @@ export default function SignIn() {
 
     return (
         <ThemeProvider theme={theme}>
+            <Nav/>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box
@@ -92,9 +93,11 @@ export default function SignIn() {
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'flex-start',
+                        width: '90%',
+                        margin: 'auto'
                     }}
                 >
-                    <Typography component="h1" variant="h5" className='bauh'>
+                    <Typography component="h1" variant="h5" className='bauh' style={{fontFamily: 'BAUHS93',fontSize: '2em', marginBottom: '0.8em'}}>
                         SIGN IN
                     </Typography>
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -124,15 +127,13 @@ export default function SignIn() {
                             />
                             </Grid>
                         </Grid>
-                        <Button
+                        <button
                             type="submit"
                             fullWidth
-                            variant="contained"
-                            sx={{ mt: 1.4, mb: 2 }}
                             className="unBtn unBtn2"
                         >
-                            Sign In
-                        </Button>
+                            SIGN IN
+                        </button>
                     </Box>
                 </Box>
             </Container>
