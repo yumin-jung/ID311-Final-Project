@@ -87,7 +87,7 @@ export default function MakeOneQuiz({ order, question, presetOptions, presetRadi
                 <button
                     onClick={AddOption}
                     fullWidth
-                    className={'plus optionAdd' + (optionList.length > 4 ? ' invisible' : '')}
+                    className={'plus optionAdd' + (optionList.length > 3 ? ' invisible' : '')}
                 ></button>
                 {optionList.map((value, idx) => (
                     <Stack key={idx} direction="row" spacing={0}>

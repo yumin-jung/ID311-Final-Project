@@ -349,6 +349,17 @@ div:nth-last-child(2n) > .qOption:after{
 
 /* personal page  & makeQuiz*/
 
+.outer {
+  overflow-y: auto;
+  height: 100vh;
+}
+.outer::-webkit-scrollbar {
+  display: none;
+}
+.inner {
+  height: 100vh;
+}
+
 .blackBtn{
   background-color: var(--black);
   box-shadow: none;
@@ -375,11 +386,14 @@ div:nth-last-child(2n) > .qOption:after{
 .themeYellow .quizIdx{
   color: var(--yellow);
 }
-.themeYellow .selectedOpt,
-.themeYellow .selectedOpt input,
-.themeYellow .selectedOpt input::placeholder{
+.themeYellow .selectedOpt{
   background-color: var(--yellow);
+}
+.themeYellow .selectedOpt input{
   color: var(--black);
+}
+.themeYellow .selectedOpt input::placeholder{
+  color: rgba(0, 0, 0, 0.5);
 }
 .themeRed .quizIdx{
   color: var(--red);
@@ -387,9 +401,11 @@ div:nth-last-child(2n) > .qOption:after{
 .themeRed .selectedOpt{
   background-color: var(--red);
 }
-.themeRed .selectedOpt input,
+.themeRed .selectedOpt input{
+  color: var(--white);
+}
 .themeRed .selectedOpt input::placeholder{
-  color: white;
+  color: rgba(255,255,255,0.5);
 }
 .themeBlue .quizIdx{
   color: var(--blue);
@@ -397,9 +413,11 @@ div:nth-last-child(2n) > .qOption:after{
 .themeBlue .selectedOpt{
   background-color: var(--blue);
 }
-.themeBlue .selectedOpt input,
+.themeBlue .selectedOpt input{
+  color: var(--white);
+}
 .themeBlue .selectedOpt input::placeholder{
-  color: white;
+  color: rgba(255,255,255,0.5);
 }
 .themeBlack .quizIdx{
   color: var(--black);
@@ -407,9 +425,11 @@ div:nth-last-child(2n) > .qOption:after{
 .themeBlack .selectedOpt{
   background-color: var(--black);
 }
-.themeBlack .selectedOpt input,
+.themeBlack .selectedOpt input{
+  color: var(--white);
+}
 .themeBlack .selectedOpt input::placeholder{
-  color: white;
+  color: rgba(255,255,255,0.5);
 }
 
 .themeRed .selectedOpt .plus,
