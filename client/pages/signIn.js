@@ -42,7 +42,7 @@ export default function SignIn() {
         const findUserInfo = userList.filter((user) => user.username == userInput.username)[0];
 
         // Check input is valid
-        if (findUserInfo == false) {
+        if (findUserInfo === undefined) {
             alert('Not registered user');
         }
         else {
@@ -85,7 +85,7 @@ export default function SignIn() {
 
     return (
         <ThemeProvider theme={theme}>
-            <Nav/>
+            <Nav />
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box
@@ -97,7 +97,7 @@ export default function SignIn() {
                         margin: 'auto'
                     }}
                 >
-                    <Typography component="h1" variant="h5" className='bauh' style={{fontFamily: 'BAUHS93',fontSize: '2em', marginBottom: '0.8em'}}>
+                    <Typography component="h1" variant="h5" className='bauh' style={{ fontFamily: 'BAUHS93', fontSize: '2em', marginBottom: '0.8em' }}>
                         SIGN IN
                     </Typography>
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -124,7 +124,7 @@ export default function SignIn() {
                                     id="password"
                                     autoComplete="current-password"
                                     placeholder='Password'
-                            />
+                                />
                             </Grid>
                         </Grid>
                         <button
