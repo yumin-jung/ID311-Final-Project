@@ -31,7 +31,7 @@ export default function ScoreBoard() {
                     const quizListAll = response.data.quiz.map((quiz) => {
                         return { quizCode: quiz.quizCode, patterns: quiz.patterns };
                     })
-                    patterns = quizListAll.filter((quiz) => quiz.quizCode == quizCode)[0].patterns;
+                    patterns = quizListAll.filter((quiz) => quiz.quizCode == quizCode).patterns;
                 }
             })
         axios.post(DEPLOY_SERVER_URL + '/api/scores/getScore', null)
@@ -55,7 +55,7 @@ export default function ScoreBoard() {
             .then(response => {
                 if (response.data.success) {
                     const msgListAll = response.data.messages.map((msg) => {
-                        return { quizCode: msg.quizCode, nickname: msg.solver[0].nickname, color: msg.solver[0].color, order: msg.solver[0].order, message: msg.message };
+                        return { quizCode: msg.quizCode, nickname: msg.solver.nickname, color: msg.solver.color, order: msg.solver.order, message: msg.message };
                     })
                     msgList = msgListAll.filter((msg) => msg.quizCode == quizCode)
                     setIsRenderMsg(true)

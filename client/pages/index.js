@@ -11,6 +11,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { AppContext } from '../context/AppContext';
 import Nav from '../components/Nav';
+import CodeLogo from '../components/CodeLogo';
 
 const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
 const LOCAL_SERVER_URL = 'http://localhost:8080';
@@ -52,6 +53,7 @@ export default function Home() {
       .then(response => {
         if (response.data.success) {
           quizList = response.data.quiz
+          console.log(quizList);
         }
         else {
           alert('Failed to get users');
@@ -66,19 +68,14 @@ export default function Home() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: '70%',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
         >
-          <Typography align="center" component="h1" variant="h3">
-            Personal Quiz
-          </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              fullWidth
+          <CodeLogo></CodeLogo>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 8, display: 'flex', alignItems: 'center' }} style={{ position: "relative" }}>
+            <input
               id="code"
               label="Code"
               name="code"
@@ -86,17 +83,22 @@ export default function Home() {
               onChange={makeUpperCase}
               autoComplete="code"
               autoFocus
+              placeholder='Input the code'
+              className='inputCodeBox'
             />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 2, mb: 2 }}
-            >
-              submit
-            </Button>
+            {codeInput.length == 6 && 
+              <Box sx={{ mt: 0, display: 'flex', alignItems: 'center' }} >
+                <div className="line"></div>
+                  <button
+                    type="submit"
+                    variant="contained"
+                    className='rightArrow'
+                  >
+                </button>
+              </Box>
+            }
           </Box>
-          {isUser === false &&
+          {/* {isUser === false &&
             <Typography>
               {`Want to make your quiz? `}
               <Link
@@ -106,7 +108,7 @@ export default function Home() {
                 Sign Up
               </Link>
             </Typography>
-          }
+          } */}
         </Box>
       </Container>
     </ThemeProvider>
