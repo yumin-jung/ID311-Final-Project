@@ -29,16 +29,19 @@
       - [index.js](#indexjs)
       - [routes/{path}.js](#routespathjs)
       - [model/{schema}.model.js](#modelschemamodeljs)
-- [Challenges](#challenges)
-  - [The first time to coding cooperation](#the-first-time-to-coding-cooperation)
-  - [The first time to use new frameworks/libraries](#the-first-time-to-use-new-frameworkslibraries)
-  - [Implementation UI as we want](#implementation-ui-as-we-want)
+- [Main Challenge 🔥](#main-challenge-)
+  - [Work in Collaboration](#work-in-collaboration)
+    - [Challenge](#challenge)
+    - [How to Overcome](#how-to-overcome)
+  - [Libraries & Frameworks](#libraries--frameworks)
+    - [Challenge](#challenge-1)
+    - [How to Overcome](#how-to-overcome-1)
 - [What We Learned 🧑‍💻](#what-we-learned-)
-  - [About Frameworks / Libraries](#about-frameworks--libraries)
-  - [About Cooperation](#about-cooperation)
+  - [Work in Collaboration](#work-in-collaboration-1)
+  - [Libraries / Frameworks / Tools](#libraries--frameworks--tools)
 - [Issue and Known Bug 🐞](#issue-and-known-bug-)
 - [References 🌿](#references-)
-    - [Work in Collaboration](#work-in-collaboration)
+    - [Work in Collaboration](#work-in-collaboration-2)
     - [React](#react)
     - [Next.js](#nextjs)
     - [Material UI](#material-ui)
@@ -254,37 +257,59 @@ This is **Directory Structure** of our application
 #### model/{schema}.model.js
 - `mongoose.model("{Name}", {name}Schema)`
   - Specify the structure and conditions of the information to be stored in the DB.
-# Challenges 
-## The first time to coding cooperation
-- Challenge) Our group have no or a few experience in programming to collaborate with others, so it was difficult to properly allocate tasks and communicate with each other.
-  - There are so many works, such as planning, organizing functions, setting DB, UI design, and QA.
-  - Due to lack of knowledge of programming, expressing what we want about codes in words was difficult.
-  - Initially, we didn't decide the person handling the DB and divided the client pages that shared one DB among us. Thus, it was not clear how to implement each page for the data structure, so the work efficiency was not good.
-- How to overcome) 
-  - After doing team meeting about the DB structure, we divided our tasks with `maker-flow / solver-flow / DB / CSS(design)`
-  - By establishing regular code review meetings, development rules(commit messages, branch, and PR), we tried to understand others' codes and improve communication quality.
-  - For the tasks other than coding, we used collaboration tools like Figma, Miro, or Notion. Thus, we fully understood what each member said by visualizating screen or diagrams.
 
-## The first time to use new frameworks/libraries
-- Challenge) We tried to set up appropriate frameworks with our project, but there was only one member who made website with DB. One member had never done the web development. Thus, using various frameworks(React, Next.js, node.js, and MongoDB) was a challenge.
-  - No one had used Next.js before, so dealing with dynamic routing and perfectly understanding SSR and SSG concept was difficult.
-  - It took a long time to make all the logics without source code for the functions we wanted.
-- How to overcome) We studied some frameworks together to be familiar with our frameworks.
-  - We Shared the reference links or videos when we coded.
-  - In the regular meeting, we planned code structure together and discuss how to implement each function and DB.
-  - We tried to understand the philosophy and patterns of frameworks and libraries, so we made lots of efforts to build the codes based on them.
+# Main Challenge 🔥
 
-## Implementation UI as we want
-- Challenges) UI design was later than almost functional implementation. It was hard to modify our codes neatly while maintaining look & feel of the desired UI.
-  - We put the BAUHAUS styled patterns to the personal pages. Thus, some functions about choosing colors or orders of patterns are needed. 
+## Work in Collaboration
+
+### Challenge
+- Lack of collaborative development experience.
+  - Expressing what we want about codes in words was difficult.
+- Difficulty in communication between team members.
+  - Lack of uniformity among team members' codes
+
+### How to Overcome
+- Divided our tasks
+  - Maker flow, Solver flow, Database, and CSS(design).
+- Set Development rules
+  - In **commit messages**, **division of branch**, and **pull requests**
+  - Try to understand others' codes and improve `communication quality`.
+- Using collaboration tools
+  - Figma, Miro, and Notion.
+  - Fully understood what each member said by `visualizating screen` and `diagrams`.
+
+## Libraries & Frameworks
+
+### Challenge
+- Lack of libraries and frameworks experience
+  - Dealing with `dynamic routing` in Next.js.
+  - Understanding concept of `SSR` and `SSG` in Next.js.
+  - Understanding and utilizing `Grid` in Material-UI.
+
+### How to Overcome
+- Sharing contents that learned newly or applied to the code.
+  - Share the reference links or videos.
+  - Try to understand the `philosophy` and `patterns` of libraries and frameworks.
+
+<!-- ## User Interfaces
+
+### Challenge
+- Hard to modify code neatly with desired UI.
+  - Put the BAUHAUS styled patterns to the personal pages.Thus, some functions about choosing colors or orders of patterns are needed. 
   - There are some slightly different functions in each page, but overall look was similar.
-- How to overcome) It is designed to match the React by making our UI consistent and reusable.
 
-
-
+### How to Overcome
+- Designed to match the React by making our UI consistent and reusable. -->
 
 # What We Learned 🧑‍💻
-## About Frameworks / Libraries
+
+## Work in Collaboration
+1. We realized that efficient progress is possible after we define the overall frame and structures of client, server, and DB, then distribute tasks.
+2. All the team members have other projects and exams, so sharing each progress with others was really important because each built functions in different places and time. It is critical not only to establish development rules and code review methods in advance, but also to make efforts to clearly communicate each work or situation with others.
+3. All the members had a different picture of the project in their head, and the detailed functions and page flow were also different. Before distributing tasks, it is necessary to visualize them (flowchart or GUI) so that we can look in the same direction.
+4. We often had disagreements. For the consensus, we tried to make the criteria based on the direction and characteristics of the website, not the individual's taste. Through this process, we can create a consistent web service.
+
+## Libraries / Frameworks / Tools
 1. Each framework contains its characteristics and the philosophy of the developer who made it. Also, to make good use of the built-in funtions in each frameworks or libraries to implement what we want.
 2. To facilitate high scalability and maintenance, we find it necessary to consider various utilization possiblities and choose appropriate frameworks and code structures.
 3. In detail, we realized each framework's features.
@@ -304,12 +329,6 @@ This is **Directory Structure** of our application
       - MongoDB has a good `scalability` and `flexibility`.
    5. Vercel & Heroku
       - `Easy to deploy` of client and server
-
-## About Cooperation
-1. We realized that efficient progress is possible after we define the overall frame and structures of client, server, and DB, then distribute tasks.
-2. All the team members have other projects and exams, so sharing each progress with others was really important because each built functions in different places and time. It is critical not only to establish development rules and code review methods in advance, but also to make efforts to clearly communicate each work or situation with others.
-3. All the members had a different picture of the project in their head, and the detailed functions and page flow were also different. Before distributing tasks, it is necessary to visualize them (flowchart or GUI) so that we can look in the same direction.
-4. We often had disagreements. For the consensus, we tried to make the criteria based on the direction and characteristics of the website, not the individual's taste. Through this process, we can create a consistent web service.
 
 # Issue and Known Bug 🐞
 - We used dynamic routing by query. If users go back the pages or refresh the screen, the errors will occur
@@ -356,4 +375,3 @@ This is **Directory Structure** of our application
 
 ### UI design & CSS
   - [Bauhaus pattern generator](https://tool.graphics/bauhaus)
-  - 
