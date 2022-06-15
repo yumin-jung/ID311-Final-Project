@@ -36,6 +36,9 @@
   - [Libraries & Frameworks](#libraries--frameworks)
     - [Challenge](#challenge-1)
     - [How to Overcome](#how-to-overcome-1)
+  - [User Interfaces](#user-interfaces-1)
+    - [Challenge](#challenge-2)
+    - [How to Overcome](#how-to-overcome-2)
 - [What We Learned 🧑‍💻](#what-we-learned-)
   - [Work in Collaboration](#work-in-collaboration-1)
   - [Libraries / Frameworks / Tools](#libraries--frameworks--tools)
@@ -111,12 +114,13 @@ This is flow chart of our application.
   - The nickname cannot be overlapped with each other.
 
 - ### SolveQuiz Page
+  <img src="data/solve_quiz_unselected.png" width="80%" height="80%">
   <img src="data/solve_quiz.png" width="80%" height="80%">
-    <img src="data/solve_quiz_previous.png" width="80%" height="80%">
+   <img src="data/solve_quiz_hover.png" width="80%" height="80%">
 
   - On the top, there is a progress bar to show how many questions remain.
-  - There are at least 2 options, and maximum is 4 options.
-  - By left arrow button, they can go back to the previous question.
+  - There are at least 2 options, and maximum is 4.
+  - By right arrow button, they can go to the next page.
 
 - ### LeaveResult Page
   <img src="data/check_result.png" width="80%" height="80%">
@@ -265,18 +269,19 @@ This is **Directory Structure** of our application
 ### Challenge
 - Lack of collaborative development experience.
   - Expressing what we want about codes in words was difficult.
+  - Distributing works among team members was not efficient initially.
 - Difficulty in communication between team members.
-  - Lack of uniformity among team members' codes
+  - Lack of uniformity among team members' codes.
 
 ### How to Overcome
-- Divided our tasks
+- Re-divided our tasks
   - Maker flow, Solver flow, Database, and CSS(design).
 - Set Development rules
   - In **commit messages**, **division of branch**, and **pull requests**
   - Try to understand others' codes and improve `communication quality`.
 - Using collaboration tools
-  - Figma, Miro, and Notion.
-  - Fully understood what each member said by `visualizating screen` and `diagrams`.
+  - Figma, Miro, and Notion for works other than development
+  - Fully understood what each member said by `visualizating screen(GUI)` and `diagrams`.
 
 ## Libraries & Frameworks
 
@@ -287,19 +292,22 @@ This is **Directory Structure** of our application
   - Understanding and utilizing `Grid` in Material-UI.
 
 ### How to Overcome
-- Sharing contents that learned newly or applied to the code.
+- Sharing contents that learned newly or applied to the code
   - Share the reference links or videos.
   - Try to understand the `philosophy` and `patterns` of libraries and frameworks.
+- Sharing built codes regularly
+  - Tried to fully understand features of functions in each frameworks with two weekly team meetings.
 
-<!-- ## User Interfaces
+## User Interfaces
 
 ### Challenge
 - Hard to modify code neatly with desired UI.
-  - Put the BAUHAUS styled patterns to the personal pages.Thus, some functions about choosing colors or orders of patterns are needed. 
-  - There are some slightly different functions in each page, but overall look was similar.
+  - As UI was changed, we needed to modify code structures. 
+  - To implement immediate feedback on users' actions without errors for better UX was difficult.
 
 ### How to Overcome
-- Designed to match the React by making our UI consistent and reusable. -->
+- Make consistent and resuable UI for high utilization.
+- Rather than js file, modifying css to make visual variations of components.
 
 # What We Learned 🧑‍💻
 
