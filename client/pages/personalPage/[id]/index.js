@@ -24,7 +24,8 @@ let msgList = [];
 export default function PersonalPage() {
     let patterns = new Array(12).fill().map((e) => Math.floor(Math.random()*5));
     const router = useRouter();
-    const { isUser, quizCode } = useContext(AppContext);
+    const quizCode = router.query.id;
+    const isUser = router.query.isUser;
 
     // Check rendering
     const [isRenderUser, setIsRenderUser] = useState(false);
@@ -119,7 +120,7 @@ export default function PersonalPage() {
     const MakeQuiz = (event) => {
         router.push({
             pathname: '/makeQuiz/[id]',
-            query: { id: quizCode },
+            query: { id: quizCode, isUser: isUser },
         })
     }
 

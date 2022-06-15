@@ -4,9 +4,6 @@ import axios from 'axios';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { AppContext } from '../context/AppContext';
@@ -21,9 +18,11 @@ let quizList = [];
 
 export default function Home() {
   const router = useRouter();
+  const isUser = router.query.isUser;
+  const quizCode = router.query.id;
   const [codeInput, setcodeInput] = useState('');
 
-  const { isUser, quizCode, setQuizCode } = useContext(AppContext);
+  // const { isUser, quizCode, setQuizCode } = useContext(AppContext);
   const [alertOn, setAlert] = useState(false);
 
   // Make quiz code upper case
@@ -50,6 +49,7 @@ export default function Home() {
 
   // Get data from DB
   useEffect(() => {
+    console.log(isUser, quizCode)
     axios.post(DEPLOY_SERVER_URL + '/api/quizzes/getQuiz', null)
       .then(response => {
         if (response.data.success) {
