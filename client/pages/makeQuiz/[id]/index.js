@@ -15,8 +15,7 @@ let userInfo = [];
 
 export default function MakeQuiz() {
     const router = useRouter();
-    const quizCode = router.query.id;
-    const isUser = router.query.isUser;
+    const { isUser, quizCode } = useContext(AppContext);
     const qBundle = [];
     const [idx, setIdx] = useState(0);
 
@@ -44,73 +43,51 @@ export default function MakeQuiz() {
                     alert('Failed to get users');
                 }
             });
-        // scroll wheel handler setting
-        const wheelHandler = (e) => {
-            e.preventDefault();
-            const { deltaY } = e;
-            
-            console.log(idx);
-            if (deltaY > 0 && idx<questionList.length-1) {
-                console.log(deltaY);
-                // setIdx(idx+1);
-            } else if(deltaY<0 && idx>1) {
-                console.log('sdf');
-                setIdx(idx-1);
-            }
-        };
-        // console.log(outerDivRef.current==null, 'outer');
-        if(outerDivRef.current==null) return;
-        const outerDivRefCurrent = outerDivRef.current;
-        outerDivRefCurrent.addEventListener('wheel', wheelHandler);
-        return ()=> {
-            outerDivRefCurrent.removeEventListener('wheel', wheelHandler);
-        };
   }, []);
 
 
 
     // Add question
     const AddQuestion = () => {
-        console.log(questionList[idx].options, questionList)
-        if(questionList[idx].options.includes('')) {
-            alert('write the option');
-            return;
-        }
-        else{
-            let questions = [...questionList];
-            questions.push({ question: `${userInfo.makerName}(이)의`, options: [''], selected: 0 });
-            setquestionList(questions);
-            setIdx(idx + 1);
-        }
+        let questions = [...questionList];
+        questions.push({ question: `${userInfo.makerName}(이)의`, options: [''], selected: 0 });
+        setquestionList(questions);
+        setIdx(idx + 1);
     }
 
     // Send quiz data
     const sendData = (event) => {
         event.preventDefault();
-
-        const quizData = {
-            makerName: userInfo.makerName,
-            quizCode: userInfo.quizCode,
-            quizBundle: qBundle,
-            quizLength: qBundle.length,
-            //5 types of shapes -> make array
-            patterns: new Array(24).fill().map((e) => Math.floor(Math.random()*5))
+        const allOptions = qBundle.reduce((acc,e) => acc.concat(e.options),[]);
+        
+        if(allOptions.includes('')) {
+            alert('Fill up the options');
+        }
+        else{
+            const quizData = {
+                makerName: userInfo.makerName,
+                quizCode: userInfo.quizCode,
+                quizBundle: qBundle,
+                quizLength: qBundle.length,
+                //5 types of shapes -> make array
+                patterns: new Array(24).fill().map((e) => Math.floor(Math.random()*5))
+            }    
+            axios.post(DEPLOY_SERVER_URL + '/api/quizzes/saveQuiz', quizData)
+                .then(response => {
+                    if (response.data.success) {
+                        // Go to shareLink oage with query
+                        router.push({
+                            pathname: '/shareLink/[id]',
+                            query: { id: userInfo.quizCode },
+                        })
+                        console.log(`Succeed to save ${response.data.quiz}`)
+                        console.log(quizData);
+                    } else {
+                        alert('Failed to save user')
+                    }
+                });
         }
 
-        axios.post(DEPLOY_SERVER_URL + '/api/quizzes/saveQuiz', quizData)
-            .then(response => {
-                if (response.data.success) {
-                    // Go to shareLink oage with query
-                    router.push({
-                        pathname: '/shareLink/[id]',
-                        query: { id: userInfo.quizCode },
-                    })
-                    console.log(`Succeed to save ${response.data.quiz}`)
-                    console.log(quizData);
-                } else {
-                    alert('Failed to save user')
-                }
-            });
     }
 
     const ChangePage = (e) => {
@@ -127,26 +104,31 @@ export default function MakeQuiz() {
     return (
         <>
             {/* <Nav isUser={isUser} quizCode={quizCode} /> */}
+            <style jsx global>{`
+                body {
+                    overflow: scroll;
+                }
+                `}</style>
             <div>
-            <button
+                <button
                     onClick={sendData}
                     className='checkBtn'
-            ></button>
+                ></button>
             </div>
             <div className='scroll_body'>
                 <div>
-                {questionList.map((e,index) => (
-                    <Box sx={{
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}>
+                    {questionList.map((e, index) => (
+                        <Box key={index} sx={{
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                        }}>
                             <MakeOneQuiz key={index}
-                            order={index + 1}
-                            question={questionList[index].question}
-                            presetOptions={questionList[index].options}
-                            presetRadio={questionList[index].selected}
-                            loadData={loadData} />
-                    </Box>
+                                order={index + 1}
+                                question={questionList[index].question}
+                                presetOptions={questionList[index].options}
+                                presetRadio={questionList[index].selected}
+                                loadData={loadData} />
+                        </Box>
                     ))}
                     <button
                         onClick={AddQuestion}
