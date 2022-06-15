@@ -391,10 +391,12 @@ div:nth-last-child(2n) > .qOption:after{
 }
 .themeYellow .solvedBar,
 .themeYellow .selectedOpt,
-.themeYellow .selectedOpt input,
+.themeYellow .selectedOpt input{
+  color: var(--black);
+}
 .themeYellow .selectedOpt input::placeholder{
   background-color: var(--yellow);
-  color: var(--black);
+  color: rgba(0,0,0,0.5);
 }
 .themeRed .quizIdx{
   color: var(--red);
@@ -403,9 +405,11 @@ div:nth-last-child(2n) > .qOption:after{
 .themeRed .selectedOpt{
   background-color: var(--red);
 }
-.themeRed .selectedOpt input,
-.themeRed .selectedOpt input::placeholder{
+.themeRed .selectedOpt input{
   color: white;
+}
+.themeRed .selectedOpt input::placeholder{
+  color: rgba(255,255,255,0.5);
 }
 .themeBlue .quizIdx{
   color: var(--blue);
@@ -414,9 +418,11 @@ div:nth-last-child(2n) > .qOption:after{
 .themeBlue .selectedOpt{
   background-color: var(--blue);
 }
-.themeBlue .selectedOpt input,
-.themeBlue .selectedOpt input::placeholder{
+.themeBlue .selectedOpt input{
   color: white;
+}
+.themeBlue .selectedOpt input::placeholder{
+  color: rgba(255,255,255,0.5);
 }
 .themeBlack .quizIdx{
   color: var(--black);
@@ -425,9 +431,11 @@ div:nth-last-child(2n) > .qOption:after{
 .themeBlack .selectedOpt{
   background-color: var(--black);
 }
-.themeBlack .selectedOpt input,
-.themeBlack .selectedOpt input::placeholder{
+.themeBlack .selectedOpt input{
   color: white;
+}
+.themeBlack .selectedOpt input::placeholder{
+  color: rgba(255,255,255,0.5);
 }
 
 .themeRed .selectedOpt .plus,

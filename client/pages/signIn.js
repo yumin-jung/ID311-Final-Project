@@ -53,7 +53,7 @@ export default function SignIn() {
                 // Go to personal page
                 router.push({
                     pathname: '/personalPage/[id]',
-                    query: { id: findUserInfo.quizCode },
+                    query: { id: findUserInfo.quizCode, isUser: true },
                 })
             }
             else {

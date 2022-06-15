@@ -15,7 +15,8 @@ let userInfo = [];
 
 export default function MakeQuiz() {
     const router = useRouter();
-    const { isUser, quizCode } = useContext(AppContext);
+    const quizCode = router.query.id;
+    const isUser = router.query.isUser;
     const qBundle = [];
     const [idx, setIdx] = useState(0);
 
@@ -70,15 +71,15 @@ export default function MakeQuiz() {
                 }
             }
         };
-        const outerDivRefCurrent = outerDivRef.current;
-        outerDivRefCurrent ? outerDivRefCurrent.addEventListener("wheel", wheelHandler) : null;
-        return () => {
-            outerDivRefCurrent.removeEventListener("wheel", wheelHandler);
-        };
   }, []);
 
     // Add question
     const AddQuestion = () => {
+        console.log(MakeOneQuiz)
+        if(questionList[questionList.length-1].options.includes('')) {
+            alert('write the option');
+            return;
+        }
         let questions = [...questionList];
         questions.push({ question: `${userInfo.makerName}(이)의`, options: [''], selected: 0 });
         setquestionList(questions);

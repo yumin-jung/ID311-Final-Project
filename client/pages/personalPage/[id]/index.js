@@ -22,7 +22,8 @@ let msgList = [];
 
 export default function PersonalPage() {
     const router = useRouter();
-    const { isUser, quizCode } = useContext(AppContext);
+    const quizCode = router.query.id;
+    const isUser = router.query.isUser;
 
     // Check rendering
     const [isRenderUser, setIsRenderUser] = useState(false);
@@ -109,7 +110,7 @@ export default function PersonalPage() {
     const MakeQuiz = (event) => {
         router.push({
             pathname: '/makeQuiz/[id]',
-            query: { id: quizCode },
+            query: { id: quizCode, isUser: isUser },
         })
     }
 
@@ -147,7 +148,7 @@ export default function PersonalPage() {
                 <Container sx={{
                     width: '100%',
                     alignItems: 'center',
-                }} >
+                }}>
                     <Box
                         sx={{
                             width: '40%',
