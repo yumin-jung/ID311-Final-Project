@@ -11,7 +11,7 @@ router.post("/saveSolver", (req, res) => {
 });
 
 router.post('/getSolver', (req, res) => {
-    Message.find({})
+    Solver.find({})
         .exec((err, solvers) => {
             if (err) return res.status(400).send(err);
             res.status(200).json({ success: true, solvers });
