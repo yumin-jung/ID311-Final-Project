@@ -151,15 +151,6 @@ export default function SignUp() {
                             SIGN UP
                         </button>
                     </Box>
-                    <Typography>
-                        {`Do you have an account? `}
-                        <Link
-                            href='/signIn'
-                            variant='body2'
-                            underline='hover'>
-                            Sign In
-                        </Link>
-                    </Typography>
                 </Box>
             </Container>
         </ThemeProvider>

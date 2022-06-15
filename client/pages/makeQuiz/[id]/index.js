@@ -32,7 +32,7 @@ export default function MakeQuiz() {
                         return { makerName: user.firstName, password: user.password, quizCode: user.quizCode };
                     })
                     userInfo = userListAll.filter((user) => user.quizCode == quizCode)[0]
-                    console.log(userInfo);
+                    console.log(userInfo, quizCode);
 
                     // Preset questions
                     qBundle.push({ question: `${userInfo.makerName}(이)가 좋아하는 색깔은?`, options: ['blue', 'red', 'green'], selected: 0 });
@@ -48,42 +48,40 @@ export default function MakeQuiz() {
         const wheelHandler = (e) => {
             e.preventDefault();
             const { deltaY } = e;
-            const { scrollTop } = outerDivRef.current;
-            const pageHeight = window.innerHeight;
-      
-            if (deltaY > 0) {
-                // 스크롤 내릴 때
-                if (scrollTop >=0 && scrollTop < pageHeight) {
-                    outerDivRef.current.scrollTop({
-                        top: pageHeight,
-                        left: 0,
-                        behavior: 'smooth',
-                    })
-                }
-            } else {
-                // 스크롤 올릴 때
-                if (scrollTop >=pageHeight && scrollTop < pageHeight*2) {
-                    outerDivRef.current.scrollTop({
-                        top: 0,
-                        left: 0,
-                        behavior: 'smooth',
-                    })
-                }
+
+            console.log(idx);
+            if (deltaY > 0 && idx < questionList.length - 1) {
+                console.log(deltaY);
+                // setIdx(idx+1);
+            } else if (deltaY < 0 && idx > 1) {
+                console.log('sdf');
+                setIdx(idx - 1);
             }
         };
-  }, []);
+        // console.log(outerDivRef.current==null, 'outer');
+        if (outerDivRef.current == null) return;
+        const outerDivRefCurrent = outerDivRef.current;
+        outerDivRefCurrent.addEventListener('wheel', wheelHandler);
+        return () => {
+            outerDivRefCurrent.removeEventListener('wheel', wheelHandler);
+        };
+    }, []);
+
+
 
     // Add question
     const AddQuestion = () => {
-        console.log(MakeOneQuiz)
-        if(questionList[questionList.length-1].options.includes('')) {
+        console.log(questionList[idx].options, questionList)
+        if (questionList[idx].options.includes('')) {
             alert('write the option');
             return;
         }
-        let questions = [...questionList];
-        questions.push({ question: `${userInfo.makerName}(이)의`, options: [''], selected: 0 });
-        setquestionList(questions);
-        setIdx(idx + 1);
+        else {
+            let questions = [...questionList];
+            questions.push({ question: `${userInfo.makerName}(이)의`, options: [''], selected: 0 });
+            setquestionList(questions);
+            setIdx(idx + 1);
+        }
     }
 
     // Send quiz data
@@ -96,7 +94,7 @@ export default function MakeQuiz() {
             quizBundle: qBundle,
             quizLength: qBundle.length,
             //5 types of shapes -> make array
-            patterns: new Array(24).fill().map((e) => Math.floor(Math.random()*5))
+            patterns: new Array(24).fill().map((e) => Math.floor(Math.random() * 5))
         }
 
         axios.post(DEPLOY_SERVER_URL + '/api/quizzes/saveQuiz', quizData)
@@ -115,6 +113,10 @@ export default function MakeQuiz() {
             });
     }
 
+    const ChangePage = (e) => {
+        console.log(e.target.scrollTop, 'scroll');
+    }
+
     const loadData = (idx, data) => {
         qBundle[idx] = data;
     }
@@ -125,37 +127,32 @@ export default function MakeQuiz() {
     return (
         <>
             {/* <Nav isUser={isUser} quizCode={quizCode} /> */}
-            <button
+            <style jsx global>{`
+                body {
+                    overflow: scroll;
+                }
+                `}</style>
+            <div>
+                <button
                     onClick={sendData}
                     className='checkBtn'
-            ></button>
-            <div ref={outerDivRef} className='outer'>
-                <div className='inner'>
-                    <Box sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        height: '100vh'
-                    }}>
-                        
-                        <Box
-                            sx={{
-                                p: '2%',
-                                minWidth: 360,
-                                width: '40%',
-                            }}
-                        >
-                            
-                            <MakeOneQuiz key={idx}
-                                order={idx + 1}
-                                question={questionList[idx].question}
-                                presetOptions={questionList[idx].options}
-                                presetRadio={questionList[idx].selected}
+                ></button>
+            </div>
+            <div className='scroll_body'>
+                <div>
+                    {questionList.map((e, index) => (
+                        <Box key={index} sx={{
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                        }}>
+                            <MakeOneQuiz key={index}
+                                order={index + 1}
+                                question={questionList[index].question}
+                                presetOptions={questionList[index].options}
+                                presetRadio={questionList[index].selected}
                                 loadData={loadData} />
-                            
-                            
                         </Box>
-                    </Box>
+                    ))}
                     <button
                         onClick={AddQuestion}
                         className='addQuestionBtn'

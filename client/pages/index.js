@@ -18,11 +18,9 @@ let quizList = [];
 
 export default function Home() {
   const router = useRouter();
-  const isUser = router.query.isUser;
-  const quizCode = router.query.id;
   const [codeInput, setcodeInput] = useState('');
 
-  // const { isUser, quizCode, setQuizCode } = useContext(AppContext);
+  const { isUser, quizCode, setQuizCode } = useContext(AppContext);
   const [alertOn, setAlert] = useState(false);
 
   // Make quiz code upper case
@@ -40,6 +38,7 @@ export default function Home() {
     }
     else {
       quizCode = quizFilter[0].quizCode;
+      setQuizCode(quizCode);
       router.push({
         pathname: '/startQuiz/[id]',
         query: { id: codeInput.toLowerCase() },
@@ -49,7 +48,6 @@ export default function Home() {
 
   // Get data from DB
   useEffect(() => {
-    console.log(isUser, quizCode)
     axios.post(DEPLOY_SERVER_URL + '/api/quizzes/getQuiz', null)
       .then(response => {
         if (response.data.success) {
@@ -87,14 +85,14 @@ export default function Home() {
               placeholder='Input the code'
               className='inputCodeBox'
             />
-            {codeInput.length == 6 && 
+            {codeInput.length == 6 &&
               <Box sx={{ mt: 0, display: 'flex', alignItems: 'center' }} >
                 <div className="line"></div>
-                  <button
-                    type="submit"
-                    variant="contained"
-                    className='rightArrow'
-                  >
+                <button
+                  type="submit"
+                  variant="contained"
+                  className='rightArrow'
+                >
                 </button>
               </Box>
             }
