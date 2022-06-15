@@ -129,7 +129,7 @@ export default function PersonalPage(){
                 }} >
                     <div className='msgGrid'>
                         {patterns.map((pattern, idx) => (
-                            <BauIcon key={idx} patternNum={pattern} rotate={(idx * 7) % 4} colorNum={(idx * 13) % 5} />
+                            <BauIcon key={idx} patternNum={pattern} rotate={(idx * 7) % 4} colorNum={(idx * 13) % 5}  />
                         ))}
                     </div>
                 </Container>

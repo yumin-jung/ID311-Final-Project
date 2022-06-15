@@ -162,6 +162,12 @@ export default function LeaveMessage() {
                         </List>
                     </Box>
                 </Grid> */}
+                <div className='colorPalette'>
+                    <div className='colorPick black'></div>
+                    <div className='colorPick blue'></div>
+                    <div className='colorPick yellow'></div>
+                    <div className='colorPick red'></div>
+                </div>
         </Box >
     )
 }
