@@ -890,15 +890,24 @@ body::-webkit-scrollbar{
 .msgInvisible .msgBlock{
   opacity: 0;
   visibility: hidden;
+  z-index: 1;
 }
 .msgInvisible:hover > .msgBlock{
   opacity: 1;
   visibility: visible;
 }
-
 .msgVisible > .msgBlock{
   opacity: 1;
   visibility: visible;
+  z-index: 3;
+}
+.hide{
+  opacity: 0;
+  visibility: hidden;
+}
+.msgInvisible:hover > .hide{
+  opacity: 0;
+  visibility: hidden;
 }
 .msgNick{
   font-size: 0.8em;
@@ -981,4 +990,11 @@ textarea::-webkit-scrollbar{
   position: absolute;
   top: 1.25em;
   right: 1.25em;
+}
+.msgVisible ~ .backPanel{
+  z-index: 2;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: black;
 }

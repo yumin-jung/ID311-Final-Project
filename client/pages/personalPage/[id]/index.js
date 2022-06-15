@@ -131,6 +131,7 @@ export default function PersonalPage() {
                         {patterns.map((pattern, idx) => (
                             <BauIcon key={idx} patternNum={pattern} rotate={(idx * 7) % 4} colorNum={(idx * 13) % 5}  />
                         ))}
+                        
                     </div>
                 </Container>
             </>

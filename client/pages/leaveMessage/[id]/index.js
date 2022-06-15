@@ -18,10 +18,11 @@ const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
 const LOCAL_SERVER_URL = 'http://localhost:8080';
 
 let FilteredSolvers;
-let userList = [];
+
 
 export default function LeaveMessage() {
     let patterns = new Array(12).fill().map((e) => Math.floor(Math.random() * 5));
+    let userList = [];
     const [bauArr, setBauArr] = useState([]);
     const router = useRouter();
     const { quizCode, quizNickname, score } = useContext(AppContext);
@@ -29,6 +30,7 @@ export default function LeaveMessage() {
     // Check rendering
     const [isRenderSolver, setIsRenderSolver] = useState(false);
     const [isRenderMsg, setIsRenderMsg] = useState(false);
+    const [isRenderUser, setIsRenderUser] = useState(false);
 
     // Choose color and location of patterns
     const [color, setColor] = useState(false);
@@ -45,6 +47,7 @@ export default function LeaveMessage() {
                         return { username: user.username, password: user.password, quizCode: user.quizCode, firstName: user.firstName};
                     })
                     userList = userListAll.filter((user) => user.quizCode == quizCode);
+                    setIsRenderUser(true);
                 } else {
                     alert('Failed to get users');
                 }
@@ -80,7 +83,10 @@ export default function LeaveMessage() {
     }, []);
 
     // Pause rendering until get data
-    if (isRenderMsg === false) {
+    if (isRenderSolver === false) {
+        return null;
+    }
+    if (isRenderUser === false) {
         return null;
     }
 

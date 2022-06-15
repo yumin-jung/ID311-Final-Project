@@ -1,4 +1,6 @@
-import * as React from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { useRouter } from 'next/router'
+import axios from 'axios';
 import InputBox from './InputBox';
 
 const BauIcon = ({patternNum, rotate, colorNum, nickname, score, message, isTrans, isLeavingMsg, resultNick, resultScore, msgColor, idx, quizCode}) => {
@@ -9,77 +11,83 @@ const BauIcon = ({patternNum, rotate, colorNum, nickname, score, message, isTran
     const colors = [' red', ' blue', ' black', ' yellow'];
     let color = '';
     if (colorNum<4) color = colors[colorNum];
-    if (!nickname) nickname = 'NICKNAME';
-    if (!score) score = '4/13';
-    if (!message && colorNum ==1) message = 'Hello, this is me from id215';
+    message = 'aefawefa';
+    const [messageOn, setMessage] = useState('');
+    const MsgBlockOn = (event) => {
+        setMessage(message);
+        event.target.addEventListener('mouseleave', MsgBlockOff);
+    };
+    const MsgBlockOff = (event) => {
+        setMessage('');
+    };
     switch (patternNum){
         case 0:
             return (
-                <div className={'bauhausBlock' + (message?' msgVisible':' msgInvisible') + (isTrans?' transparent':'')}>
+                <div onClick={MsgBlockOn} className={'bauhausBlock' + (messageOn?' msgVisible':' msgInvisible') + (isTrans?' transparent':'')}>
                     <div className={'bauhaus bauQuarter' + rotation[rotate] + color}></div>
-                    <div className='msgBlock'>
+                    <div className={'msgBlock' + (nickname?'':' hide')}>
                         <div>
                             <div className='msgNick'>{nickname}</div>
                             <div className='msgScore'>{score}</div>
                         </div>
                         <div>
-                            <InputBox idx={idx} message={message} isLeavingMsg={isLeavingMsg} resultNick={resultNick} resultScore={resultScore} msgColor={msgColor} quizCode={quizCode}></InputBox>
+                            <InputBox idx={idx} message={messageOn} isLeavingMsg={isLeavingMsg} resultNick={resultNick} resultScore={resultScore} msgColor={msgColor} quizCode={quizCode}></InputBox>
                         </div>
                     </div>
                 </div>
             );
         case 1:
             return (
-                <div className={'bauhausBlock ' + (message?'msgVisible':'msgInvisible') + (isTrans?' transparent':'')}>
+                <div onClick={MsgBlockOn}  className={'bauhausBlock ' + (messageOn?'msgVisible':'msgInvisible') + (isTrans?' transparent':'')}>
                     <div className={'bauhaus circle' + rotation[rotate] + color}></div>
-                    <div className='msgBlock'>
+                    <div className={'msgBlock' + (nickname?'':' hide')}>
                         <div>
                             <div className='msgNick'>{nickname}</div>
                             <div className='msgScore'>{score}</div>
                         </div>
-                        <div className='msgMsg'>{message}</div>
+                        <div className='msgMsg'>{messageOn}</div>
                     </div>
                 </div>
             );
         case 2:
             return (
-                <div className={'bauhausBlock ' + (message?'msgVisible':'msgInvisible') + (isTrans?' transparent':'')}>
+                <div onClick={MsgBlockOn}  className={'bauhausBlock ' + (messageOn?'msgVisible':'msgInvisible') + (isTrans?' transparent':'')}>
                     <div className={'bauhaus triangle' + rotation[rotate] + color}></div>
-                    <div className='msgBlock'>
+                    <div className={'msgBlock' + (nickname?'':' hide')}>
                         <div>
                             <div className='msgNick'>{nickname}</div>
                             <div className='msgScore'>{score}</div>
                         </div>
-                        <div className='msgMsg'>{message}</div>
+                        <div className='msgMsg'>{messageOn}</div>
                     </div>
                 </div>
             );
         case 3:
             return (
-                <div className={'bauhausBlock ' + (message?'msgVisible':'msgInvisible') + (isTrans?' transparent':'')}>
+                <div onClick={MsgBlockOn}  className={'bauhausBlock ' + (messageOn?'msgVisible':'msgInvisible') + (isTrans?' transparent':'')}>
                     <div className={'bauhaus' + rotation[rotate]}>
                         <div className={'bauHalf' + color}></div>
                         <div className={'bauHalf' + color}></div>
                     </div>
-                    <div className='msgBlock'>
+                    <div className={'msgBlock' + (nickname?'':' hide')}>
                         <div>
                             <div className='msgNick'>{nickname}</div>
                             <div className='msgScore'>{score}</div>
                         </div>
-                        <div className='msgMsg'>{message}</div>
+                        <div className='msgMsg'>{messageOn}</div>
                     </div>
                 </div>
             );
         case 4:
             return (
-                <div className={'bauhausBlock ' + (message?'msgVisible':'msgInvisible') + (isTrans?' transparent':'')}>
+                <div onClick={MsgBlockOn} className={'bauhausBlock ' + (messageOn?'msgVisible':'msgInvisible') + (isTrans?' transparent':'')}>
                     <div className={'hourglass bauhaus' + rotation[rotate] + color}></div>
-                    <div className='msgBlock'>
+                    <div className={'msgBlock' + (nickname?'':' hide')}>
                         <div>
                             <div className='msgNick'>{nickname}</div>
                             <div className='msgScore'>{score}</div>
                         </div>
-                        <div className='msgMsg'>{message}</div>
+                        <div className='msgMsg'>{messageOn}</div>
                     </div>
                 </div>
             );
