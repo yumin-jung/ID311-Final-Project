@@ -12,6 +12,7 @@ import Message from '../../../components/Message';
 import { AppContext } from '../../../context/AppContext';
 import Nav from '../../../components/Nav';
 import Logo from '../../../components/Logo';
+import BauIcon from '../../../components/BauIcon';
 
 const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
 const LOCAL_SERVER_URL = 'http://localhost:8080';
@@ -21,6 +22,7 @@ let scoreList = [];
 let msgList = [];
 
 export default function PersonalPage() {
+    let patterns = new Array(12).fill().map((e) => Math.floor(Math.random()*5));
     const router = useRouter();
     const quizCode = router.query.id;
     const isUser = router.query.isUser;
@@ -30,6 +32,7 @@ export default function PersonalPage() {
     const [isRenderQuiz, setIsRenderQuiz] = useState(false);
     const [isRenderScore, setIsRenderScore] = useState(false);
     const [isRenderMsg, setIsRenderMsg] = useState(false);
+    const [isRenderPattern, setIsRenderPattern] = useState(false);
 
     useEffect(() => {
         // Get userlist from DB
@@ -50,9 +53,13 @@ export default function PersonalPage() {
         axios.post(DEPLOY_SERVER_URL + '/api/quizzes/getQuiz', null)
             .then(response => {
                 if (response.data.success) {
-                    const quizListAll = response.data.quiz;
-                    quizList = quizListAll.filter((quiz) => quiz.quizCode == quizCode)
+                    const quizListAll = response.data.quiz.map((quiz) => {
+                        return { quizCode: quiz.quizCode, patterns: quiz.patterns };
+                    })
+                    quizList = quizListAll.filter((quiz) => quiz.quizCode == quizCode);
                     setIsRenderQuiz(true);
+                    patterns = quizListAll.filter((quiz) => quiz.quizCode == quizCode).patterns;
+                    setIsRenderPattern(true);
                 } else {
                     alert('Failed to get quizzes');
                 }
@@ -106,6 +113,9 @@ export default function PersonalPage() {
     if (isRenderMsg === false) {
         return null;
     }
+    if (isRenderPattern === false) {
+        return null;
+    }
 
     const MakeQuiz = (event) => {
         router.push({
@@ -148,75 +158,12 @@ export default function PersonalPage() {
                 <Container sx={{
                     width: '100%',
                     alignItems: 'center',
-                }}>
-                    <Box
-                        sx={{
-                            width: '40%',
-                            p: 2,
-                            minWidth: 400,
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Typography variant='h2'>Your Quiz</Typography>
-                    </Box>
-                    <Grid container direction="row" spacing={20} justifyContent="center" alignItems="center" >
-                        <Grid item xs={5}
-                            container
-                            justifyContent="center"
-                            alignItems="center"
-                            spacing={2}>
-                            <Box
-                                sx={{
-                                    width: '100%',
-                                    boxShadow: 12,
-                                    borderRadius: 4,
-                                    p: 2,
-                                    minWidth: 360,
-                                    marginTop: '5%',
-                                    flexDirection: 'column',
-                                    alignItems: 'center',
-                                    display: 'flex'
-                                }}
-                            >
-                                <Typography component="h1" variant="h5">
-                                    Score Board
-                                </Typography>
-                                <List sx={{ width: '100%', maxWidth: 360 }}>
-                                    {scoreList.map((score, idx) => (
-                                        <Score key={idx} value={idx + 1} userName={score.nickname} score={score.score} quizLen={score.quizLen} />
-                                    ))}
-                                </List>
-                            </Box>
-                        </Grid>
-                        <Grid item xs={5}
-                            container
-                            justifyContent="center"
-                            alignItems="center"
-                            spacing={2}>
-                            <Box
-                                sx={{
-                                    width: '100%',
-                                    boxShadow: 12,
-                                    borderRadius: 4,
-                                    p: 2,
-                                    minWidth: 360,
-                                    marginTop: '5%',
-                                    flexDirection: 'column',
-                                    alignItems: 'center',
-                                    display: 'flex'
-                                }}
-                            >
-                                <Typography component="h1" variant="h5">
-                                    Messages
-                                </Typography>
-                                <List sx={{ width: '100%', maxWidth: 360 }}>
-                                    {msgList.map((msg, idx) => (
-                                        <Message key={idx} userName={msg.nickname} comment={msg.message} quizCode={quizCode} />
-                                    ))}
-                                </List>
-                            </Box>
-                        </Grid>
-                    </Grid>
+                }} >
+                    <div className='msgGrid'>
+                        {patterns.map((pattern, idx) =>(
+                            <BauIcon patternNum={pattern} rotate={(idx*7)%4} colorNum={(idx*13)%5} />
+                        ))}
+                    </div>
                 </Container>
             </>
         )

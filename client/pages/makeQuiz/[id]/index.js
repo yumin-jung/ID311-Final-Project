@@ -125,6 +125,10 @@ export default function MakeQuiz() {
     return (
         <>
             {/* <Nav isUser={isUser} quizCode={quizCode} /> */}
+            <button
+                    onClick={sendData}
+                    className='checkBtn'
+            ></button>
             <div ref={outerDivRef} className='outer'>
                 <div className='inner'>
                     <Box sx={{
