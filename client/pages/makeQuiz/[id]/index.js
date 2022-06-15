@@ -12,16 +12,15 @@ const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com'
 const LOCAL_SERVER_URL = 'http://localhost:8080'
 let userList = [];
 let userInfo = [];
+let isQuizExist;
 
 export default function MakeQuiz() {
     const router = useRouter();
     const { isUser, quizCode } = useContext(AppContext);
     const qBundle = [];
     const [idx, setIdx] = useState(0);
-
     const [questionList, setquestionList] = useState(null);
 
-    const outerDivRef = useRef(null);
 
     useEffect(() => {
         axios.post(DEPLOY_SERVER_URL + '/api/users/getUsers', null)
@@ -34,15 +33,28 @@ export default function MakeQuiz() {
                     console.log(userInfo, quizCode);
 
                     // Preset questions
-                    qBundle.push({ question: `${userInfo.makerName}(이)가 좋아하는 색깔은?`, options: ['blue', 'red', 'green'], selected: 0 });
-                    qBundle.push({ question: `${userInfo.makerName}(이)가 좋아하는 스포츠는?`, options: ['basketball', 'running', 'badminton'], selected: 0 });
-                    qBundle.push({ question: `${userInfo.makerName}(이)의 나이는?`, options: ['19', '21', '25'], selected: 0 });
+                    qBundle.push({ question: `${userInfo.makerName}'s favorite color?`, options: ['blue', 'red', 'green'], selected: 0 });
+                    qBundle.push({ question: `${userInfo.makerName}'s favorite sport?`, options: ['basketball', 'running', 'badminton'], selected: 0 });
+                    qBundle.push({ question: `${userInfo.makerName}'s age?`, options: ['19', '21', '25'], selected: 0 });
+                    qBundle.push({ question: `${userInfo.makerName}'s major?`, options: ['industrial design', 'computer science', 'biology'], selected: 0});
 
-                    setquestionList(qBundle)
+                    setquestionList(qBundle);
                 } else {
                     alert('Failed to get users');
                 }
             });
+        axios.post(DEPLOY_SERVER_URL + '/api/quizzes/getQuiz', null)
+            .then(response => {
+                if (response.data.success) {
+                    const quizListAll = response.data.quiz.map((quiz) => {
+                        return { quizCode: quiz.quizCode };
+                    })
+                    isQuizExist = quizListAll.some((e) => e.quizCode == quizCode);
+                    console.log(isQuizExist);
+                } else {
+                    alert('Failed to get quizzes');
+                }
+            })
   }, []);
 
 
@@ -59,10 +71,9 @@ export default function MakeQuiz() {
     const sendData = (event) => {
         event.preventDefault();
         const allOptions = qBundle.reduce((acc,e) => acc.concat(e.options),[]);
-        
-        if(allOptions.includes('')) {
-            alert('Fill up the options');
-        }
+
+        if(isQuizExist) alert('You already made quiz');
+        else if(allOptions.includes('')) alert('Fill up the options');
         else{
             const quizData = {
                 makerName: userInfo.makerName,
@@ -88,10 +99,6 @@ export default function MakeQuiz() {
                 });
         }
 
-    }
-
-    const ChangePage = (e) => {
-        console.log(e.target.scrollTop, 'scroll');
     }
 
     const loadData = (idx, data) => {
