@@ -48,35 +48,35 @@ export default function MakeQuiz() {
         const wheelHandler = (e) => {
             e.preventDefault();
             const { deltaY } = e;
-            
+
             console.log(idx);
-            if (deltaY > 0 && idx<questionList.length-1) {
+            if (deltaY > 0 && idx < questionList.length - 1) {
                 console.log(deltaY);
                 // setIdx(idx+1);
-            } else if(deltaY<0 && idx>1) {
+            } else if (deltaY < 0 && idx > 1) {
                 console.log('sdf');
-                setIdx(idx-1);
+                setIdx(idx - 1);
             }
         };
         // console.log(outerDivRef.current==null, 'outer');
-        if(outerDivRef.current==null) return;
+        if (outerDivRef.current == null) return;
         const outerDivRefCurrent = outerDivRef.current;
         outerDivRefCurrent.addEventListener('wheel', wheelHandler);
-        return ()=> {
+        return () => {
             outerDivRefCurrent.removeEventListener('wheel', wheelHandler);
         };
-  }, []);
+    }, []);
 
 
 
     // Add question
     const AddQuestion = () => {
         console.log(questionList[idx].options, questionList)
-        if(questionList[idx].options.includes('')) {
+        if (questionList[idx].options.includes('')) {
             alert('write the option');
             return;
         }
-        else{
+        else {
             let questions = [...questionList];
             questions.push({ question: `${userInfo.makerName}(이)의`, options: [''], selected: 0 });
             setquestionList(questions);
@@ -94,7 +94,7 @@ export default function MakeQuiz() {
             quizBundle: qBundle,
             quizLength: qBundle.length,
             //5 types of shapes -> make array
-            patterns: new Array(24).fill().map((e) => Math.floor(Math.random()*5))
+            patterns: new Array(24).fill().map((e) => Math.floor(Math.random() * 5))
         }
 
         axios.post(DEPLOY_SERVER_URL + '/api/quizzes/saveQuiz', quizData)
@@ -128,25 +128,25 @@ export default function MakeQuiz() {
         <>
             {/* <Nav isUser={isUser} quizCode={quizCode} /> */}
             <div>
-            <button
+                <button
                     onClick={sendData}
                     className='checkBtn'
-            ></button>
+                ></button>
             </div>
             <div className='scroll_body'>
                 <div>
-                {questionList.map((e,index) => (
-                    <Box sx={{
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}>
+                    {questionList.map((e, index) => (
+                        <Box key={index} sx={{
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                        }}>
                             <MakeOneQuiz key={index}
-                            order={index + 1}
-                            question={questionList[index].question}
-                            presetOptions={questionList[index].options}
-                            presetRadio={questionList[index].selected}
-                            loadData={loadData} />
-                    </Box>
+                                order={index + 1}
+                                question={questionList[index].question}
+                                presetOptions={questionList[index].options}
+                                presetRadio={questionList[index].selected}
+                                loadData={loadData} />
+                        </Box>
                     ))}
                     <button
                         onClick={AddQuestion}
