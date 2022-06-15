@@ -126,7 +126,7 @@ export default function MakeQuiz() {
             <div>
                 <button
                     onClick={undoPage}
-                    className='undoBtn'
+                    className='plus undoBtn'
                 ></button>
                 <button
                     onClick={sendData}

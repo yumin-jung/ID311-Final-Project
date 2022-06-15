@@ -238,6 +238,13 @@ textarea:-webkit-autofill,textarea:-webkit-autofill:hover,textarea:-webkit-autof
   color: rgba(104, 64, 21, 0.304);
   opacity: 1;
 }
+.alertCodeBox{
+  background-color: rgb(0,0,0);
+  color: rgb(255,255,255);
+  text-align: center;
+  padding: 1.125em 1.63em;
+  font-size: 1.38em;
+}
 .rightArrow{
   position: absolute;
   width: 2.25em;
@@ -527,7 +534,7 @@ body::-webkit-scrollbar{
 .plus::before{
   content: "";
   position: absolute;
-  top: calc(1em - 1px);
+  top: calc(50% - 1px);
   left: 0;
   width: 2em;
   height: 0;
@@ -537,7 +544,7 @@ body::-webkit-scrollbar{
   content: "";
   position: absolute;
   top: 0;
-  left: calc(1rem - 1px);
+  left: calc(50% - 1px);
   height: 2em;
   width: 0;
   border-left: 2px solid var(--black);
@@ -579,32 +586,30 @@ body::-webkit-scrollbar{
   height: 3.5em;
   font-weight: 700;
 }
-
 .undoBtn{
-  /* transform: rotateZ(45deg); */
-  z-index: 2;
+  transform: rotateZ(45deg);
   position: relative;
-  width: 2em;
-  height: 2em;
-  display: block;
-  font-size: min(min(16px, 2vh),3.5vw);
-  box-sizing: content-box;
-  position: absolute;
-  background: none;
+  z-index: 2;
   left: 4em;
   top: 3em;
+  display: block;
+  background: none;
+  position: absolute;
+  font-size: min(min(16px, 2vh),3.5vw);
+  width: 3rem;
+  height: 3rem;
   border: none;
 }
+.undoBtn:hover{
+  width: 3em;
+  height: 3em;
+  background-color: rgba(104, 64, 21, 0);
+}
+.undoBtn:before{
+  width: 3em;
+}
 .undoBtn:after{
-  width: 2em;
-  height: 2em;
-  content: "";
-  position: absolute;
-  border: 2px solid var(--black);
-  border-right: none;
-  /* border-top: none; */
-  left: 0;
-  top: 0;
+  height: 3em;
 }
 .checkBtn{
   box-sizing: content-box;

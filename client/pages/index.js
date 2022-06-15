@@ -11,7 +11,8 @@ import Nav from '../components/Nav';
 import CodeLogo from '../components/CodeLogo';
 
 const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
-const LOCAL_SERVER_URL = 'http://localhost:8080';
+const DEPLOY_CLIENT_URL = 'https://id311.'
+const LOCAL_CLIENT_URL = 'http://localhost:3000';
 
 const theme = createTheme();
 let quizList = [];
@@ -31,14 +32,16 @@ export default function Home() {
   // If user submit quiz code
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    console.log(alertOn);
     const quizFilter = quizList.filter((quiz) => quiz.quizCode == codeInput.toLowerCase());
-    if (quizFilter.length < 1) {
+    if (quizFilter.length == 0) {
       setAlert(true);
+      setTimeout(()=>setAlert(false),2000);
     }
     else {
-      quizCode = quizFilter[0].quizCode;
-      setQuizCode(quizCode);
+      console.log(quizFilter);
+      const inputQuizCode = quizFilter[0].quizCode;
+      setQuizCode(inputQuizCode);
       router.push({
         pathname: '/startQuiz/[id]',
         query: { id: codeInput.toLowerCase() },
@@ -74,7 +77,14 @@ export default function Home() {
         >
           <CodeLogo></CodeLogo>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 8, display: 'flex', alignItems: 'center' }} style={{ position: "relative" }}>
-            <input
+            {alertOn ? <input
+              id="code"
+              label="Code"
+              name="code"
+              value='Invalid code'
+              autoFocus
+              className='alertCodeBox'
+              /> : <input
               id="code"
               label="Code"
               name="code"
@@ -84,7 +94,8 @@ export default function Home() {
               autoFocus
               placeholder='Input the code'
               className='inputCodeBox'
-            />
+            />}
+            
             {codeInput.length == 6 &&
               <Box sx={{ mt: 0, display: 'flex', alignItems: 'center' }} >
                 <div className="line"></div>
