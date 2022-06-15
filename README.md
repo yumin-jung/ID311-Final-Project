@@ -337,6 +337,7 @@ This is **Directory Structure** of our application
   - But, Next.js unsupport some React Hooks.
   - So, we initialize contextAPI's value with query.
   - You can see this information in [here](https://nextjs.org/docs/advanced-features/react-18/server-components#unsupported-nextjs-apis)
+- The pattern implementation of the personal page portion could not be completed.
 
 # References 🌿
 
