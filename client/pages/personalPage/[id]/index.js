@@ -21,9 +21,8 @@ export default function PersonalPage() {
     // Check rendering
     const [isRenderUser, setIsRenderUser] = useState(false);
     const [isRenderQuiz, setIsRenderQuiz] = useState(false);
-    const [isRenderScore, setIsRenderScore] = useState(false);
-    const [isRenderMsg, setIsRenderMsg] = useState(false);
-    const [isRenderPattern, setIsRenderPattern] = useState(false);
+    const [isRenderSolver, setIsRenderSolver] = useState(false);
+
 
     useEffect(() => {
         // Get userlist from DB
@@ -51,7 +50,6 @@ export default function PersonalPage() {
                     if(quizList!=0) patterns = quizList[0].patterns.reduce((acc,e)=>acc.concat(e),[]).filter((e,idx)=> idx<12);
                     console.log(patterns);
                     setIsRenderQuiz(true);
-                    setIsRenderPattern(true);
                 } else {
                     alert('Failed to get quizzes');
                 }
@@ -65,7 +63,8 @@ export default function PersonalPage() {
                         return { quizCode: solver.quizCode, nickname: solver.info.nickname, score: solver.score, totScore: solver.quizLen, message: solver.message  };
                     })
                     FilteredSolvers = allSolvers.filter((solver) => solver.quizCode == quizCode)
-                    setIsRenderMsg(true)
+                    setIsRenderSolver(true);
+                    console.log(allSolvers);
                 }
                 else {
                     alert('Failed to get msgs');
@@ -80,13 +79,7 @@ export default function PersonalPage() {
     if (isRenderQuiz === false) {
         return null;
     }
-    if (isRenderScore === false) {
-        return null;
-    }
-    if (isRenderMsg === false) {
-        return null;
-    }
-    if (isRenderPattern === false) {
+    if (isRenderSolver === false) {
         return null;
     }
 
