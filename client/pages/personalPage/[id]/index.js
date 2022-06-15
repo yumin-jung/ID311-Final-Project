@@ -11,8 +11,7 @@ const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
 const LOCAL_SERVER_URL = 'http://localhost:8080';
 let userList = [];
 let quizList = null;
-let scoreList = [];
-let msgList = [];
+let FilteredSolvers = [];
 let patterns;
 
 export default function PersonalPage() {
@@ -58,33 +57,14 @@ export default function PersonalPage() {
                 }
             })
 
-        // Get score data
-        axios.post(DEPLOY_SERVER_URL + '/api/scores/getScore', null)
+        // Get solvers data
+        axios.post(DEPLOY_SERVER_URL + '/api/solvers/getSolver', null)
             .then(response => {
                 if (response.data.success) {
-                    const scoreListAll = response.data.scores.map((score) => {
-                        return { quizCode: score.quizCode, nickname: score.nickname, score: score.score, quizLen: score.quizLen };
+                    const allSolvers = response.data.solvers.map((solver) => {
+                        return { quizCode: solver.quizCode, nickname: solver.info.nickname, score: solver.score, totScore: solver.quizLen, message: solver.message  };
                     })
-                    const scoreListFilter = scoreListAll.filter((score) => score.quizCode == quizCode)
-                    scoreListFilter.sort(function compare(a, b) {
-                        return b.score - a.score;
-                    });
-                    scoreList = scoreListFilter.slice(0, 8);
-                    setIsRenderScore(true)
-                }
-                else {
-                    alert('Failed to get scores');
-                }
-            })
-
-        // Get message data
-        axios.post(DEPLOY_SERVER_URL + '/api/messages/getMessage', null)
-            .then(response => {
-                if (response.data.success) {
-                    const msgListAll = response.data.messages.map((msg) => {
-                        return { quizCode: msg.quizCode, nickname: msg.nickname, message: msg.message };
-                    })
-                    msgList = msgListAll.filter((msg) => msg.quizCode == quizCode)
+                    FilteredSolvers = allSolvers.filter((solver) => solver.quizCode == quizCode)
                     setIsRenderMsg(true)
                 }
                 else {

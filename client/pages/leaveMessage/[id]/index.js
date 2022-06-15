@@ -16,13 +16,13 @@ import BauIcon from '../../../components/BauIcon';
 
 const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
 const LOCAL_SERVER_URL = 'http://localhost:8080';
-let scoreList = [];
-let msgList = [];
+
+let filteredSolvers;
 
 export default function LeaveMessage() {
     let patterns = new Array(12).fill().map((e) => Math.floor(Math.random() * 5));
     const router = useRouter();
-    const { quizCode, quizNickname } = useContext(AppContext);
+    const { quizCode, quizNickname, score } = useContext(AppContext);
 
     // Check rendering
     const [isRenderScore, setIsRenderScore] = useState(false);
@@ -37,22 +37,24 @@ export default function LeaveMessage() {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
 
-        const message = {
+        const solverResult = {
             solver: {nickname: quizNickname, color: color, order: order},
             quizCode: quizCode,
-            message: data.get('message')
+            message: data.get('message'),
+            score: score,
+            quizLen: 6,
         }
 
-        axios.post(DEPLOY_SERVER_URL + '/api/messages/saveMessage', message)
+        axios.post(DEPLOY_SERVER_URL + '/api/solvers/saveSolver', solver)
             .then(response => {
                 if (response.data.success) {
                     // Go to leave message page
-                    router.push({
-                        pathname: '/scoreBoard/[id]',
-                        query: { id: quizCode },
-                    })
+                    // router.push({
+                    //     pathname: '/scoreBoard/[id]',
+                    //     query: { id: quizCode },
+                    // })
                 } else {
-                    alert('Failed to save message')
+                    alert(`Failed to save solver's data`);
                 }
             });
     };
@@ -64,35 +66,16 @@ export default function LeaveMessage() {
 
     // Get score and message data from DB
     useEffect(() => {
-        axios.post(DEPLOY_SERVER_URL + '/api/scores/getScore', null)
+        axios.post(DEPLOY_SERVER_URL + '/api/solvers/getSolver', null)
             .then(response => {
                 if (response.data.success) {
-                    const scoreListAll = response.data.scores.map((score) => {
-                        return { quizCode: score.quizCode, nickname: score.nickname, score: score.score, quizLen: score.quizLen };
+                    const allSolvers = response.data.solvers.map((solver) => {
+                        return { quizCode: solver.quizCode, nickname: solver.info.nickname, color: solver.info.color, order: solver.info.order, message: solver.message, score: solver.score, totScore: solver.quizLen };
                     })
-                    const scoreListFilter = scoreListAll.filter((score) => score.quizCode == quizCode)
-                    scoreListFilter.sort(function compare(a, b) {
-                        return b.score - a.score;
-                    });
-                    scoreList = scoreListFilter.slice(0, 8);
-
+                    filteredSolvers = allSolvers.filter((solver) => solver.quizCode == quizCode)
                 }
                 else {
-                    alert('Failed to get scores');
-                }
-            }).then(() => {
-                setIsRenderScore(true)
-            })
-        axios.post(DEPLOY_SERVER_URL + '/api/messages/getMessage', null)
-            .then(response => {
-                if (response.data.success) {
-                    const msgListAll = response.data.messages.map((msg) => {
-                        return { quizCode: msg.quizCode, nickname: msg.solver.nickname, color: msg.solver.color, order: msg.solver.order, message: msg.message };
-                    })
-                    msgList = msgListAll.filter((score) => score.quizCode == quizCode)
-                }
-                else {
-                    alert('Failed to get msgs');
+                    alert('Failed to get solvers data');
                 }
             }).then(() => {
                 setIsRenderMsg(true);

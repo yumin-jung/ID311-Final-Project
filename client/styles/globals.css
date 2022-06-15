@@ -579,6 +579,33 @@ body::-webkit-scrollbar{
   height: 3.5em;
   font-weight: 700;
 }
+
+.undoBtn{
+  /* transform: rotateZ(45deg); */
+  z-index: 2;
+  position: relative;
+  width: 2em;
+  height: 2em;
+  display: block;
+  font-size: min(min(16px, 2vh),3.5vw);
+  box-sizing: content-box;
+  position: absolute;
+  background: none;
+  left: 4em;
+  top: 3em;
+  border: none;
+}
+.undoBtn:after{
+  width: 2em;
+  height: 2em;
+  content: "";
+  position: absolute;
+  border: 2px solid var(--black);
+  border-right: none;
+  /* border-top: none; */
+  left: 0;
+  top: 0;
+}
 .checkBtn{
   box-sizing: content-box;
   width: 1.5em;

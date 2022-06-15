@@ -105,6 +105,13 @@ export default function MakeQuiz() {
         qBundle[idx] = data;
     }
 
+    const undoPage = () => {
+        router.push({
+            pathname: '/personalPage/[id]',
+            query: { id: userInfo.quizCode },
+        })
+    }
+
     // Check rendering
     if (questionList == null) return null;
 
@@ -117,6 +124,10 @@ export default function MakeQuiz() {
                 }
                 `}</style>
             <div>
+                <button
+                    onClick={undoPage}
+                    className='undoBtn'
+                ></button>
                 <button
                     onClick={sendData}
                     className='checkBtn'
