@@ -11,13 +11,14 @@ const LOCAL_SERVER_URL = 'http://localhost:8080';
 
 let FilteredSolvers;
 let userList = [];
+let quizList;
 
 
 export default function LeaveMessage() {
     let patterns = new Array(12).fill().map((e) => Math.floor(Math.random() * 5));
     const [bauArr, setBauArr] = useState([]);
     const router = useRouter();
-    // const { quizCode, quizNickname, score } = useContext(AppContext);
+    const { quizNickname, score } = useContext(AppContext);
     const quizCode = 'cu5k5m';
 
     // Check rendering
@@ -36,7 +37,7 @@ export default function LeaveMessage() {
             .then(response => {
                 if (response.data.success) {
                     const userListAll = response.data.users.map((user) => {
-                        return { username: user.username, password: user.password, quizCode: user.quizCode, firstName: user.firstName};
+                        return { quizCode: user.quizCode, firstName: user.firstName};
                     })
                     userList = userListAll.filter((user) => user.quizCode == quizCode);
                     console.log(userList);
@@ -49,11 +50,11 @@ export default function LeaveMessage() {
             .then(response => {
                 if (response.data.success) {
                     const quizListAll = response.data.quiz.map((quiz) => {
-                        return { quizCode: quiz.quizCode, patterns: quiz.patterns };
+                        return { quizCode: quiz.quizCode, patterns: quiz.patterns, quizLen: quiz.quizLength };
                     })
-                    const quizList = quizListAll.filter((quiz) => quiz.quizCode == quizCode);
+                    quizList = quizListAll.filter((quiz) => quiz.quizCode == quizCode);
+                    console.log(quizList);
                     if(quizList!=0) patterns = quizList[0].patterns.reduce((acc,e)=>acc.concat(e),[]).filter((e,idx)=> idx<12);
-                    // console.log(patterns);
                 } else {
                     alert('Failed to get quizzes');
                 }
@@ -98,20 +99,20 @@ export default function LeaveMessage() {
                 letterSpacing: '0.25em',
                 position: 'absolute',
                 top: '7em'
-            }}>4/13</div>
+            }}>{`${score}/${quizList[0].quizLen}`}</div>
             <div className="msgUsername">{userList[0].firstName}</div>
             <div>
                 <div className='msgGrid'>
                     {patterns.map((pattern, idx) => (
-                        <BauIcon key={idx} patternNum={pattern} rotate={(idx * 7) % 4} colorNum={(idx * 13) % 5} isLeavingMsg={true} resultNick='asv' resultScore='2/18' quizCode={quizCode}/>
+                        <BauIcon key={idx} idx={idx} patternNum={pattern} rotate={(idx * 7) % 4} colorNum={(idx * 13) % 5} isLeavingMsg={true} resultNick={quizNickname} score={score} totScore={quizList[0].quizLen} quizCode={quizCode}/>
                     ))}
                 </div>
             </div>
                 <div className='colorPalette someColorPicked'>
-                    <div onClick={setColor(0)} className='colorPick black'></div>
-                    <div onClick={setColor(1)} className='colorPick blue' id="picked"></div>
-                    <div onClick={setColor(2)} className='colorPick yellow'></div>
-                    <div onClick={setColor(3)} className='colorPick red'></div>
+                    <div onClick={()=>setColor(0)} className='colorPick black'></div>
+                    <div onClick={()=>setColor(1)} className='colorPick blue' id="picked"></div>
+                    <div onClick={()=>setColor(2)} className='colorPick yellow'></div>
+                    <div onClick={()=>setColor(3)} className='colorPick red'></div>
                 </div>
         </Box >
     )
