@@ -10,11 +10,11 @@ const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
 const LOCAL_SERVER_URL = 'http://localhost:8080';
 
 let FilteredSolvers;
+let userList = [];
 
 
 export default function LeaveMessage() {
     let patterns = new Array(12).fill().map((e) => Math.floor(Math.random() * 5));
-    let userList = [];
     const [bauArr, setBauArr] = useState([]);
     const router = useRouter();
     // const { quizCode, quizNickname, score } = useContext(AppContext);
@@ -22,7 +22,6 @@ export default function LeaveMessage() {
 
     // Check rendering
     const [isRenderSolver, setIsRenderSolver] = useState(false);
-    const [isRenderMsg, setIsRenderMsg] = useState(false);
     const [isRenderUser, setIsRenderUser] = useState(false);
 
     // Choose color and location of patterns
@@ -40,6 +39,7 @@ export default function LeaveMessage() {
                         return { username: user.username, password: user.password, quizCode: user.quizCode, firstName: user.firstName};
                     })
                     userList = userListAll.filter((user) => user.quizCode == quizCode);
+                    console.log(userList);
                     setIsRenderUser(true);
                 } else {
                     alert('Failed to get users');
@@ -53,7 +53,7 @@ export default function LeaveMessage() {
                     })
                     const quizList = quizListAll.filter((quiz) => quiz.quizCode == quizCode);
                     if(quizList!=0) patterns = quizList[0].patterns.reduce((acc,e)=>acc.concat(e),[]).filter((e,idx)=> idx<12);
-                    console.log(patterns);
+                    // console.log(patterns);
                 } else {
                     alert('Failed to get quizzes');
                 }
@@ -66,7 +66,7 @@ export default function LeaveMessage() {
                     })
                     FilteredSolvers = allSolvers.filter((solver) => solver.quizCode == quizCode)
                     setIsRenderSolver(true);
-                    console.log(allSolvers);
+                    // console.log(allSolvers);
                 }
                 else {
                     alert('Failed to get msgs');
@@ -99,7 +99,7 @@ export default function LeaveMessage() {
                 position: 'absolute',
                 top: '7em'
             }}>4/13</div>
-            <div className="msgUsername">{userList[0].username}</div>
+            <div className="msgUsername">{userList[0].firstName}</div>
             <div>
                 <div className='msgGrid'>
                     {patterns.map((pattern, idx) => (
