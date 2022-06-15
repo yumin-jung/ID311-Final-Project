@@ -54,6 +54,7 @@ export default function Home() {
       .then(response => {
         if (response.data.success) {
           quizList = response.data.quiz
+          console.log(quizList);
         }
         else {
           alert('Failed to get users');
@@ -74,7 +75,7 @@ export default function Home() {
           }}
         >
           <CodeLogo></CodeLogo>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 8, display: 'flex', alignItems: 'center'}} style={{position: "relative"}}>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 8, display: 'flex', alignItems: 'center' }} style={{ position: "relative" }}>
             <input
               id="code"
               label="Code"
@@ -85,17 +86,30 @@ export default function Home() {
               autoFocus
               placeholder='Input the code'
               className='inputCodeBox'
-              required
             />
-            <div class="line"></div>
-            <button
-              type="submit"
-              variant="contained"
-              className='rightArrow'
-            >
-            </button>
+            {codeInput.length == 6 && 
+              <Box sx={{ mt: 0, display: 'flex', alignItems: 'center' }} >
+                <div className="line"></div>
+                  <button
+                    type="submit"
+                    variant="contained"
+                    className='rightArrow'
+                  >
+                </button>
+              </Box>
+            }
           </Box>
-          
+          {/* {isUser === false &&
+            <Typography>
+              {`Want to make your quiz? `}
+              <Link
+                href='/signUp'
+                variant='body2'
+                underline='hover'>
+                Sign Up
+              </Link>
+            </Typography>
+          } */}
         </Box>
       </Container>
     </ThemeProvider>

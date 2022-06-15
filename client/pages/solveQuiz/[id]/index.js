@@ -142,11 +142,11 @@ export default function SolveQuiz() {
                             </button>
                         </Stack>
                     ))}
-                    <div
-                        style={{
+                    <Box
+                        sx={{
                             position: 'relative',
                             width: '100%',
-                            bottom: '4em',
+                            bottom: '4.95em'
                         }}
                     >
                         <button
@@ -154,7 +154,7 @@ export default function SolveQuiz() {
                             className={(selected > -1? 'somethingSelected':'')+' rightArrow rightArrowQuiz'}
                         > 
                         </button>
-                    </div>
+                    </Box>
                 </Box>
                 
             </Box>

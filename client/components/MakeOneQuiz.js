@@ -58,7 +58,7 @@ export default function MakeOneQuiz({ order, question, presetOptions, presetRadi
             component="main"
             maxWidth="xs"
             className={
-                order%4==0?'themeYellow':(order%4==1?'themeRed':(order%4==2?'themeBlue':'themeBlack'))
+                order % 4 == 0 ? 'themeYellow' : (order % 4 == 1 ? 'themeRed' : (order % 4 == 2 ? 'themeBlue' : 'themeBlack'))
             }
         >
             <Box
@@ -74,7 +74,7 @@ export default function MakeOneQuiz({ order, question, presetOptions, presetRadi
                 <h5
                     className='quizIdx'
                 >
-                    {order<10?'0'+order:order}
+                    {order < 10 ? '0' + order : order}
                 </h5>
                 <textarea
                     onChange={ChangeQuestion}
@@ -86,30 +86,31 @@ export default function MakeOneQuiz({ order, question, presetOptions, presetRadi
             <div className='optionBox'>
                 <button
                     onClick={AddOption}
-                    className={'plus optionAdd' + (optionList.length > 4?' invisible':'')}
+                    fullWidth
+                    className={'plus optionAdd' + (optionList.length > 3 ? ' invisible' : '')}
                 ></button>
                 {optionList.map((value, idx) => (
                     <Stack key={idx} direction="row" spacing={0}>
                         <div
-                            className={'qOption ' + (selectedRadio == idx?'selectedOpt':'')}
-                            onClick={()=>handleRadioChange(idx)}
+                            className={'qOption ' + (selectedRadio == idx ? 'selectedOpt' : '')}
+                            onClick={() => handleRadioChange(idx)}
                         >
                             <input
                                 id={"opt" + idx}
                                 placeholder="Write option"
                                 onChange={ChangeOptionContents}
                                 value={value}
-                                class="optionInput"
+                                className="optionInput"
                             ></input>
-                            <button
-                                onClick={()=>DeleteOption(idx)}
-                                className='plus optionDelete'
-                            > </button>
+                            <div
+                                onClick={() => DeleteOption(idx)}
+                                className='optionDelete plus'
+                            ></div>
                         </div>
                     </Stack>
                 ))}
                 <div>
-                    <div className='qOption' style={{height:'0'}}></div>
+                    <div className='qOption' style={{ height: '0' }}></div>
                 </div>
             </div>
         </Container>

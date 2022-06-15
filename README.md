@@ -4,17 +4,54 @@
 - Live Demo: [YouTube Link](https://www.youtube.com/)
 
 ## Contents
+- [Personal Quiz 🙂](#personal-quiz-)
+  - [Contents](#contents)
 - [Description of the Application 📚](#description-of-the-application-)
   - [Flow Chart](#flow-chart)
   - [User Interfaces](#user-interfaces)
 - [Organization of Code 💻](#organization-of-code-)
+  - [Overall Structure](#overall-structure)
   - [Directory Structure](#directory-structure)
+    - [Client Directory](#client-directory)
+    - [Server Directory](#server-directory)
   - [Design Patterns](#design-patterns)
+    - [Atomic Design Pattern](#atomic-design-pattern)
+    - [Observer Design Pattern](#observer-design-pattern)
+    - [Provider Design Pattern](#provider-design-pattern)
+    - [Routing Design Pattern](#routing-design-pattern)
   - [Main Functions](#main-functions)
+    - [Functions in Client](#functions-in-client)
+      - [pages/_app.js](#pages_appjs)
+      - [context/AppContext.js](#contextappcontextjs)
+      - [components directory](#components-directory)
+      - [pages directory](#pages-directory)
+    - [Functions in Server](#functions-in-server)
+      - [index.js](#indexjs)
+      - [routes/{path}.js](#routespathjs)
+      - [model/{schema}.model.js](#modelschemamodeljs)
+- [Main Challenge 🔥](#main-challenge-)
+  - [Work in Collaboration](#work-in-collaboration)
+    - [Challenge](#challenge)
+    - [How to Overcome](#how-to-overcome)
+  - [Libraries & Frameworks](#libraries--frameworks)
+    - [Challenge](#challenge-1)
+    - [How to Overcome](#how-to-overcome-1)
+  - [User Interfaces](#user-interfaces-1)
+    - [Challenge](#challenge-2)
+    - [How to Overcome](#how-to-overcome-2)
 - [What We Learned 🧑‍💻](#what-we-learned-)
-  - [Libraries, Frameworks, and Tools](#libraries-frameworks-and-tools)
+  - [Work in Collaboration](#work-in-collaboration-1)
+  - [Libraries / Frameworks / Tools](#libraries--frameworks--tools)
 - [Issue and Known Bug 🐞](#issue-and-known-bug-)
 - [References 🌿](#references-)
+    - [Work in Collaboration](#work-in-collaboration-2)
+    - [React](#react)
+    - [Next.js](#nextjs)
+    - [Material UI](#material-ui)
+    - [Node.js](#nodejs)
+    - [Axios](#axios)
+    - [Heroku](#heroku)
+    - [UI design & CSS](#ui-design--css)
 
 # Description of the Application 📚
 
@@ -27,8 +64,8 @@ This is flow chart of our application.
 - ### Home Page
   <img src="data/main_page.png" width="80%" height="80%">
 
-  - Input the maker's quiz code
-  - When writing the quiz code, the button for next page appears
+  - Input the maker's quiz code.
+  - When writing the quiz code, the button for next page appears.
 
 
   
@@ -36,8 +73,8 @@ This is flow chart of our application.
   <img src="data/sign up.png" width="80%" height="80%">
   <img src="data/sign in.png" width="80%" height="80%">
 
-  - Putting first name, last name, username, and password, users can sign up our website
-  - By matching the username and password, users can access their personal page
+  - Putting first name, last name, username, and password, users can sign up our website.
+  - By matching the username and password, users can access their personal page.
 
 
   
@@ -45,17 +82,19 @@ This is flow chart of our application.
   <img src="data/my page_make quiz.png" width="80%" height="80%">
   <img src="data/my page_no one.png" width="80%" height="80%">
   <img src="data/my page.png" width="80%" height="80%">
+  <img src="data/my page_yellow.png" width="80%" height="80%">
 
-  - If there is no quiz made before, there is a 'make quiz' button in the personal page
-  - By clicking the button, the maker will make his/her own quiz
-  - After making a quiz, there is a pattern not filled up
-  - If friends solve quizzes, the patterns start to be completed
+  - If there is no quiz made before, there is a 'make quiz' button in the personal page.
+  - By clicking the button, the maker will make his/her own quiz.
+  - After making a quiz, personal unique patterns are generated.
+  - If friends solve quizzes, the patterns start to be completed.
+  - They can filter the results according to the colors.
 
 - ### MakeQuiz Page
-  <img src="" width="80%" height="80%">
+  <img src="data/make_quiz.png" width="80%" height="80%">
 
-  - 1
-  - 2
+  - Makers can modify options and question contents.
+  - They can add question, add options or delete options.
 
 
 
@@ -64,33 +103,36 @@ This is flow chart of our application.
 - ### ShareLink Page
   <img src="data/share_quiz.png" width="80%" height="80%">
 
-  - By clicking 'share quiz' button, users can copy the texts with quiz link in clipboard
+  - By clicking 'share quiz' button, users can copy the texts with quiz link in clipboard.
 
 
 
 - ### StartQuiz Page
   <img src="data/start_quiz.png" width="80%" height="80%">
 
-  - Solvers can set their own nickname before starting the quiz
-  - The nickname cannot be overlapped with each other
+  - Solvers can set their own nickname before starting the quiz.
+  - The nickname cannot be overlapped with each other.
 
 - ### SolveQuiz Page
+  <img src="data/solve_quiz_unselected.png" width="80%" height="80%">
   <img src="data/solve_quiz.png" width="80%" height="80%">
-    <img src="data/solve_quiz_previous.png" width="80%" height="80%">
+   <img src="data/solve_quiz_hover.png" width="80%" height="80%">
 
-  - On the top, there is a progress bar to show how many questions remain
-  - There are at least 2 options, and maximum is 4 options
-  - By left arrow button, they can go back to the previous question
+  - On the top, there is a progress bar to show how many questions remain.
+  - There are at least 2 options, and maximum is 4.
+  - By right arrow button, they can go to the next page.
 
 - ### LeaveResult Page
   <img src="data/check_result.png" width="80%" height="80%">
   <img src="data/leave_result.png" width="80%" height="80%">
 
-  - Solvers can view the remaining patterns they can fill up and their scores
-  - They will choose one of colors and the postions they want to fill up, and they can leave a small message
+  - Solvers can view the remaining patterns they can fill up and their scores.
+  - They will choose one of colors and one postion they want to leave their results, and they can leave a small message with their name and score.
 
 
 # Organization of Code 💻
+## Overall Structure
+<img src="data/code_structure.png" width="100%">
 
 ## Directory Structure
 This is **Directory Structure** of our application
@@ -220,45 +262,84 @@ This is **Directory Structure** of our application
 - `mongoose.model("{Name}", {name}Schema)`
   - Specify the structure and conditions of the information to be stored in the DB.
 
+# Main Challenge 🔥
+
+## Work in Collaboration
+
+### Challenge
+- Lack of collaborative development experience.
+  - Expressing what we want about codes in words was difficult.
+  - Distributing works among team members was not efficient initially.
+- Difficulty in communication between team members.
+  - Lack of uniformity among team members' codes.
+
+### How to Overcome
+- Re-divided our tasks
+  - Maker flow, Solver flow, Database, and CSS(design).
+- Set Development rules
+  - In **commit messages**, **division of branch**, and **pull requests**
+  - Try to understand others' codes and improve `communication quality`.
+- Using collaboration tools
+  - Figma, Miro, and Notion for works other than development
+  - Fully understood what each member said by `visualizating screen(GUI)` and `diagrams`.
+
+## Libraries & Frameworks
+
+### Challenge
+- Lack of libraries and frameworks experience
+  - Dealing with `dynamic routing` in Next.js.
+  - Understanding concept of `SSR` and `SSG` in Next.js.
+  - Understanding and utilizing `Grid` in Material-UI.
+
+### How to Overcome
+- Sharing contents that learned newly or applied to the code
+  - Share the reference links or videos.
+  - Try to understand the `philosophy` and `patterns` of libraries and frameworks.
+- Sharing built codes regularly
+  - Tried to fully understand features of functions in each frameworks with two weekly team meetings.
+
+## User Interfaces
+
+### Challenge
+- Hard to modify code neatly with desired UI.
+  - As UI was changed, we needed to modify code structures. 
+  - To implement immediate feedback on users' actions without errors for better UX was difficult.
+
+### How to Overcome
+- Make consistent and resuable UI for high utilization.
+- Rather than js file, modifying css to make visual variations of components.
+
 # What We Learned 🧑‍💻
-## Libraries, Frameworks, and Tools
-### React
-<img src="data/react-logo.png" width="40%">
 
-- Designed to `separate` and `synthesize` components to maximize the reusability.
-- Write code `concisely` using React hooks.
+## Work in Collaboration
+1. We realized that efficient progress is possible after we define the overall frame and structures of client, server, and DB, then distribute tasks.
+2. All the team members have other projects and exams, so sharing each progress with others was really important because each built functions in different places and time. It is critical not only to establish development rules and code review methods in advance, but also to make efforts to clearly communicate each work or situation with others.
+3. All the members had a different picture of the project in their head, and the detailed functions and page flow were also different. Before distributing tasks, it is necessary to visualize them (flowchart or GUI) so that we can look in the same direction.
+4. We often had disagreements. For the consensus, we tried to make the criteria based on the direction and characteristics of the website, not the individual's taste. Through this process, we can create a consistent web service.
 
-### Next.js
-<img src="data/nextjs-logo.png" width="40%">
-
-- Easy to develop separate pages and components.
-- Easy to implement `dynamic routing`.
-- Easy to implement with `SSR` and `SSG` for `SEO`.
-- Provides functions related to `router` and `image`.
-
-### Material UI
-<img src="data/mui-logo.png" width="40%">
-
-- `Easily implement UI` without writing css one by one.
-- MUI's sx option allows to insert the specific css.
-
-### MongoDB
-<img src="data/mongodb-logo.png" width="40%">
-
-- Can store many different forms of data.
-- MongoDB has a good `scalability` and `flexibility`.
-
-### Axios
-- HTTP Communication Library.
-- Based on `promise`.
-
-### Vercel
-- `Easy to deploy` Next.js app with connect GitHub repo to vercel.
-
-### Heroku
-- `Easy to deploy` Node.js server with push code to Heroku CLI.
+## Libraries / Frameworks / Tools
+1. Each framework contains its characteristics and the philosophy of the developer who made it. Also, to make good use of the built-in funtions in each frameworks or libraries to implement what we want.
+2. To facilitate high scalability and maintenance, we find it necessary to consider various utilization possiblities and choose appropriate frameworks and code structures.
+3. In detail, we realized each framework's features.
+   1. React
+      - Designed to `separate` and `synthesize` components to maximize the reusability.
+      - Write code `concisely` using React hooks.
+   2. Next.js
+      - Easy to develop separate pages and components.|
+      - Easy to implement `dynamic routing`.
+      - Easy to implement with `SSR` and `SSG` for `SEO`.
+      - Provides functions related to `router` and `image`.|
+   3. Material UI
+      - `Easily implement UI` without writing css one by one.
+      - MUI's sx option allows to insert the specific css.
+   4. Mongo DB
+      - Can store many different forms of data.
+      - MongoDB has a good `scalability` and `flexibility`.
+   5. Vercel & Heroku
+      - `Easy to deploy` of client and server
 
 # Issue and Known Bug 🐞
+- We used dynamic routing by query. If users go back the pages or refresh the screen, the errors will occur
 
 # References 🌿
 
@@ -299,3 +380,6 @@ This is **Directory Structure** of our application
 
 ### Heroku
   - [Deploy Node.js Server with Heroku](https://rkdvnfma90.tistory.com/224)
+
+### UI design & CSS
+  - [Bauhaus pattern generator](https://tool.graphics/bauhaus)

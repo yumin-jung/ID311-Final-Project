@@ -1,6 +1,9 @@
 {
   "dependencies": {
+<<<<<<< HEAD
     "@mui/styles": "^5.8.3",
+=======
+>>>>>>> refs/remotes/origin/develop
     "react-copy-to-clipboard": "^5.1.0"
   }
 }
