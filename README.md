@@ -1,7 +1,7 @@
 # Personal Quiz 🙂
 - Team Number: 1
 - Git Repository: [GitHub Link](https://github.com/yumin-jung/ID311-Final-Project)
-- Live Demo: [YouTube Link](https://www.youtube.com/)
+- Live Demo: [YouTube Link](https://youtu.be/pLSX85Ttly4)
 
 ## Contents
 - [Personal Quiz 🙂](#personal-quiz-)
