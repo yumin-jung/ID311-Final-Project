@@ -20,22 +20,22 @@ const Nav = ({ isUser, quizCode }) => {
             router.push({
                 pathname: '/personalPage/[id]',
                 query: { id: quizCode, isUser: isUser },
-            },)
+            })
         }
         else if (data == 'SIGN OUT') router.push('/signOut');
         else if (data == 'SIGN IN') router.push('/signIn');
         else if (data == 'SIGN UP') router.push('/signUp');
         else if (data == 'MAIN') {
             router.push({
-            pathname: '/',
-            query: { id:quizCode, isUser: isUser }
-            },'/');
+                pathname: '/',
+                query: { id: quizCode, isUser: isUser }
+            }, '/');
         }
     };
 
     return (
         <div position="fixed" className='navBar'>
-            <Box sx={{  }}>
+            <Box sx={{}}>
                 <button
                     onClick={handleOpenNavMenu}
                     className="menuBtn"
@@ -54,7 +54,7 @@ const Nav = ({ isUser, quizCode }) => {
                             <Typography>{page}</Typography>
                         </div>
                     ))}
-                    <div class="menuClose" onClick={handleCloseNavMenu}></div>
+                    <div className="menuClose" onClick={handleCloseNavMenu}></div>
                 </div>
             </Box>
         </div>
