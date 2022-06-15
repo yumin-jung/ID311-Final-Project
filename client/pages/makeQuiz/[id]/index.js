@@ -12,16 +12,15 @@ const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com'
 const LOCAL_SERVER_URL = 'http://localhost:8080'
 let userList = [];
 let userInfo = [];
+let isQuizExist;
 
 export default function MakeQuiz() {
     const router = useRouter();
     const { isUser, quizCode } = useContext(AppContext);
     const qBundle = [];
     const [idx, setIdx] = useState(0);
-
     const [questionList, setquestionList] = useState(null);
 
-    const outerDivRef = useRef(null);
 
     useEffect(() => {
         axios.post(DEPLOY_SERVER_URL + '/api/users/getUsers', null)
@@ -31,56 +30,39 @@ export default function MakeQuiz() {
                         return { makerName: user.firstName, password: user.password, quizCode: user.quizCode };
                     })
                     userInfo = userListAll.filter((user) => user.quizCode == quizCode)[0]
-                    console.log(userInfo);
+                    console.log(userInfo, quizCode);
 
                     // Preset questions
-                    qBundle.push({ question: `${userInfo.makerName}(이)가 좋아하는 색깔은?`, options: ['blue', 'red', 'green'], selected: 0 });
-                    qBundle.push({ question: `${userInfo.makerName}(이)가 좋아하는 스포츠는?`, options: ['basketball', 'running', 'badminton'], selected: 0 });
-                    qBundle.push({ question: `${userInfo.makerName}(이)의 나이는?`, options: ['19', '21', '25'], selected: 0 });
+                    qBundle.push({ question: `${userInfo.makerName}'s favorite color?`, options: ['blue', 'red', 'green'], selected: 0 });
+                    qBundle.push({ question: `${userInfo.makerName}'s favorite sport?`, options: ['basketball', 'running', 'badminton'], selected: 0 });
+                    qBundle.push({ question: `${userInfo.makerName}'s age?`, options: ['19', '21', '25'], selected: 0 });
+                    qBundle.push({ question: `${userInfo.makerName}'s major?`, options: ['industrial design', 'computer science', 'biology'], selected: 0 });
 
-                    setquestionList(qBundle)
+                    setquestionList(qBundle);
                 } else {
                     alert('Failed to get users');
                 }
             });
-        // scroll wheel handler setting
-        const wheelHandler = (e) => {
-            e.preventDefault();
-            const { deltaY } = e;
-            const { scrollTop } = outerDivRef.current;
-            const pageHeight = window.innerHeight;
-      
-            if (deltaY > 0) {
-                // 스크롤 내릴 때
-                if (scrollTop >=0 && scrollTop < pageHeight) {
-                    outerDivRef.current.scrollTop({
-                        top: pageHeight,
-                        left: 0,
-                        behavior: 'smooth',
+        axios.post(DEPLOY_SERVER_URL + '/api/quizzes/getQuiz', null)
+            .then(response => {
+                if (response.data.success) {
+                    const quizListAll = response.data.quiz.map((quiz) => {
+                        return { quizCode: quiz.quizCode };
                     })
+                    isQuizExist = quizListAll.some((e) => e.quizCode == quizCode);
+                    console.log(isQuizExist);
+                } else {
+                    alert('Failed to get quizzes');
                 }
-            } else {
-                // 스크롤 올릴 때
-                if (scrollTop >=pageHeight && scrollTop < pageHeight*2) {
-                    outerDivRef.current.scrollTop({
-                        top: 0,
-                        left: 0,
-                        behavior: 'smooth',
-                    })
-                }
-            }
-        };
-        const outerDivRefCurrent = outerDivRef.current;
-        outerDivRefCurrent ? outerDivRefCurrent.addEventListener("wheel", wheelHandler) : null;
-        return () => {
-            outerDivRefCurrent.removeEventListener("wheel", wheelHandler);
-        };
-  }, []);
+            })
+    }, []);
+
+
 
     // Add question
     const AddQuestion = () => {
         let questions = [...questionList];
-        questions.push({ question: `${userInfo.makerName}(이)의`, options: [''], selected: 0 });
+        questions.push({ question: `${userInfo.makerName}'s`, options: [''], selected: 0 });
         setquestionList(questions);
         setIdx(idx + 1);
     }
@@ -88,34 +70,46 @@ export default function MakeQuiz() {
     // Send quiz data
     const sendData = (event) => {
         event.preventDefault();
+        const allOptions = qBundle.reduce((acc, e) => acc.concat(e.options), []);
 
-        const quizData = {
-            makerName: userInfo.makerName,
-            quizCode: userInfo.quizCode,
-            quizBundle: qBundle,
-            quizLength: qBundle.length,
-            //5 types of shapes -> make array
-            patterns: new Array(24).fill().map((e) => Math.floor(Math.random()*5))
+        if (isQuizExist) alert('You already made quiz');
+        else if (allOptions.includes('')) alert('Fill up the options');
+        else {
+            const quizData = {
+                makerName: userInfo.makerName,
+                quizCode: userInfo.quizCode,
+                quizBundle: qBundle,
+                quizLength: qBundle.length,
+                //5 types of shapes -> make array
+                patterns: new Array(12).fill().map((e) => Math.floor(Math.random() * 5))
+            }
+            axios.post(DEPLOY_SERVER_URL + '/api/quizzes/saveQuiz', quizData)
+                .then(response => {
+                    if (response.data.success) {
+                        // Go to shareLink oage with query
+                        router.push({
+                            pathname: '/shareLink/[id]',
+                            query: { id: userInfo.quizCode },
+                        })
+                        console.log(`Succeed to save ${response.data.quiz}`)
+                        console.log(quizData);
+                    } else {
+                        alert('Failed to save user')
+                    }
+                });
         }
 
-        axios.post(DEPLOY_SERVER_URL + '/api/quizzes/saveQuiz', quizData)
-            .then(response => {
-                if (response.data.success) {
-                    // Go to shareLink oage with query
-                    router.push({
-                        pathname: '/shareLink/[id]',
-                        query: { id: userInfo.quizCode },
-                    })
-                    console.log(`Succeed to save ${response.data.quiz}`)
-                    console.log(quizData);
-                } else {
-                    alert('Failed to save user')
-                }
-            });
     }
 
     const loadData = (idx, data) => {
         qBundle[idx] = data;
+    }
+
+    const undoPage = () => {
+        router.push({
+            pathname: '/personalPage/[id]',
+            query: { id: userInfo.quizCode },
+        })
     }
 
     // Check rendering
@@ -124,33 +118,36 @@ export default function MakeQuiz() {
     return (
         <>
             {/* <Nav isUser={isUser} quizCode={quizCode} /> */}
-            <div ref={outerDivRef} className='outer'>
-                <div className='inner'>
-                    <Box sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        height: '100vh'
-                    }}>
-                        
-                        <Box
-                            sx={{
-                                p: '2%',
-                                minWidth: 360,
-                                width: '40%',
-                            }}
-                        >
-                            
-                            <MakeOneQuiz key={idx}
-                                order={idx + 1}
-                                question={questionList[idx].question}
-                                presetOptions={questionList[idx].options}
-                                presetRadio={questionList[idx].selected}
+            <style jsx global>{`
+                body {
+                    overflow: scroll;
+                }
+                `}</style>
+            <div>
+                <button
+                    onClick={undoPage}
+                    className='plus undoBtn'
+                ></button>
+                <button
+                    onClick={sendData}
+                    className='checkBtn'
+                ></button>
+            </div>
+            <div className='scroll_body'>
+                <div>
+                    {questionList.map((e, index) => (
+                        <Box key={index} sx={{
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                        }}>
+                            <MakeOneQuiz key={index}
+                                order={index + 1}
+                                question={questionList[index].question}
+                                presetOptions={questionList[index].options}
+                                presetRadio={questionList[index].selected}
                                 loadData={loadData} />
-                            
-                            
                         </Box>
-                    </Box>
+                    ))}
                     <button
                         onClick={AddQuestion}
                         className='addQuestionBtn'

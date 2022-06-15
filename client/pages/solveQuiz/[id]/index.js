@@ -36,16 +36,6 @@ export default function SolveQuiz() {
                 quizLen: quizList.length
             };
 
-            // Save score to DB
-            axios.post(DEPLOY_SERVER_URL + '/api/scores/saveScore', scoreInfo)
-                .then(response => {
-                    if (response.data.success) {
-                        console.log(`Succeed to save score info`)
-                    } else {
-                        alert('Failed to save user')
-                    }
-                });
-
             // Save score in context API
             setScore(quizScore);
 
@@ -92,23 +82,35 @@ export default function SolveQuiz() {
     }
 
     return (
-        <Container component="main" maxWidth="xs" height="100vh">
+        <Container
+            component="main"
+            maxWidth="xs"
+            height="100vh"
+            className={
+                idx % 4 == 0 ? 'themeYellow' : (idx % 4 == 1 ? 'themeRed' : (idx % 4 == 2 ? 'themeBlue' : 'themeBlack'))
+            }>
+            <style jsx global>{`
+                body {
+                    background: #EEDFCC;
+                    align-items: flex-start;
+                }
+                `}</style>
             <Box
                 sx={{
                     minWidth: 350,
                     width: '90%',
                     height: '100%'
                 }}
-            >   
+            >
                 <Box
                     width="100%"
                     sx={{
-                        margin: 'auto'
+                        margin: '8em auto',
                     }}
                 >
                     <div className='stateBar'>
-                        <div className='solvedBar'  style={{
-                            width: ((idx)/(quizList.length+1) * 100)+'%'
+                        <div className='solvedBar' style={{
+                            width: ((idx) / (quizList.length + 1) * 100) + '%'
                         }}></div>
                     </div>
                     <Typography variant="h6" className='question'>
@@ -117,33 +119,28 @@ export default function SolveQuiz() {
                 </Box>
                 <Box
                     component="main"
-                    className='optionBox'
+                    className='optionBoxFixed'
+                    sx={{ position: 'absolute', pb: '0' }}
                 >
-                    
+
                     {thisQuiz.options.map((value, idx) => (
                         <Stack key={idx} direction="row" spacing={0}>
-                            <button className={(selected == idx ? "selectedOpt" : "")+" qOption"}
+                            <button className={(selected == idx ? "selectedOpt" : "") + " qOption"}
                                 fullWidth
                                 onClick={() => { setSelection(idx) }}>
                                 {value}
                             </button>
                         </Stack>
                     ))}
-                    <Box
-                        sx={{
-                            position: 'relative',
-                            width: '100%',
-                            bottom: '4.95em'
-                        }}
-                    >
+                    <div>
+                        <div className='qOption' style={{ height: '0' }}></div>
                         <button
                             onClick={NextQuiz}
-                            className={(selected > -1? 'somethingSelected':'')+' rightArrow rightArrowQuiz'}
-                        > 
-                        </button>
-                    </Box>
+                            className={(selected > -1 ? 'somethingSelected' : '') + ' rightArrow rightArrowQuiz'}
+                        ></button>
+                    </div>
                 </Box>
-                
+
             </Box>
         </Container>
     )

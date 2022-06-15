@@ -1,24 +1,18 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useRouter } from 'next/router'
 import axios from 'axios';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid'
-import List from '@mui/material/List'
 import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import { Typography } from '@mui/material';
-import Score from '../../../components/Score';
-import Message from '../../../components/Message';
 import { AppContext } from '../../../context/AppContext';
 import Nav from '../../../components/Nav';
 import Logo from '../../../components/Logo';
+import BauIcon from '../../../components/BauIcon';
 
 const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
 const LOCAL_SERVER_URL = 'http://localhost:8080';
 let userList = [];
-let quizList = [];
-let scoreList = [];
-let msgList = [];
+let quizList = null;
+let FilteredSolvers = [];
+let patterns;
 
 export default function PersonalPage() {
     const router = useRouter();
@@ -27,8 +21,23 @@ export default function PersonalPage() {
     // Check rendering
     const [isRenderUser, setIsRenderUser] = useState(false);
     const [isRenderQuiz, setIsRenderQuiz] = useState(false);
-    const [isRenderScore, setIsRenderScore] = useState(false);
-    const [isRenderMsg, setIsRenderMsg] = useState(false);
+    const [isRenderSolver, setIsRenderSolver] = useState(false);
+
+    const [color, setColor] = useState(0);
+
+    const setColorBlack = () => {
+        setColor(0);
+    }
+    const setColorBlue = () => {
+        setColor(1);
+    }
+    const setColorYellow = () => {
+        setColor(2);
+    }
+    const setColorRed = () => {
+        setColor(3);
+    }
+
 
     useEffect(() => {
         // Get userlist from DB
@@ -36,7 +45,7 @@ export default function PersonalPage() {
             .then(response => {
                 if (response.data.success) {
                     const userListAll = response.data.users.map((user) => {
-                        return { username: user.username, password: user.password, quizCode: user.quizCode };
+                        return { username: user.username, password: user.password, quizCode: user.quizCode, firstName: user.firstName };
                     })
                     userList = userListAll.filter((user) => user.quizCode == quizCode)
                     setIsRenderUser(true);
@@ -49,42 +58,26 @@ export default function PersonalPage() {
         axios.post(DEPLOY_SERVER_URL + '/api/quizzes/getQuiz', null)
             .then(response => {
                 if (response.data.success) {
-                    const quizListAll = response.data.quiz;
-                    quizList = quizListAll.filter((quiz) => quiz.quizCode == quizCode)
+                    const quizListAll = response.data.quiz.map((quiz) => {
+                        return { quizCode: quiz.quizCode, patterns: quiz.patterns };
+                    })
+                    quizList = quizListAll.filter((quiz) => quiz.quizCode == quizCode);
+                    if (quizList != 0) patterns = quizList[0].patterns.reduce((acc, e) => acc.concat(e), []).filter((e, idx) => idx < 12);
                     setIsRenderQuiz(true);
                 } else {
                     alert('Failed to get quizzes');
                 }
             })
 
-        // Get score data
-        axios.post(DEPLOY_SERVER_URL + '/api/scores/getScore', null)
+        // Get solvers data
+        axios.post(DEPLOY_SERVER_URL + '/api/solvers/getSolver', null)
             .then(response => {
                 if (response.data.success) {
-                    const scoreListAll = response.data.scores.map((score) => {
-                        return { quizCode: score.quizCode, nickname: score.nickname, score: score.score, quizLen: score.quizLen };
+                    const allSolvers = response.data.solvers.map((solver) => {
+                        return { quizCode: solver.quizCode, nickname: solver.info.nickname, score: solver.score, totScore: solver.quizLen, message: solver.message, order: solver.order, color: solver.color };
                     })
-                    const scoreListFilter = scoreListAll.filter((score) => score.quizCode == quizCode)
-                    scoreListFilter.sort(function compare(a, b) {
-                        return b.score - a.score;
-                    });
-                    scoreList = scoreListFilter.slice(0, 8);
-                    setIsRenderScore(true)
-                }
-                else {
-                    alert('Failed to get scores');
-                }
-            })
-
-        // Get message data
-        axios.post(DEPLOY_SERVER_URL + '/api/messages/getMessage', null)
-            .then(response => {
-                if (response.data.success) {
-                    const msgListAll = response.data.messages.map((msg) => {
-                        return { quizCode: msg.quizCode, nickname: msg.nickname, message: msg.message };
-                    })
-                    msgList = msgListAll.filter((msg) => msg.quizCode == quizCode)
-                    setIsRenderMsg(true)
+                    FilteredSolvers = allSolvers.filter((solver) => solver.quizCode == quizCode)
+                    setIsRenderSolver(true);
                 }
                 else {
                     alert('Failed to get msgs');
@@ -99,31 +92,29 @@ export default function PersonalPage() {
     if (isRenderQuiz === false) {
         return null;
     }
-    if (isRenderScore === false) {
-        return null;
-    }
-    if (isRenderMsg === false) {
+    if (isRenderSolver === false) {
         return null;
     }
 
     const MakeQuiz = (event) => {
         router.push({
             pathname: '/makeQuiz/[id]',
-            query: { id: quizCode },
+            query: { id: quizCode, isUser: isUser },
         })
     }
 
-    if (quizList.length == 0) {
+    if (quizList == null) return null;
+    else if (quizList.length == 0) {
         return (
             <>
                 <style jsx global>{`
                 body {
-                    background: #EEDFCC};
+                    background: #EEDFCC;
                 }
                 `}</style>
                 <Nav isUser={isUser} quizCode={quizCode} />
                 <Container
-                    component="main" 
+                    component="main"
                     maxWidth="xs"
                     sx={{
                         display: 'flex',
@@ -132,7 +123,7 @@ export default function PersonalPage() {
                     }}>
                     <Logo size='0.9'></Logo>
                     <button onClick={MakeQuiz}
-                        sx={{ mt: 5, mb: 2, backgroundColor: 'black', borderRadius: 0, fontSize: '1.3em', padding: '1em', width: '0.9'}} 
+                        sx={{ mt: 5, mb: 2, backgroundColor: 'black', borderRadius: 0, fontSize: '1.3em', padding: '1em', width: '0.9' }}
                         className='blackBtn'>
                         MAKE QUIZ
                     </button>
@@ -144,79 +135,24 @@ export default function PersonalPage() {
         return (
             <>
                 <Nav isUser={isUser} quizCode={quizCode} />
+                <div className="msgUsername">{userList[0].firstName}</div>
                 <Container sx={{
                     width: '100%',
                     alignItems: 'center',
                 }} >
-                    <Box
-                        sx={{
-                            width: '40%',
-                            p: 2,
-                            minWidth: 400,
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Typography variant='h2'>Your Quiz</Typography>
-                    </Box>
-                    <Grid container direction="row" spacing={20} justifyContent="center" alignItems="center" >
-                        <Grid item xs={5}
-                            container
-                            justifyContent="center"
-                            alignItems="center"
-                            spacing={2}>
-                            <Box
-                                sx={{
-                                    width: '100%',
-                                    boxShadow: 12,
-                                    borderRadius: 4,
-                                    p: 2,
-                                    minWidth: 360,
-                                    marginTop: '5%',
-                                    flexDirection: 'column',
-                                    alignItems: 'center',
-                                    display: 'flex'
-                                }}
-                            >
-                                <Typography component="h1" variant="h5">
-                                    Score Board
-                                </Typography>
-                                <List sx={{ width: '100%', maxWidth: 360 }}>
-                                    {scoreList.map((score, idx) => (
-                                        <Score key={idx} value={idx + 1} userName={score.nickname} score={score.score} quizLen={score.quizLen} />
-                                    ))}
-                                </List>
-                            </Box>
-                        </Grid>
-                        <Grid item xs={5}
-                            container
-                            justifyContent="center"
-                            alignItems="center"
-                            spacing={2}>
-                            <Box
-                                sx={{
-                                    width: '100%',
-                                    boxShadow: 12,
-                                    borderRadius: 4,
-                                    p: 2,
-                                    minWidth: 360,
-                                    marginTop: '5%',
-                                    flexDirection: 'column',
-                                    alignItems: 'center',
-                                    display: 'flex'
-                                }}
-                            >
-                                <Typography component="h1" variant="h5">
-                                    Messages
-                                </Typography>
-                                <List sx={{ width: '100%', maxWidth: 360 }}>
-                                    {msgList.map((msg, idx) => (
-                                        <Message key={idx} userName={msg.nickname} comment={msg.message} quizCode={quizCode} />
-                                    ))}
-                                </List>
-                            </Box>
-                        </Grid>
-                    </Grid>
+                    <div className='msgGrid'>
+                        {patterns.map((pattern, idx) => (
+                            <BauIcon key={idx} nickname={`Test${idx}`} score={1} totScore={3} patternNum={pattern} rotate={(idx * 7) % 4} colorNum={(idx * 13) % 5} idx={idx} />
+                        ))}
+
+                    </div>
                 </Container>
+                <div className='colorPalette'>
+                    <div onClick={() => { setColorBlack() }} className='colorPick black'></div>
+                    <div onClick={() => { setColorBlue() }} className='colorPick blue'></div>
+                    <div onClick={() => { setColorYellow() }} className='colorPick yellow'></div>
+                    <div onClick={() => { setColorRed() }} className='colorPick red'></div>
+                </div>
             </>
         )
     }

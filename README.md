@@ -1,7 +1,7 @@
 # Personal Quiz 🙂
 - Team Number: 1
 - Git Repository: [GitHub Link](https://github.com/yumin-jung/ID311-Final-Project)
-- Live Demo: [YouTube Link](https://www.youtube.com/)
+- Live Demo: [YouTube Link](https://youtu.be/pLSX85Ttly4)
 
 ## Contents
 - [Personal Quiz 🙂](#personal-quiz-)
@@ -42,6 +42,7 @@
 - [What We Learned 🧑‍💻](#what-we-learned-)
   - [Work in Collaboration](#work-in-collaboration-1)
   - [Libraries / Frameworks / Tools](#libraries--frameworks--tools)
+    - [Details](#details)
 - [Issue and Known Bug 🐞](#issue-and-known-bug-)
 - [References 🌿](#references-)
     - [Work in Collaboration](#work-in-collaboration-2)
@@ -66,18 +67,14 @@ This is flow chart of our application.
 
   - Input the maker's quiz code.
   - When writing the quiz code, the button for next page appears.
-
-
   
-- ### SignUp/In Page
+- ### SignIn/Up Page
   <img src="data/sign up.png" width="80%" height="80%">
   <img src="data/sign in.png" width="80%" height="80%">
 
   - Putting first name, last name, username, and password, users can sign up our website.
   - By matching the username and password, users can access their personal page.
 
-
-  
 - ### Personal Page
   <img src="data/my page_make quiz.png" width="80%" height="80%">
   <img src="data/my page_no one.png" width="80%" height="80%">
@@ -96,16 +93,10 @@ This is flow chart of our application.
   - Makers can modify options and question contents.
   - They can add question, add options or delete options.
 
-
-
-
-
 - ### ShareLink Page
   <img src="data/share_quiz.png" width="80%" height="80%">
 
   - By clicking 'share quiz' button, users can copy the texts with quiz link in clipboard.
-
-
 
 - ### StartQuiz Page
   <img src="data/start_quiz.png" width="80%" height="80%">
@@ -116,7 +107,7 @@ This is flow chart of our application.
 - ### SolveQuiz Page
   <img src="data/solve_quiz_unselected.png" width="80%" height="80%">
   <img src="data/solve_quiz.png" width="80%" height="80%">
-   <img src="data/solve_quiz_hover.png" width="80%" height="80%">
+  <img src="data/solve_quiz_hover.png" width="80%" height="80%">
 
   - On the top, there is a progress bar to show how many questions remain.
   - There are at least 2 options, and maximum is 4.
@@ -175,7 +166,6 @@ This is **Directory Structure** of our application
   - Increase `reusability` because components receive data only through props.
   - Components and pages can be managed `independently`.
   - Make pages and components `speak to each other`.
-
 
 ### Provider Design Pattern
 - Share data across the tree descendant nodes with Context API
@@ -267,10 +257,10 @@ This is **Directory Structure** of our application
 ## Work in Collaboration
 
 ### Challenge
-- Lack of collaborative development experience.
+- Lack of **collaborative development experience**.
   - Expressing what we want about codes in words was difficult.
   - Distributing works among team members was not efficient initially.
-- Difficulty in communication between team members.
+- Difficulty in **communication** between team members.
   - Lack of uniformity among team members' codes.
 
 ### How to Overcome
@@ -306,40 +296,48 @@ This is **Directory Structure** of our application
   - To implement immediate feedback on users' actions without errors for better UX was difficult.
 
 ### How to Overcome
-- Make consistent and resuable UI for high utilization.
+- Make `consistent` and `resuable` UI for high utilization.
 - Rather than js file, modifying css to make visual variations of components.
 
 # What We Learned 🧑‍💻
 
 ## Work in Collaboration
-1. We realized that efficient progress is possible after we define the overall frame and structures of client, server, and DB, then distribute tasks.
-2. All the team members have other projects and exams, so sharing each progress with others was really important because each built functions in different places and time. It is critical not only to establish development rules and code review methods in advance, but also to make efforts to clearly communicate each work or situation with others.
-3. All the members had a different picture of the project in their head, and the detailed functions and page flow were also different. Before distributing tasks, it is necessary to visualize them (flowchart or GUI) so that we can look in the same direction.
-4. We often had disagreements. For the consensus, we tried to make the criteria based on the direction and characteristics of the website, not the individual's taste. Through this process, we can create a consistent web service.
+- Define overall `structure` and `flow` in application makes efficient progress
+- Importance of `sharing progress`
+  - Set Development rules
+  - Review team member's code
+- Importance of `visualization`
+  - Visualize material (flowchart or GUI) so that we can look in the same direction.
 
 ## Libraries / Frameworks / Tools
-1. Each framework contains its characteristics and the philosophy of the developer who made it. Also, to make good use of the built-in funtions in each frameworks or libraries to implement what we want.
-2. To facilitate high scalability and maintenance, we find it necessary to consider various utilization possiblities and choose appropriate frameworks and code structures.
-3. In detail, we realized each framework's features.
-   1. React
-      - Designed to `separate` and `synthesize` components to maximize the reusability.
-      - Write code `concisely` using React hooks.
-   2. Next.js
-      - Easy to develop separate pages and components.|
-      - Easy to implement `dynamic routing`.
-      - Easy to implement with `SSR` and `SSG` for `SEO`.
-      - Provides functions related to `router` and `image`.|
-   3. Material UI
-      - `Easily implement UI` without writing css one by one.
-      - MUI's sx option allows to insert the specific css.
-   4. Mongo DB
-      - Can store many different forms of data.
-      - MongoDB has a good `scalability` and `flexibility`.
-   5. Vercel & Heroku
-      - `Easy to deploy` of client and server
+- Libraries and frameworks have their philosophy.
+- Have to choose a framework that fits the concept of project.
+  - Facilitate high `scalability` and `maintenance`.
+
+### Details
+- React
+   - Designed to `separate` and `synthesize` components to maximize the reusability.
+   - Write code `concisely` using React hooks.
+- Next.js
+   - Easy to develop separate pages and components.
+   - Easy to implement `dynamic routing`.
+   - Easy to implement with `SSR` and `SSG` for `SEO`.
+   - Provides functions related to `router` and `image`.
+- Material UI
+   - `Easily implement UI` without writing css one by one.
+   - MUI's sx option allows to insert the specific css.
+- Mongo DB
+   - Can store many different forms of data.
+   - MongoDB has a good `scalability` and `flexibility`.
+- Vercel & Heroku
+   - `Easy to deploy` of client and server
 
 # Issue and Known Bug 🐞
-- We used dynamic routing by query. If users go back the pages or refresh the screen, the errors will occur
+- We implement our application with `React Hooks`
+  - But, Next.js unsupport some React Hooks.
+  - So, we initialize contextAPI's value with query.
+  - You can see this information in [here](https://nextjs.org/docs/advanced-features/react-18/server-components#unsupported-nextjs-apis)
+- The pattern implementation of the personal page portion could not be completed.
 
 # References 🌿
 
@@ -382,4 +380,4 @@ This is **Directory Structure** of our application
   - [Deploy Node.js Server with Heroku](https://rkdvnfma90.tistory.com/224)
 
 ### UI design & CSS
-  - [Bauhaus pattern generator](https://tool.graphics/bauhaus)
+  - [Bauhaus pattern generator](https://dribbble.com/shots/15187819-bauhaus-pattern-generator)

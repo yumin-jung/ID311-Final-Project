@@ -53,8 +53,8 @@ export default function SignIn() {
                 // Go to personal page
                 router.push({
                     pathname: '/personalPage/[id]',
-                    query: { id: findUserInfo.quizCode },
-                })
+                    query: { id: findUserInfo.quizCode, isUser: true },
+                }, `/personalPage/${findUserInfo.quizCode}`, {locale: 'sdf'})
             }
             else {
                 alert('Incorrect password!');
@@ -129,7 +129,6 @@ export default function SignIn() {
                         </Grid>
                         <button
                             type="submit"
-                            fullWidth
                             className="unBtn unBtn2"
                         >
                             SIGN IN

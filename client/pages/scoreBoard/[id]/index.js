@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import Nav from '../../../components/Nav';
 import { AppContext } from '../../../context/AppContext';
+import BauIcon from '../../../components/BauIcon';
 
 const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
 const LOCAL_SERVER_URL = 'http://localhost:8080';
@@ -77,6 +78,11 @@ export default function ScoreBoard() {
     return (
         <>
             <Nav isUser={isUser} quizCode={quizCode} />
+            <div className='msgGrid'>
+                {patterns.map((pattern, idx) =>
+                    <BauIcon key={idx} patternNum={pattern} />
+                )}
+            </div>
             <Box sx={{ width: '100%' }} >
                 <Grid container
                     spacing={10}

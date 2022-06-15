@@ -21,17 +21,17 @@ export default function MakeOneQuiz({ order, question, presetOptions, presetRadi
         if (optionList.length > 4) return;
         let options = [...optionList];
         options.unshift('');
-        setselectedRadio(-1);
+        setselectedRadio(0);
+        console.log(selectedRadio)
         setoptionList(options);
     };
 
     // Delete quiz problem
     const DeleteOption = (event) => {
         let options = [...optionList];
-        if (options.length > 1) options = options.filter((e, idx) => idx != event);
-        if (selectedRadio && selectedRadio >= event) {
-            setselectedRadio(selectedRadio => selectedRadio - 1);
-        }
+        if (options.length > 2) options = options.filter((e, idx) => idx != event);
+        setselectedRadio(0);
+        console.log(selectedRadio)
         setoptionList(options);
     }
 
@@ -51,6 +51,7 @@ export default function MakeOneQuiz({ order, question, presetOptions, presetRadi
     // Change quiz radio value
     const handleRadioChange = (event) => {
         setselectedRadio(event);
+        console.log(selectedRadio)
     };
 
     return (
@@ -68,7 +69,7 @@ export default function MakeOneQuiz({ order, question, presetOptions, presetRadi
                     flexDirection: 'column',
                     alignItems: 'center',
                     width: '100%',
-                    mt: '8em'
+                    mt: '2em'
                 }}
             >
                 <h5
@@ -82,7 +83,7 @@ export default function MakeOneQuiz({ order, question, presetOptions, presetRadi
                     label={"Question" + order}
                     className='quizQuestion'
                 />
-            </Box>
+            </Box >
             <div className='optionBox'>
                 <button
                     onClick={AddOption}
@@ -93,12 +94,12 @@ export default function MakeOneQuiz({ order, question, presetOptions, presetRadi
                     <Stack key={idx} direction="row" spacing={0}>
                         <div
                             className={'qOption ' + (selectedRadio == idx ? 'selectedOpt' : '')}
-                            onClick={() => handleRadioChange(idx)}
                         >
                             <input
                                 id={"opt" + idx}
                                 placeholder="Write option"
                                 onChange={ChangeOptionContents}
+                                onClick={() => handleRadioChange(idx)}
                                 value={value}
                                 className="optionInput"
                             ></input>

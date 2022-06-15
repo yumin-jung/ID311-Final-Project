@@ -1,50 +1,56 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router'
-import Score from '../../../components/Score';
-import Message from '../../../components/Message';
-import Quiz from '../../../components/Quiz';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import List from '@mui/material/List';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import { AppContext } from '../../../context/AppContext';
+import Nav from '../../../components/Nav';
+import BauIcon from '../../../components/BauIcon';
+import Box from '@mui/material/Box'
 
 const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
 const LOCAL_SERVER_URL = 'http://localhost:8080';
-let scoreList = [];
-let msgList = [];
+
+let FilteredSolvers;
+let userList = [];
+let quizList;
+
 
 export default function LeaveMessage() {
+    let patterns = new Array(12).fill().map((e) => Math.floor(Math.random() * 5));
     const router = useRouter();
-    const { quizCode, quizNickname } = useContext(AppContext);
+    const { quizNickname, score } = useContext(AppContext);
+    const quizCode = 'cu5k5m';
+    const nickname = quizNickname;
 
     // Check rendering
-    const [isRenderScore, setIsRenderScore] = useState(false);
-    const [isRenderMsg, setIsRenderMsg] = useState(false);
+    const [isRenderSolver, setIsRenderSolver] = useState(false);
+    const [isRenderUser, setIsRenderUser] = useState(false);
+    const [firstInput, setFirstInput] = useState(false);
 
     // Choose color and location of patterns
-    const [color, setColor] = useState(false);
-    const [order, setOrder] = useState(false);
+    const [order, setOrder] = useState(-1);
+    const [formPopup, setPopup] = useState(false);
+
+    // nickname : string, score : string ('4/13'), message : string
 
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
 
-        const message = {
-            solver: {nickname: quizNickname, color: color, order: order},
+        const solverResult = {
+            info: [{ nickname: nickname, color: Math.floor(Math.random() * 4), order: Math.floor(Math.random() * 12) }],
             quizCode: quizCode,
-            message: data.get('message')
+            message: data.get('message'),
+            score: score,
+            quizLen: quizList[0].quizLen
         }
+        console.log(solverResult);
 
-        axios.post(DEPLOY_SERVER_URL + '/api/messages/saveMessage', message)
+        axios.post(DEPLOY_SERVER_URL + '/api/solvers/saveSolver', solverResult)
             .then(response => {
                 if (response.data.success) {
                     // Go to leave message page
                     router.push({
-                        pathname: '/scoreBoard/[id]',
+                        pathname: '/personalPage/[id]',
                         query: { id: quizCode },
                     })
                 } else {
@@ -55,278 +61,113 @@ export default function LeaveMessage() {
 
     // Get score and message data from DB
     useEffect(() => {
-        axios.post(DEPLOY_SERVER_URL + '/api/scores/getScore', null)
+        axios.post(DEPLOY_SERVER_URL + '/api/users/getUsers', null)
             .then(response => {
                 if (response.data.success) {
-                    const scoreListAll = response.data.scores.map((score) => {
-                        return { quizCode: score.quizCode, nickname: score.nickname, score: score.score, quizLen: score.quizLen };
+                    const userListAll = response.data.users.map((user) => {
+                        return { quizCode: user.quizCode, firstName: user.firstName };
                     })
-                    const scoreListFilter = scoreListAll.filter((score) => score.quizCode == quizCode)
-                    scoreListFilter.sort(function compare(a, b) {
-                        return b.score - a.score;
-                    });
-                    scoreList = scoreListFilter.slice(0, 8);
-
+                    userList = userListAll.filter((user) => user.quizCode == quizCode);
+                    console.log(userList);
+                    setIsRenderUser(true);
+                } else {
+                    alert('Failed to get users');
                 }
-                else {
-                    alert('Failed to get scores');
-                }
-            }).then(() => {
-                setIsRenderScore(true)
             })
-        axios.post(DEPLOY_SERVER_URL + '/api/messages/getMessage', null)
+        axios.post(DEPLOY_SERVER_URL + '/api/quizzes/getQuiz', null)
             .then(response => {
                 if (response.data.success) {
-                    const msgListAll = response.data.messages.map((msg) => {
-                        return { quizCode: msg.quizCode, nickname: msg.solver.nickname, color: msg.solver.color, order: msg.solver.order, message: msg.message };
+                    const quizListAll = response.data.quiz.map((quiz) => {
+                        return { quizCode: quiz.quizCode, patterns: quiz.patterns, quizLen: quiz.quizLength };
                     })
-                    msgList = msgListAll.filter((score) => score.quizCode == quizCode)
+                    quizList = quizListAll.filter((quiz) => quiz.quizCode == quizCode);
+                    console.log(quizList);
+                    if (quizList != 0) patterns = quizList[0].patterns.reduce((acc, e) => acc.concat(e), []).filter((e, idx) => idx < 12);
+                } else {
+                    alert('Failed to get quizzes');
+                }
+            })
+        axios.post(DEPLOY_SERVER_URL + '/api/solvers/getSolver', null)
+            .then(response => {
+                if (response.data.success) {
+                    const allSolvers = response.data.solvers.map((solver) => {
+                        return { quizCode: solver.quizCode, nickname: solver.info.nickname, score: solver.score, totScore: solver.quizLen, message: solver.message };
+                    })
+                    FilteredSolvers = allSolvers.filter((solver) => solver.quizCode == quizCode)
+                    setIsRenderSolver(true);
+                    // console.log(allSolvers);
                 }
                 else {
                     alert('Failed to get msgs');
                 }
-            }).then(() => {
-                setIsRenderMsg(true);
             })
+
     }, []);
 
     // Pause rendering until get data
-    if (isRenderScore === false) {
+    if (isRenderSolver === false) {
         return null;
     }
-    else if (isRenderMsg === false) {
+    if (isRenderUser === false) {
         return null;
     }
 
     return (
-        <Box sx={{ width: '100%' }} >
-            <Grid container
-                spacing={10}
-                direction="row"
-                justifyContent="center"
-                alignItems="center"
-                sx={{ marginTop: 5, display: { xs: 'none', md: 'flex' } }}>
-                <Grid item xs={12}
-                    container
-                    justifyContent="center"
-                    alignItems="center">
-                    <Box
-                        sx={{
-                            width: '40%',
-                            bgcolor: '#f8f8f8',
-                            boxShadow: 8,
-                            borderRadius: 4,
-                            p: 2,
-                            minWidth: 400,
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Quiz />
-                    </Box>
-                </Grid>
-                <Grid item xs={5}
-                    container
-                    justifyContent="center"
-                    alignItems="center"
-                    spacing={2}>
-                    <Box
-                        sx={{
-                            width: '100%',
-                            bgcolor: '#f8f8f8',
-                            boxShadow: 8,
-                            borderRadius: 4,
-                            p: 2,
-                            minWidth: 360,
-                            marginTop: '5%',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            display: 'flex'
-                        }}
-                    >
-                        <Typography component="h1" variant="h5">
-                            Score Board
-                        </Typography>
-                        <List sx={{ width: '100%', maxWidth: 360 }}>
-                            {scoreList.map((score, idx) =>
-                                <Score key={idx} value={idx + 1} userName={score.nickname} score={score.score} quizLen={score.quizLen} />
-                            )}
-                        </List>
-                    </Box>
-                </Grid>
-                <Grid item xs={5}
-                    container
-                    justifyContent="center"
-                    alignItems="center"
-                    spacing={2}>
-                    <Box
-                        component="form"
-                        noValidate
-                        onSubmit={handleSubmit}
-                        sx={{
-                            width: '100%',
-                            bgcolor: '#f8f8f8',
-                            boxShadow: 8,
-                            borderRadius: 4,
-                            p: 2,
-                            minWidth: 360,
-                            marginTop: '5%',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            display: 'flex'
-                        }}>
-                        <Typography component="h1" variant="h5">
-                            Leave a Message
-                        </Typography>
-                        <TextField
-                            margin="normal"
-                            id="message"
-                            name="message"
-                            label="Message"
-                            variant="outlined"
-                        />
-                        <Button
-                            type="submit"
-                            variant="contained"
-                        >
-                            Submit
-                        </Button>
-                    </Box>
-                    <Box
-                        sx={{
-                            width: '100%',
-                            bgcolor: '#f8f8f8',
-                            boxShadow: 8,
-                            borderRadius: 4,
-                            p: 2,
-                            minWidth: 360,
-                            marginTop: '5%',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            display: 'flex'
-                        }}
-                    >
-                        <Typography component="h1" variant="h5">
-                            Messages
-                        </Typography>
-                        <List sx={{ width: '100%', maxWidth: 360 }}>
-                            {msgList.map((msg, idx) =>
-                                <Message key={idx} userName={msg.nickname} comment={msg.message} quizCode={quizCode} />
-                            )}
-                        </List>
-                    </Box>
-                </Grid>
-            </Grid>
-            <Grid container
-                spacing={2}
-                direction="row"
-                justifyContent="center"
-                alignItems="center"
-                sx={{ marginTop: 4, display: { xs: 'flex', md: 'none' } }}>
-                <Grid item xs={12}
-                    container
-                    justifyContent="center"
-                    alignItems="center">
-                    <Box
-                        sx={{
-                            width: '40%',
-                            bgcolor: '#f8f8f8',
-                            boxShadow: 8,
-                            borderRadius: 4,
-                            p: 2,
-                            minWidth: 300,
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Quiz />
-                    </Box>
-                </Grid>
-                <Grid item xs={12}
-                    container
-                    justifyContent="center"
-                    alignItems="center">
-
-                    <Box sx={{
-                        width: '80%',
-                        bgcolor: '#f8f8f8',
-                        boxShadow: 8,
-                        borderRadius: 4,
-                        p: 2,
-                        minWidth: 360,
-                        marginTop: '5%',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        display: { xs: 'flex', md: 'none' }
-                    }}
-                    >
-                        <Typography component="h1" variant="h5">
-                            Score Board
-                        </Typography>
-                        <List sx={{ width: '80%', maxWidth: 360 }}>
-                            {scoreList.map((score, idx) =>
-                                <Score key={idx} value={idx + 1} userName={score.nickname} score={score.score} quizLen={score.quizLen} />
-                            )}
-                        </List>
-                    </Box>
-                    <Box
-                        component="form"
-                        noValidate
-                        onSubmit={handleSubmit}
-                        sx={{
-                            width: '80%',
-                            bgcolor: '#f8f8f8',
-                            boxShadow: 8,
-                            borderRadius: 4,
-                            p: 2,
-                            minWidth: 360,
-                            marginTop: '5%',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            display: 'flex'
-                        }}>
-                        <Typography component="h1" variant="h5">
-                            Leave a Message
-                        </Typography>
-                        <TextField
-                            margin="normal"
-                            id="message"
-                            name="message"
-                            label="Message"
-                            variant="outlined"
-                        />
-                        <Button
-                            type="submit"
-                            variant="contained"
-                        >
-                            Submit
-                        </Button>
-                    </Box>
-                    <Box
-                        sx={{
-                            width: '80%',
-                            bgcolor: '#f8f8f8',
-                            boxShadow: 8,
-                            borderRadius: 4,
-                            p: 2,
-                            minWidth: 360,
-                            marginTop: '8%',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            display: { xs: 'flex', md: 'none' }
-                        }}
-                    >
-                        <Typography component="h1" variant="h5">
-                            Messages
-                        </Typography>
-                        <List sx={{ width: '80%', maxWidth: 360 }}>
-                            {msgList.map((msg, idx) =>
-                                <Message key={idx} userName={msg.nickname} comment={msg.message} quizCode={quizCode} />
-                            )}
-                        </List>
-                    </Box>
-                </Grid>
-            </Grid>
+        <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', flexDirection: 'column' }} >
+            <Nav></Nav>
+            <div style={{
+                fontSize: '1.25em',
+                fontWeight: '600',
+                position: 'absolute',
+                top: '3.5em'
+            }}>COLOR YOURS</div>
+            <div style={{
+                fontSize: '1em',
+                fontWeight: '600',
+                letterSpacing: '0.25em',
+                position: 'absolute',
+                top: '7em'
+            }}>{`${score}/${quizList[0].quizLen}`}</div>
+            <div className="msgUsername">{userList[0].firstName}</div>
+            <div>
+                <div className={'msgBlock bigInput ' + (firstInput ? '' : 'hidden')}>
+                    <div>
+                        <div className='msgNick'>{nickname}</div>
+                        <div className='msgScore'>{score + '/' + quizList[0].quizLen}</div>
+                    </div>
+                    <div>
+                        <Box
+                            component="form"
+                            noValidate
+                            onSubmit={handleSubmit}
+                            sx={{
+                                width: '100%',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                display: 'flex'
+                            }}>
+                            <textarea
+                                margin="normal"
+                                id="message"
+                                name="message"
+                                label="Message"
+                                className="msgInput"
+                            />
+                            <button
+                                type="submit"
+                                className="msgSave"
+                            >
+                                SAVE
+                            </button>
+                        </Box>
+                    </div>
+                </div>
+                <div className='msgGrid'>
+                    {patterns.map((pattern, idx) => (
+                        <BauIcon key={idx} idx={idx} patternNum={pattern} rotate={(idx * 7) % 4} colorNum={(idx * 17) % 4} nickname={idx % 2 ? nickname : ''} score={score} totScore={quizList[0].quizLen} />
+                    ))}
+                </div>
+            </div>
         </Box >
     )
 }
