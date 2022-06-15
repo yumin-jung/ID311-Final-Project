@@ -1,18 +1,15 @@
 import * as React from 'react';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
 
 const Logo = ({ size }) => {
     return (
-        <div className="logo" style={{transform: 'scale('+size+')'}}>
+        <div className="logo" style={{ transform: 'scale(' + size + ')' }}>
             <div>
                 <div className="bigCir yellow"></div>
                 <div></div>
                 <div></div>
                 <div className="quarter red"></div>
             </div>
-            <div style={{transform: 'rotateZ(90deg)'}}>
+            <div style={{ transform: 'rotateZ(90deg)' }}>
                 <div className="quarter red r2"></div>
                 <div className="quarter red r3"></div>
                 <div className="half blue"></div>
@@ -21,7 +18,7 @@ const Logo = ({ size }) => {
                 <div className="smallCir blue"></div>
                 <div className="longBox yellow"></div>
             </div>
-            <div style={{transform: 'rotateZ(90deg)'}}>
+            <div style={{ transform: 'rotateZ(90deg)' }}>
                 <div className="half black"></div>
                 <div className="half red r2"></div>
             </div>

@@ -13,7 +13,6 @@ let FilteredSolvers;
 let userList = [];
 let quizList;
 
-
 export default function LeaveMessage() {
     let patterns = new Array(12).fill().map((e) => Math.floor(Math.random() * 5));
     const router = useRouter();
@@ -31,7 +30,6 @@ export default function LeaveMessage() {
     const [formPopup, setPopup] = useState(false);
 
     // nickname : string, score : string ('4/13'), message : string
-
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -128,7 +126,7 @@ export default function LeaveMessage() {
                 position: 'absolute',
                 top: '7em'
             }}>{`${score}/${quizList[0].quizLen}`}</div>
-            <div className="msgUsername">{userList[0].firstName}</div>
+            <div className="msgUsername">Welcome!</div>
             <div>
                 <div className={'msgBlock bigInput ' + (firstInput ? '' : 'hidden')}>
                     <div>

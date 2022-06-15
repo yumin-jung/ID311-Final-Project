@@ -1,7 +1,4 @@
 import * as React from 'react';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
 
 const CodeLogo = ({ height }) => {
     return (

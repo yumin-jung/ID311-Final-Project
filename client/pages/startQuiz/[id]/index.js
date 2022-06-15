@@ -1,7 +1,5 @@
 import React, { useContext } from 'react';
-import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
 import { useRouter } from 'next/router';
 import { AppContext } from '../../../context/AppContext';
 import { Typography } from '@mui/material';
@@ -31,7 +29,7 @@ export default function StartQuiz() {
     }
 
     return (
-        <Container component="main" maxWidth="xs" sx={{maxWidth: '444px'}}>
+        <Container component="main" maxWidth="xs" sx={{ maxWidth: '444px' }}>
             <CssBaseline />
             <Box sx={{
                 display: 'flex',
@@ -40,8 +38,8 @@ export default function StartQuiz() {
                 width: '90%',
                 margin: 'auto'
             }}>
-                <Typography component="h1" variant="h5" className='bauh' style={{fontFamily: 'BAUHS93',fontSize: '2em', marginBottom: '0.8em', width: '500px'}}>
-                        NICKNAME
+                <Typography component="h1" variant="h5" className='bauh' style={{ fontFamily: 'BAUHS93', fontSize: '2em', marginBottom: '0.8em', width: '500px' }}>
+                    NICKNAME
                 </Typography>
                 {<input
                     id="nickname"

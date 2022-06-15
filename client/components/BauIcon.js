@@ -1,18 +1,13 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { useRouter } from 'next/router'
-import axios from 'axios';
-import InputBox from './InputBox';
+import React, { useState } from 'react';
 
 const BauIcon = ({ patternNum, rotate, colorNum, nickname, score, message, totScore }) => {
-    // nickname : string, score : string ('4/13'), message : string
-    // isTrans : 아웃포커싱일 때 흐리게
-    // isLeavingMsg : 댓글남기기인 경우
     const rotation = ['', ' r1', ' r2', ' r3'];
     const colors = [' red', ' blue', ' black', ' yellow'];
     let hidden = "";
     let color = '';
     if (colorNum < 4) color = colors[colorNum];
     else nickname = '';
+
     message = 'Message';
     const [messageOn, setMessage] = useState('');
     const MsgBlockOn = (event) => {
@@ -22,6 +17,7 @@ const BauIcon = ({ patternNum, rotate, colorNum, nickname, score, message, totSc
     const MsgBlockOff = (event) => {
         setMessage('');
     };
+
     switch (patternNum) {
         case 0:
             return (
