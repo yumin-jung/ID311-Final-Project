@@ -17,7 +17,8 @@ import BauIcon from '../../../components/BauIcon';
 const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
 const LOCAL_SERVER_URL = 'http://localhost:8080';
 
-let filteredSolvers;
+let FilteredSolvers;
+let userList = [];
 
 export default function LeaveMessage() {
     let patterns = new Array(12).fill().map((e) => Math.floor(Math.random() * 5));
@@ -26,7 +27,7 @@ export default function LeaveMessage() {
     const { quizCode, quizNickname, score } = useContext(AppContext);
 
     // Check rendering
-    const [isRenderScore, setIsRenderScore] = useState(false);
+    const [isRenderSolver, setIsRenderSolver] = useState(false);
     const [isRenderMsg, setIsRenderMsg] = useState(false);
 
     // Choose color and location of patterns
@@ -34,137 +35,82 @@ export default function LeaveMessage() {
     const [order, setOrder] = useState(false);
     const [formPopup, setPopup] = useState(false);
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-
-        const solverResult = {
-            solver: {nickname: quizNickname, color: color, order: order},
-            quizCode: quizCode,
-            message: data.get('message'),
-            score: score,
-            quizLen: 6,
-        }
-
-        axios.post(DEPLOY_SERVER_URL + '/api/solvers/saveSolver', solver)
-            .then(response => {
-                if (response.data.success) {
-                    // Go to leave message page
-                    // router.push({
-                    //     pathname: '/scoreBoard/[id]',
-                    //     query: { id: quizCode },
-                    // })
-                } else {
-                    alert(`Failed to save solver's data`);
-                }
-            });
-    };
-
 
     // Get score and message data from DB
     useEffect(() => {
+        axios.post(DEPLOY_SERVER_URL + '/api/users/getUsers', null)
+            .then(response => {
+                if (response.data.success) {
+                    const userListAll = response.data.users.map((user) => {
+                        return { username: user.username, password: user.password, quizCode: user.quizCode, firstName: user.firstName};
+                    })
+                    userList = userListAll.filter((user) => user.quizCode == quizCode);
+                } else {
+                    alert('Failed to get users');
+                }
+            })
+        axios.post(DEPLOY_SERVER_URL + '/api/quizzes/getQuiz', null)
+            .then(response => {
+                if (response.data.success) {
+                    const quizListAll = response.data.quiz.map((quiz) => {
+                        return { quizCode: quiz.quizCode, patterns: quiz.patterns };
+                    })
+                    const quizList = quizListAll.filter((quiz) => quiz.quizCode == quizCode);
+                    if(quizList!=0) patterns = quizList[0].patterns.reduce((acc,e)=>acc.concat(e),[]).filter((e,idx)=> idx<12);
+                    console.log(patterns);
+                } else {
+                    alert('Failed to get quizzes');
+                }
+            })
         axios.post(DEPLOY_SERVER_URL + '/api/solvers/getSolver', null)
             .then(response => {
                 if (response.data.success) {
                     const allSolvers = response.data.solvers.map((solver) => {
-                        return { quizCode: solver.quizCode, nickname: solver.info.nickname, color: solver.info.color, order: solver.info.order, message: solver.message, score: solver.score, totScore: solver.quizLen };
+                        return { quizCode: solver.quizCode, nickname: solver.info.nickname, score: solver.score, totScore: solver.quizLen, message: solver.message  };
                     })
-                    filteredSolvers = allSolvers.filter((solver) => solver.quizCode == quizCode)
+                    FilteredSolvers = allSolvers.filter((solver) => solver.quizCode == quizCode)
+                    setIsRenderSolver(true);
+                    console.log(allSolvers);
                 }
                 else {
-                    alert('Failed to get solvers data');
+                    alert('Failed to get msgs');
                 }
-            }).then(() => {
-                setIsRenderMsg(true);
             })
+
     }, []);
 
     // Pause rendering until get data
-    if (isRenderScore === false) {
-        return null;
-    }
-    else if (isRenderMsg === false) {
+    if (isRenderMsg === false) {
         return null;
     }
 
     return (
-        <Box sx={{ width: '100%' }} >
+        <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', flexDirection: 'column'}} >
             <Nav></Nav>
-            <div>COLOR YOURS</div>
-            <div>4/13</div>
+            <div style={{
+                fontSize: '1.25em',
+                fontWeight: '600',
+                position: 'absolute',
+                top: '3.5em'
+            }}>COLOR YOURS</div>
+            <div style={{
+                fontSize: '1em',
+                fontWeight: '600',
+                letterSpacing: '0.25em',
+                position: 'absolute',
+                top: '7em'
+            }}>4/13</div>
+            <div className="msgUsername">{userList[0].username}</div>
             <div>
                 <div className='msgGrid'>
                     {patterns.map((pattern, idx) => (
-                        <BauIcon key={idx} patternNum={pattern} rotate={(idx * 7) % 4} colorNum={(idx * 13) % 5} isLeavingMsg={true} resultNick='asv' resultScore='2/18' />
+                        <BauIcon key={idx} patternNum={pattern} rotate={(idx * 7) % 4} colorNum={(idx * 13) % 5} isLeavingMsg={true} resultNick='asv' resultScore='2/18' quizCode={quizCode}/>
                     ))}
                 </div>
             </div>
-                
-                {/* <Grid item xs={5}
-                    container
-                    justifyContent="center"
-                    alignItems="center"
-                    spacing={2}>
-                    <Box
-                        component="form"
-                        noValidate
-                        onSubmit={handleSubmit}
-                        sx={{
-                            width: '100%',
-                            bgcolor: '#f8f8f8',
-                            boxShadow: 8,
-                            borderRadius: 4,
-                            p: 2,
-                            minWidth: 360,
-                            marginTop: '5%',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            display: 'flex'
-                        }}>
-                        <Typography component="h1" variant="h5">
-                            Leave a Message
-                        </Typography>
-                        <TextField
-                            margin="normal"
-                            id="message"
-                            name="message"
-                            label="Message"
-                            variant="outlined"
-                        />
-                        <Button
-                            type="submit"
-                            variant="contained"
-                        >
-                            Submit
-                        </Button>
-                    </Box>
-                    <Box
-                        sx={{
-                            width: '100%',
-                            bgcolor: '#f8f8f8',
-                            boxShadow: 8,
-                            borderRadius: 4,
-                            p: 2,
-                            minWidth: 360,
-                            marginTop: '5%',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            display: 'flex'
-                        }}
-                    >
-                        <Typography component="h1" variant="h5">
-                            Messages
-                        </Typography>
-                        <List sx={{ width: '100%', maxWidth: 360 }}>
-                            {msgList.map((msg, idx) =>
-                                <Message key={idx} userName={msg.nickname} comment={msg.message} quizCode={quizCode} />
-                            )}
-                        </List>
-                    </Box>
-                </Grid> */}
-                <div className='colorPalette'>
+                <div className='colorPalette someColorPicked'>
                     <div className='colorPick black'></div>
-                    <div className='colorPick blue'></div>
+                    <div className='colorPick blue' id="picked"></div>
                     <div className='colorPick yellow'></div>
                     <div className='colorPick red'></div>
                 </div>

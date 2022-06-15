@@ -14,7 +14,7 @@ let quizList = null;
 let FilteredSolvers = [];
 let patterns;
 
-export default function PersonalPage(){
+export default function PersonalPage() {
     const router = useRouter();
     const { isUser, quizCode } = useContext(AppContext);
 
@@ -26,12 +26,11 @@ export default function PersonalPage(){
 
     useEffect(() => {
         // Get userlist from DB
-        console.log(router);
         axios.post(DEPLOY_SERVER_URL + '/api/users/getUsers', null)
             .then(response => {
                 if (response.data.success) {
                     const userListAll = response.data.users.map((user) => {
-                        return { username: user.username, password: user.password, quizCode: user.quizCode };
+                        return { username: user.username, password: user.password, quizCode: user.quizCode, firstName: user.firstName};
                     })
                     userList = userListAll.filter((user) => user.quizCode == quizCode)
                     setIsRenderUser(true);
@@ -49,7 +48,7 @@ export default function PersonalPage(){
                     })
                     quizList = quizListAll.filter((quiz) => quiz.quizCode == quizCode);
                     if(quizList!=0) patterns = quizList[0].patterns.reduce((acc,e)=>acc.concat(e),[]).filter((e,idx)=> idx<12);
-                    // console.log(patterns, quizList);
+                    console.log(patterns);
                     setIsRenderQuiz(true);
                 } else {
                     alert('Failed to get quizzes');
@@ -65,7 +64,7 @@ export default function PersonalPage(){
                     })
                     FilteredSolvers = allSolvers.filter((solver) => solver.quizCode == quizCode)
                     setIsRenderSolver(true);
-                    // console.log(allSolvers);
+                    console.log(allSolvers);
                 }
                 else {
                     alert('Failed to get msgs');
@@ -123,6 +122,7 @@ export default function PersonalPage(){
         return (
             <>
                 <Nav isUser={isUser} quizCode={quizCode} />
+                <div className="msgUsername">{userList[0].firstName}</div>
                 <Container sx={{
                     width: '100%',
                     alignItems: 'center',

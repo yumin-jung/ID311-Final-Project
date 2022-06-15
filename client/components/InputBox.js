@@ -1,10 +1,10 @@
 import * as React from 'react';
+import { Box } from '@mui/system';
+import { TextField } from '@mui/material';
+import { Button } from '@mui/material';
 
-const InputBox = ({idx, message, isLeavingMsg, resultNick, resultScore, msgColor}) => {
+const InputBox = ({idx, message, isLeavingMsg, resultNick, resultScore, msgColor, quizCode}) => {
     // nickname : string, score : string ('4/13'), message : string
-    if (!nickname) nickname = 'NICKNAME';
-    if (!score) score = '4/13';
-    if (!message && colorNum ==1) message = 'Hello, this is me from id215';
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -15,6 +15,7 @@ const InputBox = ({idx, message, isLeavingMsg, resultNick, resultScore, msgColor
             quizCode: quizCode,
             message: data.get('message')
         }
+        console.log(message);
 
         axios.post(DEPLOY_SERVER_URL + '/api/messages/saveMessage', message)
             .then(response => {
@@ -28,42 +29,35 @@ const InputBox = ({idx, message, isLeavingMsg, resultNick, resultScore, msgColor
                     alert('Failed to save message')
                 }
             });
+            return { quizCode: solver.quizCode, nickname: solver.info.nickname, score: solver.score, totScore: solver.quizLen, message: solver.message  };
     };
 
     if(isLeavingMsg){ // input창띄우기
         return(
             <>
-                <input id="message" name="message" label="Message" className='msgInput'/>
-                <button className='msgButton' onClick={SubmitData}></button>
                 <Box
                     component="form"
                     noValidate
                     onSubmit={handleSubmit}
                     sx={{
                         width: '100%',
-                        bgcolor: '#f8f8f8',
-                        boxShadow: 8,
-                        borderRadius: 4,
-                        p: 2,
-                        minWidth: 360,
-                        marginTop: '5%',
                         flexDirection: 'column',
                         alignItems: 'center',
                         display: 'flex'
                     }}>
-                    <TextField
+                    <textarea
                         margin="normal"
                         id="message"
                         name="message"
                         label="Message"
-                        variant="outlined"
+                        className="msgInput"
                     />
-                    <Button
+                    <button
                         type="submit"
-                        variant="contained"
+                        className="msgSave"
                     >
                         SAVE
-                    </Button>
+                    </button>
                 </Box>
             </>
         );

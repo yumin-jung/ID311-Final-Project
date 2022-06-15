@@ -1,6 +1,7 @@
 import * as React from 'react';
+import InputBox from './InputBox';
 
-const BauIcon = ({patternNum, rotate, colorNum, nickname, score, message, isTrans, isLeavingMsg, resultNick, resultScore, msgColor, idx}) => {
+const BauIcon = ({patternNum, rotate, colorNum, nickname, score, message, isTrans, isLeavingMsg, resultNick, resultScore, msgColor, idx, quizCode}) => {
     // nickname : string, score : string ('4/13'), message : string
     // isTrans : 아웃포커싱일 때 흐리게
     // isLeavingMsg : 댓글남기기인 경우
@@ -22,7 +23,7 @@ const BauIcon = ({patternNum, rotate, colorNum, nickname, score, message, isTran
                             <div className='msgScore'>{score}</div>
                         </div>
                         <div>
-                            
+                            <InputBox idx={idx} message={message} isLeavingMsg={isLeavingMsg} resultNick={resultNick} resultScore={resultScore} msgColor={msgColor} quizCode={quizCode}></InputBox>
                         </div>
                     </div>
                 </div>
