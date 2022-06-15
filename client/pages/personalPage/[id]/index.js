@@ -49,7 +49,7 @@ export default function PersonalPage() {
                         return { quizCode: quiz.quizCode, patterns: quiz.patterns };
                     })
                     quizList = quizListAll.filter((quiz) => quiz.quizCode == quizCode);
-                    if(quizList!=0) patterns = quizList[0].patterns.reduce((acc,e)=>acc.concat(e),[]);
+                    if(quizList!=0) patterns = quizList[0].patterns.reduce((acc,e)=>acc.concat(e),[]).filter((e,idx)=> idx<12);
                     console.log(patterns);
                     setIsRenderQuiz(true);
                     setIsRenderPattern(true);

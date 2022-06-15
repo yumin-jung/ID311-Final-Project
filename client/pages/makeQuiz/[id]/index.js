@@ -81,7 +81,7 @@ export default function MakeQuiz() {
                 quizBundle: qBundle,
                 quizLength: qBundle.length,
                 //5 types of shapes -> make array
-                patterns: new Array(24).fill().map((e) => Math.floor(Math.random()*5))
+                patterns: new Array(12).fill().map((e) => Math.floor(Math.random()*5))
             }    
             axios.post(DEPLOY_SERVER_URL + '/api/quizzes/saveQuiz', quizData)
                 .then(response => {
