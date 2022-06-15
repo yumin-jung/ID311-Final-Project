@@ -2,12 +2,6 @@ import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
-import TextField from '@mui/material/TextField';
-import Radio from '@mui/material/Radio';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { Typography } from '@mui/material';
 
 export default function MakeOneQuiz({ order, question, presetOptions, presetRadio, loadData }) {
     const [questionValue, setquestionValue] = useState(question);

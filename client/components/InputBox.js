@@ -2,21 +2,18 @@ import * as React from 'react';
 import { useRouter } from 'next/router'
 import axios from 'axios';
 import { Box } from '@mui/system';
-import { TextField } from '@mui/material';
-import { Button } from '@mui/material';
 
 const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
 
-const InputBox = ({idx, message, isLeavingMsg, resultNick, score, totScore, msgColor, quizCode}) => {
+const InputBox = ({ idx, message, isLeavingMsg, resultNick, score, totScore, msgColor, quizCode }) => {
     const router = useRouter();
-    // nickname : string, score : string ('4/13'), message : string
 
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
 
         const solverResult = {
-            info: [{nickname: resultNick, color: msgColor, order: idx}],
+            info: [{ nickname: resultNick, color: msgColor, order: idx }],
             quizCode: quizCode,
             message: data.get('message'),
             score: score,
@@ -38,8 +35,8 @@ const InputBox = ({idx, message, isLeavingMsg, resultNick, score, totScore, msgC
             });
     };
 
-    if(isLeavingMsg){ // input창띄우기
-        return(
+    if (isLeavingMsg) { // input창띄우기
+        return (
             <>
                 <Box
                     component="form"
@@ -67,8 +64,8 @@ const InputBox = ({idx, message, isLeavingMsg, resultNick, score, totScore, msgC
                 </Box>
             </>
         );
-    }else{ // 내용물창 띄우기
-        return(
+    } else { // 내용물창 띄우기
+        return (
             <div className='msgMsg'>{message}</div>
         );
     }

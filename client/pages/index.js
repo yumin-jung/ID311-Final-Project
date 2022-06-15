@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -36,7 +35,7 @@ export default function Home() {
     const quizFilter = quizList.filter((quiz) => quiz.quizCode == codeInput.toLowerCase());
     if (quizFilter.length == 0) {
       setAlert(true);
-      setTimeout(()=>setAlert(false),1000);
+      setTimeout(() => setAlert(false), 1000);
     }
     else {
       console.log(quizFilter);
@@ -84,7 +83,7 @@ export default function Home() {
               value='Invalid code'
               autoFocus
               className='alertCodeBox'
-              /> : <input
+            /> : <input
               id="code"
               label="Code"
               name="code"
@@ -95,7 +94,7 @@ export default function Home() {
               placeholder='Input the code'
               className='inputCodeBox'
             />}
-            
+
             {codeInput.length == 6 &&
               <Box sx={{ mt: 0, display: 'flex', alignItems: 'center' }} >
                 <div className="line"></div>

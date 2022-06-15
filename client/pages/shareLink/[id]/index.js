@@ -1,10 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import axios from 'axios';
-import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Tooltip from '@mui/material/Tooltip'
-import { Typography } from '@mui/material';
 import { AppContext } from '../../../context/AppContext';
 import Nav from '../../../components/Nav';
 
@@ -16,17 +13,16 @@ export default function ShareLink() {
     const [copiedLink, setcopiedLink] = useState(``);
 
     const CopyLink = () => {
-        console.log(copiedLink);
         setcopiedLink(`my code : ${quizCode}\ngo to here : ${DEPLOY_CLIENT_URL}`);
     }
-    useEffect(()=> {
+    useEffect(() => {
     })
 
     return (
         <>
             <Nav isUser={isUser} quizCode={quizCode} />
-            <Container maxWidth="xs" style={{marginTop: '20em'}}>
-                <div style={{width: '90%', margin: 'auto'}}>
+            <Container maxWidth="xs" style={{ marginTop: '20em' }}>
+                <div style={{ width: '90%', margin: 'auto' }}>
                     <div align='center' variant='h2' className='codeShare'>
                         {quizCode}
                     </div>
@@ -40,15 +36,15 @@ export default function ShareLink() {
                             }
                             placement='bottom'
                         >
-                            <div className='optionBox' style={{bottom:0}}>
+                            <div className='optionBox' style={{ bottom: 0 }}>
                                 <div>
-                                    <button className='qOption' style={{height: '4.2em'}}>
+                                    <button className='qOption' style={{ height: '4.2em' }}>
                                         SHARE QUIZ
                                     </button>
                                 </div>
                                 <div className='verticalSpace'></div>
                             </div>
-                            
+
                         </Tooltip>
                     </CopyToClipboard>
                 </div>
