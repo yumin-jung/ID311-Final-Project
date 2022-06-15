@@ -1,14 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useRouter } from 'next/router'
 import axios from 'axios';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid'
-import List from '@mui/material/List'
 import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import { Typography } from '@mui/material';
-import Score from '../../../components/Score';
-import Message from '../../../components/Message';
 import { AppContext } from '../../../context/AppContext';
 import Nav from '../../../components/Nav';
 import Logo from '../../../components/Logo';
@@ -17,12 +10,12 @@ import BauIcon from '../../../components/BauIcon';
 const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
 const LOCAL_SERVER_URL = 'http://localhost:8080';
 let userList = [];
-let quizList = [];
+let quizList = null;
 let scoreList = [];
 let msgList = [];
+let patterns;
 
 export default function PersonalPage() {
-    let patterns = new Array(12).fill().map((e) => Math.floor(Math.random() * 5));
     const router = useRouter();
     const { isUser, quizCode } = useContext(AppContext);
 
@@ -56,8 +49,9 @@ export default function PersonalPage() {
                         return { quizCode: quiz.quizCode, patterns: quiz.patterns };
                     })
                     quizList = quizListAll.filter((quiz) => quiz.quizCode == quizCode);
+                    if(quizList!=0) patterns = quizList[0].patterns.reduce((acc,e)=>acc.concat(e),[]).filter((e,idx)=> idx<12);
+                    console.log(patterns);
                     setIsRenderQuiz(true);
-                    patterns = quizListAll.filter((quiz) => quiz.quizCode == quizCode).patterns;
                     setIsRenderPattern(true);
                 } else {
                     alert('Failed to get quizzes');
@@ -123,7 +117,8 @@ export default function PersonalPage() {
         })
     }
 
-    if (quizList.length == 0) {
+    if (quizList==null) return null;
+    else if (quizList.length == 0) {
         return (
             <>
                 <style jsx global>{`

@@ -12,16 +12,15 @@ const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com'
 const LOCAL_SERVER_URL = 'http://localhost:8080'
 let userList = [];
 let userInfo = [];
+let isQuizExist;
 
 export default function MakeQuiz() {
     const router = useRouter();
     const { isUser, quizCode } = useContext(AppContext);
     const qBundle = [];
     const [idx, setIdx] = useState(0);
-
     const [questionList, setquestionList] = useState(null);
 
-    const outerDivRef = useRef(null);
 
     useEffect(() => {
         axios.post(DEPLOY_SERVER_URL + '/api/users/getUsers', null)
@@ -34,86 +33,72 @@ export default function MakeQuiz() {
                     console.log(userInfo, quizCode);
 
                     // Preset questions
-                    qBundle.push({ question: `${userInfo.makerName}(이)가 좋아하는 색깔은?`, options: ['blue', 'red', 'green'], selected: 0 });
-                    qBundle.push({ question: `${userInfo.makerName}(이)가 좋아하는 스포츠는?`, options: ['basketball', 'running', 'badminton'], selected: 0 });
-                    qBundle.push({ question: `${userInfo.makerName}(이)의 나이는?`, options: ['19', '21', '25'], selected: 0 });
+                    qBundle.push({ question: `${userInfo.makerName}'s favorite color?`, options: ['blue', 'red', 'green'], selected: 0 });
+                    qBundle.push({ question: `${userInfo.makerName}'s favorite sport?`, options: ['basketball', 'running', 'badminton'], selected: 0 });
+                    qBundle.push({ question: `${userInfo.makerName}'s age?`, options: ['19', '21', '25'], selected: 0 });
+                    qBundle.push({ question: `${userInfo.makerName}'s major?`, options: ['industrial design', 'computer science', 'biology'], selected: 0});
 
-                    setquestionList(qBundle)
+                    setquestionList(qBundle);
                 } else {
                     alert('Failed to get users');
                 }
             });
-        // scroll wheel handler setting
-        const wheelHandler = (e) => {
-            e.preventDefault();
-            const { deltaY } = e;
-
-            console.log(idx);
-            if (deltaY > 0 && idx < questionList.length - 1) {
-                console.log(deltaY);
-                // setIdx(idx+1);
-            } else if (deltaY < 0 && idx > 1) {
-                console.log('sdf');
-                setIdx(idx - 1);
-            }
-        };
-        // console.log(outerDivRef.current==null, 'outer');
-        if (outerDivRef.current == null) return;
-        const outerDivRefCurrent = outerDivRef.current;
-        outerDivRefCurrent.addEventListener('wheel', wheelHandler);
-        return () => {
-            outerDivRefCurrent.removeEventListener('wheel', wheelHandler);
-        };
-    }, []);
+        axios.post(DEPLOY_SERVER_URL + '/api/quizzes/getQuiz', null)
+            .then(response => {
+                if (response.data.success) {
+                    const quizListAll = response.data.quiz.map((quiz) => {
+                        return { quizCode: quiz.quizCode };
+                    })
+                    isQuizExist = quizListAll.some((e) => e.quizCode == quizCode);
+                    console.log(isQuizExist);
+                } else {
+                    alert('Failed to get quizzes');
+                }
+            })
+  }, []);
 
 
 
     // Add question
     const AddQuestion = () => {
-        console.log(questionList[idx].options, questionList)
-        if (questionList[idx].options.includes('')) {
-            alert('write the option');
-            return;
-        }
-        else {
-            let questions = [...questionList];
-            questions.push({ question: `${userInfo.makerName}(이)의`, options: [''], selected: 0 });
-            setquestionList(questions);
-            setIdx(idx + 1);
-        }
+        let questions = [...questionList];
+        questions.push({ question: `${userInfo.makerName}(이)의`, options: [''], selected: 0 });
+        setquestionList(questions);
+        setIdx(idx + 1);
     }
 
     // Send quiz data
     const sendData = (event) => {
         event.preventDefault();
+        const allOptions = qBundle.reduce((acc,e) => acc.concat(e.options),[]);
 
-        const quizData = {
-            makerName: userInfo.makerName,
-            quizCode: userInfo.quizCode,
-            quizBundle: qBundle,
-            quizLength: qBundle.length,
-            //5 types of shapes -> make array
-            patterns: new Array(24).fill().map((e) => Math.floor(Math.random() * 5))
+        if(isQuizExist) alert('You already made quiz');
+        else if(allOptions.includes('')) alert('Fill up the options');
+        else{
+            const quizData = {
+                makerName: userInfo.makerName,
+                quizCode: userInfo.quizCode,
+                quizBundle: qBundle,
+                quizLength: qBundle.length,
+                //5 types of shapes -> make array
+                patterns: new Array(12).fill().map((e) => Math.floor(Math.random()*5))
+            }    
+            axios.post(DEPLOY_SERVER_URL + '/api/quizzes/saveQuiz', quizData)
+                .then(response => {
+                    if (response.data.success) {
+                        // Go to shareLink oage with query
+                        router.push({
+                            pathname: '/shareLink/[id]',
+                            query: { id: userInfo.quizCode },
+                        })
+                        console.log(`Succeed to save ${response.data.quiz}`)
+                        console.log(quizData);
+                    } else {
+                        alert('Failed to save user')
+                    }
+                });
         }
 
-        axios.post(DEPLOY_SERVER_URL + '/api/quizzes/saveQuiz', quizData)
-            .then(response => {
-                if (response.data.success) {
-                    // Go to shareLink oage with query
-                    router.push({
-                        pathname: '/shareLink/[id]',
-                        query: { id: userInfo.quizCode },
-                    })
-                    console.log(`Succeed to save ${response.data.quiz}`)
-                    console.log(quizData);
-                } else {
-                    alert('Failed to save user')
-                }
-            });
-    }
-
-    const ChangePage = (e) => {
-        console.log(e.target.scrollTop, 'scroll');
     }
 
     const loadData = (idx, data) => {
