@@ -12,6 +12,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { AppContext } from '../../../context/AppContext';
 import Nav from '../../../components/Nav';
+import BauIcon from '../../../components/BauIcon';
 
 const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
 const LOCAL_SERVER_URL = 'http://localhost:8080';
@@ -19,6 +20,7 @@ let scoreList = [];
 let msgList = [];
 
 export default function LeaveMessage() {
+    let patterns = new Array(12).fill().map((e) => Math.floor(Math.random() * 5));
     const router = useRouter();
     const { quizCode, quizNickname } = useContext(AppContext);
 
@@ -29,6 +31,7 @@ export default function LeaveMessage() {
     // Choose color and location of patterns
     const [color, setColor] = useState(false);
     const [order, setOrder] = useState(false);
+    const [formPopup, setPopup] = useState(false);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -53,6 +56,11 @@ export default function LeaveMessage() {
                 }
             });
     };
+
+    const PopupOpen = (event) => {
+        console.log("hi");
+        console.log(this.key);
+    }
 
     // Get score and message data from DB
     useEffect(() => {
@@ -102,32 +110,17 @@ export default function LeaveMessage() {
     return (
         <Box sx={{ width: '100%' }} >
             <Nav></Nav>
-            <Grid container
-                spacing={10}
-                direction="row"
-                justifyContent="center"
-                alignItems="center"
-                sx={{ marginTop: 5, display: 'flex' }}>
-                <Grid item xs={12}
-                    container
-                    justifyContent="center"
-                    alignItems="center">
-                    <Box
-                        sx={{
-                            width: '40%',
-                            bgcolor: '#f8f8f8',
-                            boxShadow: 8,
-                            borderRadius: 4,
-                            p: 2,
-                            minWidth: 400,
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Quiz />
-                    </Box>
-                </Grid>
-                <Grid item xs={5}
+            <div>COLOR YOURS</div>
+            <div>4/13</div>
+            <div>
+                <div className='msgGrid'>
+                    {patterns.map((pattern, idx) => (
+                        <BauIcon onClick={PopupOpen} key={idx} patternNum={pattern} rotate={(idx * 7) % 4} colorNum={(idx * 13) % 5} />
+                    ))}
+                </div>
+            </div>
+                
+                {/* <Grid item xs={5}
                     container
                     justifyContent="center"
                     alignItems="center"
@@ -188,8 +181,7 @@ export default function LeaveMessage() {
                             )}
                         </List>
                     </Box>
-                </Grid>
-            </Grid>
+                </Grid> */}
         </Box >
     )
 }

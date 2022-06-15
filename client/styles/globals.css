@@ -272,7 +272,7 @@ textarea:-webkit-autofill,textarea:-webkit-autofill:hover,textarea:-webkit-autof
   opacity: 0;
 }
 .rightArrowQuiz{
-  top: calc(-2em + 2px);
+  bottom: -1.27em;
   opacity: 0;
   visibility: hidden;
 }
@@ -315,6 +315,13 @@ textarea:-webkit-autofill,textarea:-webkit-autofill:hover,textarea:-webkit-autof
   bottom: 10em;
   height: fit-content;
 }
+.optionBoxFixed{
+  position: absolute;
+  width: 23em;
+  left: calc(50% - 11.25em);
+  bottom: 10em;
+  height: fit-content;
+}
 .qOption{
   width: 100%;
   font-size: 1.2em;
@@ -331,7 +338,7 @@ textarea:-webkit-autofill,textarea:-webkit-autofill:hover,textarea:-webkit-autof
 .qOption:hover{
   background-color: #D7C6B1;
 }
-div:nth-last-child(2n+1) > .qOption:after{
+div:nth-last-child(2n) > .qOption:after{
   content: "";
   position: absolute;
   border-top: 2px solid black;
@@ -339,7 +346,7 @@ div:nth-last-child(2n+1) > .qOption:after{
   top: 0;
   right: 0;
 }
-div:nth-last-child(2n) > .qOption:after{
+div:nth-last-child(2n+1) > .qOption:after{
   content: "";
   position: absolute;
   border-top: 2px solid black;
@@ -676,16 +683,19 @@ body::-webkit-scrollbar{
 .codeShare{
   font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
   font-weight: 500;
-  font-size: 3em;
+  font-size: 4em;
   text-transform: uppercase;
-  letter-spacing: 0.4em;
+  letter-spacing: 0.5em;
   color: var(--red);
   text-align: center;
   position: relative;
-  bottom: 2em;
+  bottom: 1em;
+  margin: 0;
+  padding: 0;
+  left: -0.15em;
 }
 .verticalSpace{
-  height: 7em;
+  height: 15em;
   border-top: 2px solid black;
   top: 0;
   width: 100vw;
@@ -716,15 +726,16 @@ body::-webkit-scrollbar{
   position: relative;
 }
 .bauhaus{
-  width: 100%;
-  height: 100%;
+  width: 101%;
+  height: 101%;
   display: grid;
+  margin: auto;
   grid-template-columns: 1fr 1fr;
 }
 .msgGrid{
   display: grid;
-  grid-template-columns: 5em 5em 5em 5em;
-  grid-template-rows: 5em 5em 5em;
+  grid-template-columns: repeat(4, 6em);
+  grid-template-rows: repeat(3, 6em)
 }
 .bauQuarter{
   background-color: var(--brown);
@@ -737,8 +748,8 @@ body::-webkit-scrollbar{
   background-color: var(--brown);
   width: 100%;
   height: 100%;
-  border-top-right-radius: 2.5em;
-  border-bottom-right-radius: 2.5em;
+  border-top-right-radius: 3em;
+  border-bottom-right-radius: 3em;
   z-index: 2;
 }
 .circle{
@@ -751,19 +762,19 @@ body::-webkit-scrollbar{
 .triangle{
   width: 0;
   height: 0;
-  border-top: 2.5em solid transparent;
-  border-right: 2.5em solid transparent;
-  border-bottom: 2.5em solid var(--brown);
-  border-left: 2.5em solid var(--brown);
+  border-top: 3em solid transparent;
+  border-right: 3em solid transparent;
+  border-bottom: 3em solid var(--brown);
+  border-left: 3em solid var(--brown);
   background: none;
 }
 .hourglass{
   width: 0;
   height: 0;
-  border-top: 2.5em solid transparent;
-  border-bottom: 2.5em solid transparent;
-  border-right: 2.5em solid var(--brown);
-  border-left: 2.5em solid var(--brown);
+  border-top: 3em solid transparent;
+  border-bottom: 3em solid transparent;
+  border-right: 3em solid var(--brown);
+  border-left: 3em solid var(--brown);
   background: none;
 }
 
@@ -826,9 +837,9 @@ body::-webkit-scrollbar{
 .msgBlock{
   position: absolute;
   background-color: var(--black);
-  width: 8em;
+  width: 9em;
   height: fit-content;
-  bottom: 6em;
+  bottom: 7em;
   left: -1.5em;
   padding: 0.8em;
   color: white;
@@ -840,7 +851,7 @@ body::-webkit-scrollbar{
   width: 0;
   height: 0;
   bottom: -1em;
-  left: 3em;
+  left: 3.5em;
   border-top: 1em solid var(--black);
   border-left: 1em solid transparent;
   border-right: 1em solid transparent;

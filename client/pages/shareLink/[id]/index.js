@@ -25,32 +25,33 @@ export default function ShareLink() {
     return (
         <>
             <Nav isUser={isUser} quizCode={quizCode} />
-            <Container maxWidth="xs" sx={{ mt: 10 }}>
-                <div align='center' variant='h2' className='codeShare'>
-                    {quizCode}
-                </div>
-                <CopyToClipboard
-                    text={copiedLink}
-                    onCopy={CopyLink}>
-                    <Tooltip
-                        title={copiedLink == `my code : ${quizCode}\ngo to here : ${DEPLOY_CLIENT_URL}`
-                            ? "Paste your quiz"
-                            : "Copy your quiz"
-                        }
-                        placement='bottom'
-                    >
-                        <div className='optionBox'>
-                            <div>
-                                <button className='qOption'>
-                                    Share your quiz
-                                </button>
+            <Container maxWidth="xs" style={{marginTop: '20em'}}>
+                <div style={{width: '90%', margin: 'auto'}}>
+                    <div align='center' variant='h2' className='codeShare'>
+                        {quizCode}
+                    </div>
+                    <CopyToClipboard
+                        text={copiedLink}
+                        onCopy={CopyLink}>
+                        <Tooltip
+                            title={copiedLink == `my code : ${quizCode}\ngo to here : ${DEPLOY_CLIENT_URL}`
+                                ? "Paste your quiz"
+                                : "Copy your quiz"
+                            }
+                            placement='bottom'
+                        >
+                            <div className='optionBox' style={{bottom:0}}>
+                                <div>
+                                    <button className='qOption' style={{height: '4.2em'}}>
+                                        SHARE QUIZ
+                                    </button>
+                                </div>
+                                <div className='verticalSpace'></div>
                             </div>
-                            <div></div>
-                            <div className='verticalSpace'></div>
-                        </div>
-                        
-                    </Tooltip>
-                </CopyToClipboard>
+                            
+                        </Tooltip>
+                    </CopyToClipboard>
+                </div>
             </Container>
         </>
     )

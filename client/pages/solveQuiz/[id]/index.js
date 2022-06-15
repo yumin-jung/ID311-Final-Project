@@ -129,8 +129,8 @@ export default function SolveQuiz() {
                 </Box>
                 <Box
                     component="main"
-                    className='optionBox'
-                    sx={{position: 'relative', pb:'0'}}
+                    className='optionBoxFixed'
+                    sx={{position: 'absolute', pb:'0'}}
                 >
                     
                     {thisQuiz.options.map((value, idx) => (
@@ -142,19 +142,13 @@ export default function SolveQuiz() {
                             </button>
                         </Stack>
                     ))}
-                    <Box
-                        sx={{
-                            position: 'relative',
-                            width: '100%',
-                            bottom: '4.95em'
-                        }}
-                    >
+                    <div>
+                        <div className='qOption' style={{ height: '0' }}></div>
                         <button
                             onClick={NextQuiz}
                             className={(selected > -1? 'somethingSelected':'')+' rightArrow rightArrowQuiz'}
-                        > 
-                        </button>
-                    </Box>
+                        ></button>
+                    </div>
                 </Box>
                 
             </Box>
