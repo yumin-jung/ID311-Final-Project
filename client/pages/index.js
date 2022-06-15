@@ -36,7 +36,7 @@ export default function Home() {
     const quizFilter = quizList.filter((quiz) => quiz.quizCode == codeInput.toLowerCase());
     if (quizFilter.length == 0) {
       setAlert(true);
-      setTimeout(()=>setAlert(false),2000);
+      setTimeout(()=>setAlert(false),1000);
     }
     else {
       console.log(quizFilter);
