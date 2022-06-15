@@ -54,7 +54,7 @@ export default function SignIn() {
                 router.push({
                     pathname: '/personalPage/[id]',
                     query: { id: findUserInfo.quizCode, isUser: true },
-                },`/personalPage/${findUserInfo.quizCode}`)
+                }, `/personalPage/${findUserInfo.quizCode}`)
             }
             else {
                 alert('Incorrect password!');
