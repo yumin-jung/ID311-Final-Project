@@ -16,11 +16,12 @@ html, body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   background-color: #EEDFCC;
   overflow: hidden;
+  font-size: min(min(16px, 2vh),3.5vw);
 }
 
 body{
   display: flex;
-  height: 96vh;
+  height: 100vh;
   align-items: center;
   justify-content: center;
   background-color: #EEDFCC;
@@ -50,7 +51,7 @@ ul {
 
 .logo{
   display: flex;
-  height: 100px;
+  height: 6.25em;
   margin: 0;
   padding: 0;
 
@@ -63,7 +64,7 @@ ul {
   grid-template-rows: 1fr 1fr;
   grid-auto-columns: 1fr;
   grid-auto-flow: column;
-  margin-right: 18px;
+  margin-right: 1.125em;
 }
 
 .logo > div:last-child{
@@ -94,37 +95,37 @@ ul {
 }
 
 .quarter{
-  width: 50px;
-  height: 50px;
-  border-top-right-radius: 50px;
+  width: 3.125em;
+  height: 3.125em;
+  border-top-right-radius: 3.125em;
   z-index: 2;
 }
 
 .half{
-  width: 50px;
-  height: 100px;
+  width: 3.125em;
+  height: 6.25em;
   grid-row: span 2;
-  border-radius: 0 50px 50px 0;
+  border-radius: 0 3.125em 3.125em 0;
 }
 
 .smallCir{
-  width: 50px;
-  height: 50px;
+  width: 3.125em;
+  height: 3.125em;
   border-radius: 50%;
   z-index: 1;
 }
 
 .bigCir{
-  width: 50px;
-  height: 50px;
+  width: 3.125em;
+  height: 3.125em;
   border-radius: 50%;
   transform-origin: top left;
   transform: scale(2);
 }
 
 .longBox{
-  width: 50px;
-  height: 50px;
+  width: 3.125em;
+  height: 3.125em;
   position: relative;
   transform-origin: bottom;
   transform: scaleY(1.5);
@@ -140,6 +141,7 @@ ul {
 button{
   font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
   cursor: pointer;
+  font-size: min(min(16px, 2vh),3.5vw);
 }
 .unBtn{
   width: 100%;
@@ -221,8 +223,9 @@ textarea:-webkit-autofill,textarea:-webkit-autofill:hover,textarea:-webkit-autof
 
 .inputCodeBox{
   text-align: center;
-  padding: 0.8em 1.2em;
+  padding: 1.125em 1.63em;
   letter-spacing: 0.5em;
+  font-size: 1.38em;
 }
 .inputCodeBox::placeholder{
   color: rgba(104, 64, 21, 0.304);
@@ -236,11 +239,13 @@ textarea:-webkit-autofill,textarea:-webkit-autofill:hover,textarea:-webkit-autof
 }
 .rightArrow{
   position: absolute;
-  width: 3em;
-  height: 3em;
-  right: max(-10em, -15vw);
+  width: 2.25em;
+  height: 2.25em;
+  right: max(-10em, -10vw);
   border: none;
   background-color: transparent;
+  visibility: visible;
+  opacity: 1;
   transition: all ease 200ms;
 }
 .rightArrow:hover{
@@ -249,19 +254,24 @@ textarea:-webkit-autofill,textarea:-webkit-autofill:hover,textarea:-webkit-autof
 .rightArrow:after, .rightArrow:before{
   content: "";
   position: absolute;
-  width: 3em;
-  height: 3em;
+  width: 2.25em;
+  height: 2.25em;
   border-top: 2px solid var(--black);
   border-right: 2px solid var(--black);
-  left: -2em;
-  top: 0;
+  left: -1.125em;
+  top: -1px;
   transform: rotateZ(45deg);
 }
 .rightArrow:after{
   left: 1em;
 }
+.inputCodeBox:placeholder-shown ~ .rightArrow,
+.inputCodeBox:placeholder-shown ~ .line{
+  visibility: hidden;
+  opacity: 0;
+}
 .rightArrowQuiz{
-  top: calc(-1.5em - 1px);
+  top: calc(-2em + 2px);
   opacity: 0;
   visibility: hidden;
 }
@@ -276,25 +286,29 @@ textarea:-webkit-autofill,textarea:-webkit-autofill:hover,textarea:-webkit-autof
   right: -50vw;
   border-bottom: 1px solid var(--black);
   border-top: 1px solid var(--black);
+  visibility: visible;
+  opacity: 1;
+  transition: all ease 200ms;
 }
 
 .question{
   font-size: 1.6em;
-  font-weight: 600;
+  font-weight: 700;
   text-align: center;
-  margin-top: 3em;
+  margin-top: 2.5em;
   text-overflow: clip;
 }
 .optionBox{
   position: absolute;
-  width: 360px;
-  left: calc(50% - 180px);
+  width: 22.5em;
+  left: calc(50% - 11.25em);
   bottom: 10em;
+  height: fit-content;
 }
 .qOption{
   width: 100%;
   font-size: 1.2em;
-  height: 4.2em;
+  height: 4.0em;
   background: none;
   border: none;
   position: relative;
@@ -331,8 +345,8 @@ div:nth-last-child(2n) > .qOption:after{
   background-color: var(--blue);
 }
 .stateBar{
-  width: 70%;
-  height: 4px;
+  width: 15em;
+  height: 3px;
   margin: auto;
   background-color:rgba(104, 64, 21, 0.304);
   position: relative;
@@ -375,6 +389,7 @@ div:nth-last-child(2n) > .qOption:after{
 .themeYellow .quizIdx{
   color: var(--yellow);
 }
+.themeYellow .solvedBar,
 .themeYellow .selectedOpt,
 .themeYellow .selectedOpt input,
 .themeYellow .selectedOpt input::placeholder{
@@ -384,6 +399,7 @@ div:nth-last-child(2n) > .qOption:after{
 .themeRed .quizIdx{
   color: var(--red);
 }
+.themeRed .solvedBar,
 .themeRed .selectedOpt{
   background-color: var(--red);
 }
@@ -394,6 +410,7 @@ div:nth-last-child(2n) > .qOption:after{
 .themeBlue .quizIdx{
   color: var(--blue);
 }
+.themeBlue .solvedBar,
 .themeBlue .selectedOpt{
   background-color: var(--blue);
 }
@@ -404,6 +421,7 @@ div:nth-last-child(2n) > .qOption:after{
 .themeBlack .quizIdx{
   color: var(--black);
 }
+.themeBlack .solvedBar,
 .themeBlack .selectedOpt{
   background-color: var(--black);
 }
@@ -436,9 +454,9 @@ div:nth-last-child(2n) > .qOption:after{
   position: absolute;
   bottom: 7vh;
   color: rgba(104, 64, 21, 0.704);
-  width: 200px;
+  width: 13em;
   font-size: 1em;
-  left: calc(50% - 100px);
+  left: calc(50% - 6.25em);
   background: none;
   border: none;
   padding: 1em;
@@ -452,9 +470,18 @@ div:nth-last-child(2n) > .qOption:after{
   position: relative;
   background: none;
   border: none;
-  font-size: 16px;
+  font-size: 1em;
   width: 2em;
   height: 2em;
+  padding: 0;
+  margin: 0;
+  border-radius: 1em;
+  transition: all ease 200ms;
+}
+.plus:hover{
+  width: 2em;
+  height: 2em;
+  background-color: rgba(104, 64, 21, 0.2);
 }
 .plus::before{
   content: "";
@@ -462,25 +489,38 @@ div:nth-last-child(2n) > .qOption:after{
   top: calc(1em - 1px);
   left: 0;
   width: 2em;
+  height: 0;
   border-top: 2px solid var(--black);
 }
 .plus::after{
   content: "";
   position: absolute;
   top: 0;
-  left: calc(1em - 1px);
+  left: calc(1rem - 1px);
   height: 2em;
+  width: 0;
   border-left: 2px solid var(--black);
 }
 .optionAdd{
   left: calc(50% - 1em);
-  margin-bottom: 20px;
+  margin-bottom: 1.25em;
 }
 .optionDelete{
   transform: rotateZ(45deg);
   position: relative;
-  right: 1em;
   z-index: 2;
+  right: 1em;
+  display: block;
+  position: relative;
+  font-size: min(min(16px, 2vh),3.5vw);
+  width: 2rem;
+  height: 2rem;
+}
+.optionDelete:hover{
+  width: 2em;
+  height: 2em;
+  border-radius: 1em;
+  background-color: transparent;
 }
 .quizIdx{
   font-size: 2em;
@@ -488,16 +528,98 @@ div:nth-last-child(2n) > .qOption:after{
   font-weight: 400;
 }
 .quizQuestion{
-  font-size: 2em;
+  font-size: 1.6em;
   width: 400px;
   padding: 0;
   margin-top: 1em;
   border: none;
   text-align: center;
   height: 3.5em;
-  font-weight: 500;
+  font-weight: 700;
 }
+
+
+/* Nav */
+.navBar{
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.menuBtn{
+  box-sizing: content-box;
+  width: 1.5em;
+  height: 1.5em;
+  position: relative;
+  border: 2px solid var(--black);
+  background: none;
+  position: absolute;
+  left: 4em;
+  top: 4em;
+  border-left: none;
+  border-right: none;
+}
+
+.menuBtn::after{
+  content: "";
+  position: absolute;
+  width: 100%;
+  border: 1px solid var(--black);
+  border-right: none;
+  border-left: none;
+  left: 0;
+  top: 0.75em;
+}
+
+.menuList{
+  position: absolute;
+  left: 4em;
+  top: 4em;
+  z-index: 4;
+  opacity: 1;
+  visibility: visible;
+  background-color: var(--black);
+  padding: 1em;
+}
+.menuList:after{
+  content: "";
+  position: absolute;
+  width: 0; 
+  height: 0; 
+  border-top: 1.25em solid transparent;
+  border-bottom: 1.25em solid transparent; 
+  border-right:1.25em solid var(--black);
+  left: -1.25em;
+  top: calc(50% - 1.25em);
+}
+
+.menuItem, .menuItem p{
+  background-color: var(--black);
+  color: white;
+  min-width: 8em;
+  height: 2.5em;
+  font-family: Pretendard;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  padding: 0.5em;
+}
+.menuItem:hover{
+  filter: brightness(2);
+}
+
+
 .invisible{
   opacity: 0;
   visibility: 0;
+  z-index: -1;
+}
+
+/* share link */
+.codeShare{
+  font-family: Pretendard;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--red);
 }

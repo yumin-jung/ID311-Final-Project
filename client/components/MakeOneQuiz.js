@@ -86,7 +86,6 @@ export default function MakeOneQuiz({ order, question, presetOptions, presetRadi
             <div className='optionBox'>
                 <button
                     onClick={AddOption}
-                    fullWidth
                     className={'plus optionAdd' + (optionList.length > 4?' invisible':'')}
                 ></button>
                 {optionList.map((value, idx) => (
@@ -102,10 +101,10 @@ export default function MakeOneQuiz({ order, question, presetOptions, presetRadi
                                 value={value}
                                 class="optionInput"
                             ></input>
-                            <div 
+                            <button
                                 onClick={()=>DeleteOption(idx)}
-                                className='optionDelete plus'
-                            ></div>
+                                className='plus optionDelete'
+                            > </button>
                         </div>
                     </Stack>
                 ))}

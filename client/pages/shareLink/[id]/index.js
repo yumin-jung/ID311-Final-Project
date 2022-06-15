@@ -26,7 +26,7 @@ export default function ShareLink() {
         <>
             <Nav isUser={isUser} quizCode={quizCode} />
             <Container maxWidth="xs" sx={{ mt: 10 }}>
-                <Typography align='center' variant='h2'>
+                <Typography align='center' variant='h2' className='codeShare'>
                     {quizCode}
                 </Typography>
                 <CopyToClipboard
@@ -39,9 +39,18 @@ export default function ShareLink() {
                         }
                         placement='bottom'
                     >
-                        <Button fullWidth>
-                            Share your quiz
-                        </Button>
+                        <div className='optionBox'>
+                            <div>
+                                <button className='qOption'>
+                                    Share your quiz
+                                </button>
+                            </div>
+                            <div >
+                                <div className='qOption'></div>
+                            </div>
+                            <div></div>
+                        </div>
+                        
                     </Tooltip>
                 </CopyToClipboard>
             </Container>

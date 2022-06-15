@@ -92,7 +92,19 @@ export default function SolveQuiz() {
     }
 
     return (
-        <Container component="main" maxWidth="xs" height="100vh">
+        <Container 
+            component="main" 
+            maxWidth="xs" 
+            height="100vh"
+            className={
+                idx%4==0?'themeYellow':(idx%4==1?'themeRed':(idx%4==2?'themeBlue':'themeBlack'))
+            }>
+            <style jsx global>{`
+                body {
+                    background: #EEDFCC;
+                    align-items: flex-start;
+                }
+                `}</style>
             <Box
                 sx={{
                     minWidth: 350,
@@ -103,7 +115,7 @@ export default function SolveQuiz() {
                 <Box
                     width="100%"
                     sx={{
-                        margin: 'auto'
+                        margin: '8em auto',
                     }}
                 >
                     <div className='stateBar'>
@@ -118,6 +130,7 @@ export default function SolveQuiz() {
                 <Box
                     component="main"
                     className='optionBox'
+                    sx={{position: 'relative', pb:'0'}}
                 >
                     
                     {thisQuiz.options.map((value, idx) => (
@@ -129,11 +142,11 @@ export default function SolveQuiz() {
                             </button>
                         </Stack>
                     ))}
-                    <Box
-                        sx={{
+                    <div
+                        style={{
                             position: 'relative',
                             width: '100%',
-                            bottom: '4.95em'
+                            bottom: '4em',
                         }}
                     >
                         <button
@@ -141,7 +154,7 @@ export default function SolveQuiz() {
                             className={(selected > -1? 'somethingSelected':'')+' rightArrow rightArrowQuiz'}
                         > 
                         </button>
-                    </Box>
+                    </div>
                 </Box>
                 
             </Box>

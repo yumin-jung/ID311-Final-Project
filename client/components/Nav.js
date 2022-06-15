@@ -15,112 +15,52 @@ import Logo from './Logo';
 
 const Nav = ({ isUser, quizCode }) => {
     const router = useRouter();
-    const [anchorElNav, setAnchorElNav] = useState(null);
-    const pages = (isUser) ? ["로그인 했을 때", 'personal page', 'sign out'] : ["로그인 안 했을 때", 'sign in'];
+    const pages = (isUser) ? ["MAIN", 'MY PAGE', 'SIGN OUT'] : ["MAIN", 'SIGN IN', 'SIGN UP'];
 
     const handleOpenNavMenu = (event) => {
-        setAnchorElNav(event.currentTarget);
+        document.getElementById('menu-appbar').classList = 'menuList';
     };
 
     const handleCloseNavMenu = (event) => {
-        setAnchorElNav(null);
         const data = event.currentTarget.innerText;
+        document.getElementById('menu-appbar').classList = 'menuList invisible';
 
-        if (data == 'personal page') {
+        if (data == 'MY PAGE') {
             router.push({
                 pathname: '/personalPage/[id]',
                 query: { id: quizCode },
             })
         }
-        else if (data == 'sign out') router.push('/signOut');
-        else if (data == 'sign in') router.push('/signIn')
+        else if (data == 'SIGN OUT') router.push('/signOut');
+        else if (data == 'SIGN IN') router.push('/signIn');
+        else if (data == 'SIGN UP') router.push('/signUp');
+        else if (data == 'MAIN') router.push('/');
     };
 
     return (
-        <AppBar position="fixed">
-            <Container maxWidth="xl">
-                <Toolbar disableGutters>
-                    {/* <LiveHelpIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        sx={{
-                            mr: 2,
-                            display: { xs: 'none', md: 'flex' },
-                            fontFamily: 'roboto',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'inherit',
-                            textDecoration: 'none',
-                        }}
-                    >
-                    </Typography>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-                        <IconButton
-                            size="large"
-                            aria-label="account of current user"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            onClick={handleOpenNavMenu}
-                            color="inherit"
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                        <Menu
-                            id="menu-appbar"
-                            anchorEl={anchorElNav}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'left',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'left',
-                            }}
-                            open={Boolean(anchorElNav)}
-                            onClose={handleCloseNavMenu}
-                            sx={{
-                                display: { xs: 'block', md: 'none' }
-                            }}
-                        >
-                            {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
-                                </MenuItem>
-                            ))}
-                        </Menu>
-                    </Box>
-                    {/* <LiveHelpIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
-                    <Typography
-                        variant="h5"
-                        noWrap
-                        sx={{
-                            mr: 2,
-                            display: { xs: 'flex', md: 'none' },
-                            flexGrow: 1,
-                            fontFamily: 'roboto',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'inherit',
-                            textDecoration: 'none',
-                        }}
-                    >
-                    </Typography>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {pages.map((page) => (
-                            <MenuItem
-                                key={page}
-                                onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
-                            >
-                                <Typography>{page}</Typography>
-                            </MenuItem>
-                        ))}
-                    </Box>
-                </Toolbar>
-            </Container>
-        </AppBar>
+        <div position="fixed" className='navBar'>
+            <Box sx={{  }}>
+                <button
+                    onClick={handleOpenNavMenu}
+                    className="menuBtn"
+                ></button>
+                <div
+                    id="menu-appbar"
+                    className='menuList invisible'
+                    onClick={handleCloseNavMenu}
+                    sx={{
+                        xs: 'block',
+                        borderRadius: '0',
+                    }}
+                >
+                    {pages.map((page) => (
+                        <div key={page} onClick={handleCloseNavMenu} className='menuItem'>
+                            <Typography>{page}</Typography>
+                        </div>
+                    ))}
+                </div>
+            </Box>
+        </div>
     );
 }
 

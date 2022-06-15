@@ -24,6 +24,7 @@ export default function Home() {
   const [codeInput, setcodeInput] = useState('');
 
   const { isUser, quizCode, setQuizCode } = useContext(AppContext);
+  const [alertOn, setAlert] = useState(false);
 
   // Make quiz code upper case
   const makeUpperCase = (event) => {
@@ -36,7 +37,7 @@ export default function Home() {
 
     const quizFilter = quizList.filter((quiz) => quiz.quizCode == codeInput.toLowerCase());
     if (quizFilter.length < 1) {
-      alert('Incorrect code!');
+      setAlert(true);
     }
     else {
       setQuizCode(quizFilter[0].quizCode)
@@ -84,6 +85,7 @@ export default function Home() {
               autoFocus
               placeholder='Input the code'
               className='inputCodeBox'
+              required
             />
             <div class="line"></div>
             <button
@@ -93,17 +95,7 @@ export default function Home() {
             >
             </button>
           </Box>
-          {isUser === false &&
-            <Typography>
-              {`Want to make your quiz? `}
-              <Link
-                href='/signUp'
-                variant='body2'
-                underline='hover'>
-                Sign Up
-              </Link>
-            </Typography>
-          }
+          
         </Box>
       </Container>
     </ThemeProvider>

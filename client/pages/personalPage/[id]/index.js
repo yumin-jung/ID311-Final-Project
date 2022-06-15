@@ -118,7 +118,7 @@ export default function PersonalPage() {
             <>
                 <style jsx global>{`
                 body {
-                    background: #EEDFCC};
+                    background: #EEDFCC;
                 }
                 `}</style>
                 <Nav isUser={isUser} quizCode={quizCode} />

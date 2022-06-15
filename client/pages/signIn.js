@@ -129,7 +129,6 @@ export default function SignIn() {
                         </Grid>
                         <button
                             type="submit"
-                            fullWidth
                             className="unBtn unBtn2"
                         >
                             SIGN IN

@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@mui/styles": "^5.8.3",
     "react-copy-to-clipboard": "^5.1.0"
   }
 }

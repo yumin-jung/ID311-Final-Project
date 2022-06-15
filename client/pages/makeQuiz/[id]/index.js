@@ -125,6 +125,14 @@ export default function MakeQuiz() {
                 className='addQuestionBtn'
             > ADD QUESTION
             </button>
+            <button
+                onClick={sendData}
+                className='addQuestionBtn'
+                style={{
+                    bottom: '1em'
+                }}
+            > FINISH
+            </button>
         </>
     )
 }
