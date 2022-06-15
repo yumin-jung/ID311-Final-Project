@@ -108,10 +108,10 @@ export default function LeaveMessage() {
                 </div>
             </div>
                 <div className='colorPalette someColorPicked'>
-                    <div className='colorPick black'></div>
-                    <div className='colorPick blue' id="picked"></div>
-                    <div className='colorPick yellow'></div>
-                    <div className='colorPick red'></div>
+                    <div onClick={setColor(0)} className='colorPick black'></div>
+                    <div onClick={setColor(1)} className='colorPick blue' id="picked"></div>
+                    <div onClick={setColor(2)} className='colorPick yellow'></div>
+                    <div onClick={setColor(3)} className='colorPick red'></div>
                 </div>
         </Box >
     )

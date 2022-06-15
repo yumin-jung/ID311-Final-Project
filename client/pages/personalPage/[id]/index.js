@@ -23,6 +23,21 @@ export default function PersonalPage() {
     const [isRenderQuiz, setIsRenderQuiz] = useState(false);
     const [isRenderSolver, setIsRenderSolver] = useState(false);
 
+    const [color, setColor] = useState(0);
+
+    const setColorBlack = ()=>{
+        setColor(0);
+    }
+    const setColorBlue = ()=>{
+        setColor(1);
+    }
+    const setColorYellow = ()=>{
+        setColor(2);
+    }
+    const setColorRed = ()=>{
+        setColor(3);
+    }
+
 
     useEffect(() => {
         // Get userlist from DB
@@ -129,11 +144,17 @@ export default function PersonalPage() {
                 }} >
                     <div className='msgGrid'>
                         {patterns.map((pattern, idx) => (
-                            <BauIcon key={idx} patternNum={pattern} rotate={(idx * 7) % 4} colorNum={(idx * 13) % 5}  />
+                            <BauIcon key={idx} patternNum={pattern} rotate={(idx * 7) % 4} colorNum={(idx * 13) % 5}  idx={idx}/>
                         ))}
                         
                     </div>
                 </Container>
+                <div className='colorPalette'>
+                    <div onClick={()=>{setColorBlack()}} className='colorPick black'></div>
+                    <div onClick={()=>{setColorBlue()}} className='colorPick blue'></div>
+                    <div onClick={()=>{setColorYellow()}} className='colorPick yellow'></div>
+                    <div onClick={()=>{setColorRed()}} className='colorPick red'></div>
+                </div>
             </>
         )
     }
