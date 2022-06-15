@@ -309,8 +309,8 @@ textarea:-webkit-autofill,textarea:-webkit-autofill:hover,textarea:-webkit-autof
   text-overflow: clip;
 }
 .optionBox{
-  position: absolute;
-  width: 22.5em;
+  position:relative;
+  width: 23em;
   left: calc(50% - 11.25em);
   bottom: 10em;
   height: fit-content;
@@ -395,12 +395,30 @@ div:nth-last-child(2n) > .qOption:after{
   color: black;
 }
 
+.scroll_body {
+  padding: 0;
+  margin-top: 25em;
+  margin-bottom: 10em;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  font-size: min(min(16px, 2vh),3.5vw);
+}
+.scroll_body::-webkit-scrollbar{
+  display: none;
+}
+
 
 .themeYellow .quizIdx{
   color: var(--yellow);
 }
 .themeYellow .solvedBar,
-.themeYellow .selectedOpt,
+.themeYellow .selectedOpt{
+  background-color: var(--yellow);
+}
 .themeYellow .selectedOpt input{
   color: var(--black);
 }
@@ -469,7 +487,7 @@ div:nth-last-child(2n) > .qOption:after{
   color: rgba(0, 0, 0, 0.5);
 }
 .addQuestionBtn{
-  position: absolute;
+  position: relative;
   bottom: 7vh;
   color: rgba(104, 64, 21, 0.704);
   width: 13em;
@@ -550,6 +568,7 @@ div:nth-last-child(2n) > .qOption:after{
   width: 400px;
   padding: 0;
   margin-top: 1em;
+  margin-bottom: 5em;
   border: none;
   text-align: center;
   height: 3.5em;
@@ -563,7 +582,7 @@ div:nth-last-child(2n) > .qOption:after{
   background: none;
   position: absolute;
   right: 4em;
-  top: 4em;
+  top: 3em;
   border: none;
 }
 .checkBtn:after{

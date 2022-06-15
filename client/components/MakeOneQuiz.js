@@ -68,7 +68,7 @@ export default function MakeOneQuiz({ order, question, presetOptions, presetRadi
                     flexDirection: 'column',
                     alignItems: 'center',
                     width: '100%',
-                    mt: '8em'
+                    mt: '2em'
                 }}
             >
                 <h5
@@ -82,7 +82,7 @@ export default function MakeOneQuiz({ order, question, presetOptions, presetRadi
                     label={"Question" + order}
                     className='quizQuestion'
                 />
-            </Box>
+            </Box >
             <div className='optionBox'>
                 <button
                     onClick={AddOption}
