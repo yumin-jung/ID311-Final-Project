@@ -25,16 +25,16 @@ export default function PersonalPage() {
 
     const [color, setColor] = useState(0);
 
-    const setColorBlack = ()=>{
+    const setColorBlack = () => {
         setColor(0);
     }
-    const setColorBlue = ()=>{
+    const setColorBlue = () => {
         setColor(1);
     }
-    const setColorYellow = ()=>{
+    const setColorYellow = () => {
         setColor(2);
     }
-    const setColorRed = ()=>{
+    const setColorRed = () => {
         setColor(3);
     }
 
@@ -45,7 +45,7 @@ export default function PersonalPage() {
             .then(response => {
                 if (response.data.success) {
                     const userListAll = response.data.users.map((user) => {
-                        return { username: user.username, password: user.password, quizCode: user.quizCode, firstName: user.firstName};
+                        return { username: user.username, password: user.password, quizCode: user.quizCode, firstName: user.firstName };
                     })
                     userList = userListAll.filter((user) => user.quizCode == quizCode)
                     setIsRenderUser(true);
@@ -62,8 +62,7 @@ export default function PersonalPage() {
                         return { quizCode: quiz.quizCode, patterns: quiz.patterns };
                     })
                     quizList = quizListAll.filter((quiz) => quiz.quizCode == quizCode);
-                    if(quizList!=0) patterns = quizList[0].patterns.reduce((acc,e)=>acc.concat(e),[]).filter((e,idx)=> idx<12);
-                    console.log(patterns);
+                    if (quizList != 0) patterns = quizList[0].patterns.reduce((acc, e) => acc.concat(e), []).filter((e, idx) => idx < 12);
                     setIsRenderQuiz(true);
                 } else {
                     alert('Failed to get quizzes');
@@ -75,11 +74,10 @@ export default function PersonalPage() {
             .then(response => {
                 if (response.data.success) {
                     const allSolvers = response.data.solvers.map((solver) => {
-                        return { quizCode: solver.quizCode, nickname: solver.info.nickname, score: solver.score, totScore: solver.quizLen, message: solver.message  };
+                        return { quizCode: solver.quizCode, nickname: solver.info.nickname, score: solver.score, totScore: solver.quizLen, message: solver.message };
                     })
                     FilteredSolvers = allSolvers.filter((solver) => solver.quizCode == quizCode)
                     setIsRenderSolver(true);
-                    console.log(allSolvers);
                 }
                 else {
                     alert('Failed to get msgs');
@@ -105,7 +103,7 @@ export default function PersonalPage() {
         })
     }
 
-    if (quizList==null) return null;
+    if (quizList == null) return null;
     else if (quizList.length == 0) {
         return (
             <>
@@ -144,16 +142,16 @@ export default function PersonalPage() {
                 }} >
                     <div className='msgGrid'>
                         {patterns.map((pattern, idx) => (
-                            <BauIcon key={idx} patternNum={pattern} rotate={(idx * 7) % 4} colorNum={(idx * 13) % 5}  idx={idx}/>
+                            <BauIcon key={idx} patternNum={pattern} rotate={(idx * 7) % 4} colorNum={(idx * 13) % 5} idx={idx} />
                         ))}
-                        
+
                     </div>
                 </Container>
                 <div className='colorPalette'>
-                    <div onClick={()=>{setColorBlack()}} className='colorPick black'></div>
-                    <div onClick={()=>{setColorBlue()}} className='colorPick blue'></div>
-                    <div onClick={()=>{setColorYellow()}} className='colorPick yellow'></div>
-                    <div onClick={()=>{setColorRed()}} className='colorPick red'></div>
+                    <div onClick={() => { setColorBlack() }} className='colorPick black'></div>
+                    <div onClick={() => { setColorBlue() }} className='colorPick blue'></div>
+                    <div onClick={() => { setColorYellow() }} className='colorPick yellow'></div>
+                    <div onClick={() => { setColorRed() }} className='colorPick red'></div>
                 </div>
             </>
         )
