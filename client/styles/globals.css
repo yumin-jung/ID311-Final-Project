@@ -399,15 +399,13 @@ div:nth-last-child(2n) > .qOption:after{
   padding: 0;
   margin-top: 25em;
   margin-bottom: 10em;
-  overflow-y: scroll;
-  overflow-x: hidden;
   display: flex;
   width: 100vw;
   height: 100vh;
   justify-content: center;
   font-size: min(min(16px, 2vh),3.5vw);
 }
-.scroll_body::-webkit-scrollbar{
+body::-webkit-scrollbar{
   display: none;
 }
 
@@ -668,7 +666,6 @@ div:nth-last-child(2n) > .qOption:after{
   filter: brightness(2);
 }
 
-
 .invisible{
   opacity: 0;
   visibility: 0;
@@ -677,11 +674,22 @@ div:nth-last-child(2n) > .qOption:after{
 
 /* share link */
 .codeShare{
-  font-family: Pretendard;
-  font-weight: 400;
+  font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  font-weight: 500;
+  font-size: 3em;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.4em;
   color: var(--red);
+  text-align: center;
+  position: relative;
+  bottom: 2em;
+}
+.verticalSpace{
+  height: 7em;
+  border-top: 2px solid black;
+  top: 0;
+  width: 100vw;
+  left: 0;
 }
 
 /* error popup */

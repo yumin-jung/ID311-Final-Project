@@ -11,6 +11,7 @@ import List from '@mui/material/List';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { AppContext } from '../../../context/AppContext';
+import Nav from '../../../components/Nav';
 
 const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
 const LOCAL_SERVER_URL = 'http://localhost:8080';
@@ -100,12 +101,13 @@ export default function LeaveMessage() {
 
     return (
         <Box sx={{ width: '100%' }} >
+            <Nav></Nav>
             <Grid container
                 spacing={10}
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
-                sx={{ marginTop: 5, display: { xs: 'none', md: 'flex' } }}>
+                sx={{ marginTop: 5, display: 'flex' }}>
                 <Grid item xs={12}
                     container
                     justifyContent="center"
@@ -131,35 +133,6 @@ export default function LeaveMessage() {
                     alignItems="center"
                     spacing={2}>
                     <Box
-                        sx={{
-                            width: '100%',
-                            bgcolor: '#f8f8f8',
-                            boxShadow: 8,
-                            borderRadius: 4,
-                            p: 2,
-                            minWidth: 360,
-                            marginTop: '5%',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            display: 'flex'
-                        }}
-                    >
-                        <Typography component="h1" variant="h5">
-                            Score Board
-                        </Typography>
-                        <List sx={{ width: '100%', maxWidth: 360 }}>
-                            {scoreList.map((score, idx) =>
-                                <Score key={idx} value={idx + 1} userName={score.nickname} score={score.score} quizLen={score.quizLen} />
-                            )}
-                        </List>
-                    </Box>
-                </Grid>
-                <Grid item xs={5}
-                    container
-                    justifyContent="center"
-                    alignItems="center"
-                    spacing={2}>
-                    <Box
                         component="form"
                         noValidate
                         onSubmit={handleSubmit}
@@ -210,116 +183,6 @@ export default function LeaveMessage() {
                             Messages
                         </Typography>
                         <List sx={{ width: '100%', maxWidth: 360 }}>
-                            {msgList.map((msg, idx) =>
-                                <Message key={idx} userName={msg.nickname} comment={msg.message} quizCode={quizCode} />
-                            )}
-                        </List>
-                    </Box>
-                </Grid>
-            </Grid>
-            <Grid container
-                spacing={2}
-                direction="row"
-                justifyContent="center"
-                alignItems="center"
-                sx={{ marginTop: 4, display: { xs: 'flex', md: 'none' } }}>
-                <Grid item xs={12}
-                    container
-                    justifyContent="center"
-                    alignItems="center">
-                    <Box
-                        sx={{
-                            width: '40%',
-                            bgcolor: '#f8f8f8',
-                            boxShadow: 8,
-                            borderRadius: 4,
-                            p: 2,
-                            minWidth: 300,
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Quiz />
-                    </Box>
-                </Grid>
-                <Grid item xs={12}
-                    container
-                    justifyContent="center"
-                    alignItems="center">
-
-                    <Box sx={{
-                        width: '80%',
-                        bgcolor: '#f8f8f8',
-                        boxShadow: 8,
-                        borderRadius: 4,
-                        p: 2,
-                        minWidth: 360,
-                        marginTop: '5%',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        display: { xs: 'flex', md: 'none' }
-                    }}
-                    >
-                        <Typography component="h1" variant="h5">
-                            Score Board
-                        </Typography>
-                        <List sx={{ width: '80%', maxWidth: 360 }}>
-                            {scoreList.map((score, idx) =>
-                                <Score key={idx} value={idx + 1} userName={score.nickname} score={score.score} quizLen={score.quizLen} />
-                            )}
-                        </List>
-                    </Box>
-                    <Box
-                        component="form"
-                        noValidate
-                        onSubmit={handleSubmit}
-                        sx={{
-                            width: '80%',
-                            bgcolor: '#f8f8f8',
-                            boxShadow: 8,
-                            borderRadius: 4,
-                            p: 2,
-                            minWidth: 360,
-                            marginTop: '5%',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            display: 'flex'
-                        }}>
-                        <Typography component="h1" variant="h5">
-                            Leave a Message
-                        </Typography>
-                        <TextField
-                            margin="normal"
-                            id="message"
-                            name="message"
-                            label="Message"
-                            variant="outlined"
-                        />
-                        <Button
-                            type="submit"
-                            variant="contained"
-                        >
-                            Submit
-                        </Button>
-                    </Box>
-                    <Box
-                        sx={{
-                            width: '80%',
-                            bgcolor: '#f8f8f8',
-                            boxShadow: 8,
-                            borderRadius: 4,
-                            p: 2,
-                            minWidth: 360,
-                            marginTop: '8%',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            display: { xs: 'flex', md: 'none' }
-                        }}
-                    >
-                        <Typography component="h1" variant="h5">
-                            Messages
-                        </Typography>
-                        <List sx={{ width: '80%', maxWidth: 360 }}>
                             {msgList.map((msg, idx) =>
                                 <Message key={idx} userName={msg.nickname} comment={msg.message} quizCode={quizCode} />
                             )}
