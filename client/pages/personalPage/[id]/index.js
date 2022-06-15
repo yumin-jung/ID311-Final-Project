@@ -75,7 +75,7 @@ export default function PersonalPage() {
             .then(response => {
                 if (response.data.success) {
                     const allSolvers = response.data.solvers.map((solver) => {
-                        return { quizCode: solver.quizCode, nickname: solver.info.nickname, score: solver.score, totScore: solver.quizLen, message: solver.message  };
+                        return { quizCode: solver.quizCode, nickname: solver.info.nickname, score: solver.score, totScore: solver.quizLen, message: solver.message, order: solver.order, color: solver.color};
                     })
                     FilteredSolvers = allSolvers.filter((solver) => solver.quizCode == quizCode)
                     setIsRenderSolver(true);
@@ -144,7 +144,7 @@ export default function PersonalPage() {
                 }} >
                     <div className='msgGrid'>
                         {patterns.map((pattern, idx) => (
-                            <BauIcon key={idx} patternNum={pattern} rotate={(idx * 7) % 4} colorNum={(idx * 13) % 5}  idx={idx}/>
+                            <BauIcon key={idx} patternNum={pattern} rotate={(idx * 7) % 4} colorNum={(idx * 13) % 5}  idx={idx} msgColor={color}/>
                         ))}
                         
                     </div>

@@ -998,3 +998,17 @@ textarea::-webkit-scrollbar{
   height: 100%;
   background-color: black;
 }
+
+.bigInput{
+  position: absolute;
+  width: 15em;
+  height: 12em;
+  left: calc(50vw - 7.5em);
+  top: calc(50vh - 6em);
+}
+.bigInput::after{
+  left: 6.5em;
+}
+.bigInput .msgInput{
+  height: 8.5em;
+}
