@@ -36,7 +36,7 @@ export default function MakeQuiz() {
                     qBundle.push({ question: `${userInfo.makerName}'s favorite color?`, options: ['blue', 'red', 'green'], selected: 0 });
                     qBundle.push({ question: `${userInfo.makerName}'s favorite sport?`, options: ['basketball', 'running', 'badminton'], selected: 0 });
                     qBundle.push({ question: `${userInfo.makerName}'s age?`, options: ['19', '21', '25'], selected: 0 });
-                    qBundle.push({ question: `${userInfo.makerName}'s major?`, options: ['industrial design', 'computer science', 'biology'], selected: 0});
+                    qBundle.push({ question: `${userInfo.makerName}'s major?`, options: ['industrial design', 'computer science', 'biology'], selected: 0 });
 
                     setquestionList(qBundle);
                 } else {
@@ -55,14 +55,14 @@ export default function MakeQuiz() {
                     alert('Failed to get quizzes');
                 }
             })
-  }, []);
+    }, []);
 
 
 
     // Add question
     const AddQuestion = () => {
         let questions = [...questionList];
-        questions.push({ question: `${userInfo.makerName}(이)의`, options: [''], selected: 0 });
+        questions.push({ question: `${userInfo.makerName}'s`, options: [''], selected: 0 });
         setquestionList(questions);
         setIdx(idx + 1);
     }
@@ -70,19 +70,19 @@ export default function MakeQuiz() {
     // Send quiz data
     const sendData = (event) => {
         event.preventDefault();
-        const allOptions = qBundle.reduce((acc,e) => acc.concat(e.options),[]);
+        const allOptions = qBundle.reduce((acc, e) => acc.concat(e.options), []);
 
-        if(isQuizExist) alert('You already made quiz');
-        else if(allOptions.includes('')) alert('Fill up the options');
-        else{
+        if (isQuizExist) alert('You already made quiz');
+        else if (allOptions.includes('')) alert('Fill up the options');
+        else {
             const quizData = {
                 makerName: userInfo.makerName,
                 quizCode: userInfo.quizCode,
                 quizBundle: qBundle,
                 quizLength: qBundle.length,
                 //5 types of shapes -> make array
-                patterns: new Array(12).fill().map((e) => Math.floor(Math.random()*5))
-            }    
+                patterns: new Array(12).fill().map((e) => Math.floor(Math.random() * 5))
+            }
             axios.post(DEPLOY_SERVER_URL + '/api/quizzes/saveQuiz', quizData)
                 .then(response => {
                     if (response.data.success) {
