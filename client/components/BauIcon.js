@@ -1,7 +1,9 @@
 import * as React from 'react';
 
-const BauIcon = ({patternNum, rotate, colorNum, nickname, score, message, isTrans}) => {
+const BauIcon = ({patternNum, rotate, colorNum, nickname, score, message, isTrans, isLeavingMsg, resultNick, resultScore, msgColor, idx}) => {
     // nickname : string, score : string ('4/13'), message : string
+    // isTrans : 아웃포커싱일 때 흐리게
+    // isLeavingMsg : 댓글남기기인 경우
     const rotation = ['', ' r1', ' r2', ' r3'];
     const colors = [' red', ' blue', ' black', ' yellow'];
     let color = '';
@@ -13,20 +15,21 @@ const BauIcon = ({patternNum, rotate, colorNum, nickname, score, message, isTran
         case 0:
             return (
                 <div className={'bauhausBlock' + (message?' msgVisible':' msgInvisible') + (isTrans?' transparent':'')}>
-                    <div className={'bauhaus bauQuarter' + rotation[rotate] + color}>
-                    </div>
+                    <div className={'bauhaus bauQuarter' + rotation[rotate] + color}></div>
                     <div className='msgBlock'>
                         <div>
                             <div className='msgNick'>{nickname}</div>
                             <div className='msgScore'>{score}</div>
                         </div>
-                        <div className='msgMsg'>{message}</div>
+                        <div>
+                            
+                        </div>
                     </div>
                 </div>
             );
         case 1:
             return (
-                <div className={'bauhausBlock ' + (message?'msgVisible':'msgInvisible')}>
+                <div className={'bauhausBlock ' + (message?'msgVisible':'msgInvisible') + (isTrans?' transparent':'')}>
                     <div className={'bauhaus circle' + rotation[rotate] + color}></div>
                     <div className='msgBlock'>
                         <div>
@@ -39,7 +42,7 @@ const BauIcon = ({patternNum, rotate, colorNum, nickname, score, message, isTran
             );
         case 2:
             return (
-                <div className={'bauhausBlock ' + (message?'msgVisible':'msgInvisible')}>
+                <div className={'bauhausBlock ' + (message?'msgVisible':'msgInvisible') + (isTrans?' transparent':'')}>
                     <div className={'bauhaus triangle' + rotation[rotate] + color}></div>
                     <div className='msgBlock'>
                         <div>
@@ -52,7 +55,7 @@ const BauIcon = ({patternNum, rotate, colorNum, nickname, score, message, isTran
             );
         case 3:
             return (
-                <div className={'bauhausBlock ' + (message?'msgVisible':'msgInvisible')}>
+                <div className={'bauhausBlock ' + (message?'msgVisible':'msgInvisible') + (isTrans?' transparent':'')}>
                     <div className={'bauhaus' + rotation[rotate]}>
                         <div className={'bauHalf' + color}></div>
                         <div className={'bauHalf' + color}></div>
@@ -68,7 +71,7 @@ const BauIcon = ({patternNum, rotate, colorNum, nickname, score, message, isTran
             );
         case 4:
             return (
-                <div className={'bauhausBlock ' + (message?'msgVisible':'msgInvisible')}>
+                <div className={'bauhausBlock ' + (message?'msgVisible':'msgInvisible') + (isTrans?' transparent':'')}>
                     <div className={'hourglass bauhaus' + rotation[rotate] + color}></div>
                     <div className='msgBlock'>
                         <div>

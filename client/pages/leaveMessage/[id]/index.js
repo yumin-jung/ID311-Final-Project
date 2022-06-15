@@ -21,6 +21,7 @@ let filteredSolvers;
 
 export default function LeaveMessage() {
     let patterns = new Array(12).fill().map((e) => Math.floor(Math.random() * 5));
+    const [bauArr, setBauArr] = useState([]);
     const router = useRouter();
     const { quizCode, quizNickname, score } = useContext(AppContext);
 
@@ -59,10 +60,6 @@ export default function LeaveMessage() {
             });
     };
 
-    const PopupOpen = (event) => {
-        console.log("hi");
-        console.log(this.key);
-    }
 
     // Get score and message data from DB
     useEffect(() => {
@@ -98,7 +95,7 @@ export default function LeaveMessage() {
             <div>
                 <div className='msgGrid'>
                     {patterns.map((pattern, idx) => (
-                        <BauIcon onClick={PopupOpen} key={idx} patternNum={pattern} rotate={(idx * 7) % 4} colorNum={(idx * 13) % 5} />
+                        <BauIcon key={idx} patternNum={pattern} rotate={(idx * 7) % 4} colorNum={(idx * 13) % 5} isLeavingMsg={true} resultNick='asv' resultScore='2/18' />
                     ))}
                 </div>
             </div>
