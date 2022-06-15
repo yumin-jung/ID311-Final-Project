@@ -22,10 +22,9 @@ let scoreList = [];
 let msgList = [];
 
 export default function PersonalPage() {
-    let patterns = new Array(12).fill().map((e) => Math.floor(Math.random()*5));
+    let patterns = new Array(12).fill().map((e) => Math.floor(Math.random() * 5));
     const router = useRouter();
-    const quizCode = router.query.id;
-    const isUser = router.query.isUser;
+    const { isUser, quizCode } = useContext(AppContext);
 
     // Check rendering
     const [isRenderUser, setIsRenderUser] = useState(false);
@@ -134,7 +133,7 @@ export default function PersonalPage() {
                 `}</style>
                 <Nav isUser={isUser} quizCode={quizCode} />
                 <Container
-                    component="main" 
+                    component="main"
                     maxWidth="xs"
                     sx={{
                         display: 'flex',
@@ -143,7 +142,7 @@ export default function PersonalPage() {
                     }}>
                     <Logo size='0.9'></Logo>
                     <button onClick={MakeQuiz}
-                        sx={{ mt: 5, mb: 2, backgroundColor: 'black', borderRadius: 0, fontSize: '1.3em', padding: '1em', width: '0.9'}} 
+                        sx={{ mt: 5, mb: 2, backgroundColor: 'black', borderRadius: 0, fontSize: '1.3em', padding: '1em', width: '0.9' }}
                         className='blackBtn'>
                         MAKE QUIZ
                     </button>
@@ -160,8 +159,8 @@ export default function PersonalPage() {
                     alignItems: 'center',
                 }} >
                     <div className='msgGrid'>
-                        {patterns.map((pattern, idx) =>(
-                            <BauIcon key={idx} patternNum={pattern} rotate={(idx*7)%4} colorNum={(idx*13)%5} />
+                        {patterns.map((pattern, idx) => (
+                            <BauIcon key={idx} patternNum={pattern} rotate={(idx * 7) % 4} colorNum={(idx * 13) % 5} />
                         ))}
                     </div>
                 </Container>

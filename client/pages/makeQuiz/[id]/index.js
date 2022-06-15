@@ -15,8 +15,7 @@ let userInfo = [];
 
 export default function MakeQuiz() {
     const router = useRouter();
-    const quizCode = router.query.id;
-    const isUser = router.query.isUser;
+    const { isUser, quizCode } = useContext(AppContext);
     const qBundle = [];
     const [idx, setIdx] = useState(0);
 
