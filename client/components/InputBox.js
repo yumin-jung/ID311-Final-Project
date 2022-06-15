@@ -22,6 +22,7 @@ const InputBox = ({idx, message, isLeavingMsg, resultNick, score, totScore, msgC
             score: score,
             quizLen: totScore
         }
+        console.log(solverResult);
 
         axios.post(DEPLOY_SERVER_URL + '/api/solvers/saveSolver', solverResult)
             .then(response => {
