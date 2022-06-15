@@ -1,18 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router'
-import Score from '../../../components/Score';
-import Message from '../../../components/Message';
-import Quiz from '../../../components/Quiz';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import List from '@mui/material/List';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import { AppContext } from '../../../context/AppContext';
 import Nav from '../../../components/Nav';
 import BauIcon from '../../../components/BauIcon';
+import Box from '@mui/material/Box'
 
 const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
 const LOCAL_SERVER_URL = 'http://localhost:8080';
@@ -24,11 +16,11 @@ export default function LeaveMessage() {
     let patterns = new Array(12).fill().map((e) => Math.floor(Math.random() * 5));
     const [bauArr, setBauArr] = useState([]);
     const router = useRouter();
-    const { quizCode, quizNickname, score } = useContext(AppContext);
+    // const { quizCode, quizNickname, score } = useContext(AppContext);
+    const quizCode = 'cu5k5m';
 
     // Check rendering
     const [isRenderSolver, setIsRenderSolver] = useState(false);
-    const [isRenderMsg, setIsRenderMsg] = useState(false);
 
     // Choose color and location of patterns
     const [color, setColor] = useState(false);
@@ -80,7 +72,7 @@ export default function LeaveMessage() {
     }, []);
 
     // Pause rendering until get data
-    if (isRenderMsg === false) {
+    if (isRenderSolver === false) {
         return null;
     }
 

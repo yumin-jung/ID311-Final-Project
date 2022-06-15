@@ -1,35 +1,43 @@
 import * as React from 'react';
+import { useRouter } from 'next/router'
+import axios from 'axios';
 import { Box } from '@mui/system';
 import { TextField } from '@mui/material';
 import { Button } from '@mui/material';
 
+const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
+
 const InputBox = ({idx, message, isLeavingMsg, resultNick, resultScore, msgColor, quizCode}) => {
+    const router = useRouter();
+    const sampleScore = '5/12';
+    const sampleQuizCode = 'cu5k5m';
     // nickname : string, score : string ('4/13'), message : string
 
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
 
-        const message = {
-            solver: {nickname: resultNick, color: msgColor, order: idx},
-            quizCode: quizCode,
-            message: data.get('message')
+        const solverResult = {
+            info: [{nickname: resultNick, color: msgColor, order: idx}],
+            quizCode: sampleQuizCode,
+            message: data.get('message'),
+            score: sampleScore.split('/')[0],
+            quizLen: sampleScore.split('/')[1]
         }
         console.log(message);
 
-        axios.post(DEPLOY_SERVER_URL + '/api/messages/saveMessage', message)
+        axios.post(DEPLOY_SERVER_URL + '/api/solvers/saveSolver', solverResult)
             .then(response => {
                 if (response.data.success) {
                     // Go to leave message page
                     router.push({
-                        pathname: '/scoreBoard/[id]',
-                        query: { id: quizCode },
+                        pathname: '/personalPage/[id]',
+                        query: { id: sampleQuizCode },
                     })
                 } else {
                     alert('Failed to save message')
                 }
             });
-            return { quizCode: solver.quizCode, nickname: solver.info.nickname, score: solver.score, totScore: solver.quizLen, message: solver.message  };
     };
 
     if(isLeavingMsg){ // input창띄우기
