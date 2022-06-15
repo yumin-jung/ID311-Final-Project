@@ -7,10 +7,8 @@ import { Button } from '@mui/material';
 
 const DEPLOY_SERVER_URL = 'https://id311-server.herokuapp.com';
 
-const InputBox = ({idx, message, isLeavingMsg, resultNick, resultScore, msgColor, quizCode}) => {
+const InputBox = ({idx, message, isLeavingMsg, resultNick, score, totScore, msgColor, quizCode}) => {
     const router = useRouter();
-    const sampleScore = '5/12';
-    const sampleQuizCode = 'cu5k5m';
     // nickname : string, score : string ('4/13'), message : string
 
     const handleSubmit = (event) => {
@@ -19,12 +17,11 @@ const InputBox = ({idx, message, isLeavingMsg, resultNick, resultScore, msgColor
 
         const solverResult = {
             info: [{nickname: resultNick, color: msgColor, order: idx}],
-            quizCode: sampleQuizCode,
+            quizCode: quizCode,
             message: data.get('message'),
-            score: sampleScore.split('/')[0],
-            quizLen: sampleScore.split('/')[1]
+            score: score,
+            quizLen: totScore
         }
-        console.log(message);
 
         axios.post(DEPLOY_SERVER_URL + '/api/solvers/saveSolver', solverResult)
             .then(response => {
@@ -32,7 +29,7 @@ const InputBox = ({idx, message, isLeavingMsg, resultNick, resultScore, msgColor
                     // Go to leave message page
                     router.push({
                         pathname: '/personalPage/[id]',
-                        query: { id: sampleQuizCode },
+                        query: { id: quizCode },
                     })
                 } else {
                     alert('Failed to save message')
