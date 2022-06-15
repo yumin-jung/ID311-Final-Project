@@ -9,7 +9,7 @@ const Nav = ({ isUser, quizCode }) => {
 
     const handleOpenNavMenu = (event) => {
         document.getElementById('menu-appbar').classList = 'menuList';
-        setTimeout(()=> document.getElementById('menu-appbar').classList = 'menuList invisible',5000);
+        document.getElementById('menu-appbar').addEventListener('mouseleave', handleCloseNavMenu);
     };
 
     const handleCloseNavMenu = (event) => {
@@ -54,6 +54,7 @@ const Nav = ({ isUser, quizCode }) => {
                             <Typography>{page}</Typography>
                         </div>
                     ))}
+                    <div class="menuClose" onClick={handleCloseNavMenu}></div>
                 </div>
             </Box>
         </div>

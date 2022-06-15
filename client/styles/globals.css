@@ -620,6 +620,7 @@ div:nth-last-child(2n) > .qOption:after{
   visibility: visible;
   background-color: var(--black);
   padding: 1em;
+  z-index: 2;
 }
 .menuList:after{
   content: "";
@@ -804,6 +805,7 @@ div:nth-last-child(2n) > .qOption:after{
   left: -1.5em;
   padding: 0.8em;
   color: white;
+  z-index: 5;
 }
 .msgBlock:after{
   content: "";

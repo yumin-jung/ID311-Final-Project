@@ -39,7 +39,7 @@ export default function Home() {
       setAlert(true);
     }
     else {
-      setQuizCode(quizFilter[0].quizCode)
+      quizCode = quizFilter[0].quizCode;
       router.push({
         pathname: '/startQuiz/[id]',
         query: { id: codeInput.toLowerCase() },
@@ -99,17 +99,6 @@ export default function Home() {
               </Box>
             }
           </Box>
-          {/* {isUser === false &&
-            <Typography>
-              {`Want to make your quiz? `}
-              <Link
-                href='/signUp'
-                variant='body2'
-                underline='hover'>
-                Sign Up
-              </Link>
-            </Typography>
-          } */}
         </Box>
       </Container>
     </ThemeProvider>

@@ -79,8 +79,8 @@ export default function ScoreBoard() {
         <>
             <Nav isUser={isUser} quizCode={quizCode} />
             <div className='msgGrid'>
-                {patterns.map((pattern) =>
-                    <BauIcon patternNum={pattern} />
+                {patterns.map((pattern, idx) =>
+                    <BauIcon key={idx} patternNum={pattern} />
                 )}
             </div>
             <Box sx={{ width: '100%' }} >
